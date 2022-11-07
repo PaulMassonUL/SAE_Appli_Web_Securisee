@@ -54,4 +54,15 @@ class Serie {
         //unset($this->episodes[i]);
         unset($this->episodes[array_search($ep, $this->episodes)]);
     }
+
+    public function ajouterNote(Note $n) : void
+    {
+
+    }
+
+    public function ajouterCommentaire(Commentaire $c) : void
+    {
+
+    }
+
 }
