@@ -4,8 +4,6 @@ namespace netvod\render;
 
 use netvod\video\Serie;
 
-use netvod\render\EpisodeRenderer;
-
 class SerieRenderer implements Renderer
 {
     private Serie $serie;
