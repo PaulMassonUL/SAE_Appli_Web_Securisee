@@ -12,9 +12,9 @@ class Catalogue {
         $this->series = [];
     }
 
-    public function ajouterSerie(Serie s) : void
+    public function ajouterSerie(Serie $s) : void
     {
-
+        $this->series = $s;
     }
 
 
