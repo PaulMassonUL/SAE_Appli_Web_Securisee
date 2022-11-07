@@ -67,6 +67,62 @@ class Serie {
     }
 
     /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitre(): string
+    {
+        return $this->titre;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGenre(): string
+    {
+        return $this->genre;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAnneeSortie(): int
+    {
+        return $this->anneeSortie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptif(): string
+    {
+        return $this->descriptif;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublic(): string
+    {
+        return $this->public;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateAjout(): string
+    {
+        return $this->dateAjout;
+    }
+
+    /**
      * @return tableau de commentaires
      */
     public function getCommentaires(): array
