@@ -10,6 +10,11 @@ class SerieRenderer implements Renderer
 {
     private Serie $serie;
 
+    function __construct($serie)
+    {
+        $this->serie = $serie;
+    }
+
     public function render(int $selector): string
     {
         $html = "";
@@ -28,9 +33,14 @@ class SerieRenderer implements Renderer
 
     public function renderCompact() : string
     {
-        $html = "<ol>";
-        $html .= "<li> <strong> <p> {$this->serie->getTitre()} </p> </strong> <a href = {$this->renderDetail()} /> </li> ";
-        $html .= "</ol>";
+        $html = '<a href="nouvellepage?serie=">
+            <div>
+                <p>'.$this->serie->__get("titre").'</p>
+                <img src="'.$this->serie->getImage().'">
+                <p>'.$this->serie->__get("duree").'</p>
+            </div>
+        </a>';
+
         return $html;
     }
 
