@@ -2,6 +2,8 @@
 
 namespace netvod\video;
 
+use iutnc\deefy\exception\InvalidPropertyNameException;
+
 class Episode
 {
     /**
@@ -50,74 +52,22 @@ class Episode
         $this->estVu = $estVu;
     }
 
-    /**
-     * @return string
-     */
-    public function getImage(): string
+    public function __get($attrname)
     {
-        return $this->image;
+        if (property_exists($this, $attrname)) return $this->$attrname;
+        throw new InvalidPropertyNameException("Nom d'attribut invalide : $attrname");
     }
 
-    /**
-     * @param string $image
-     */
-    public function setImage(string $image): void
+    public function __set($attrname, $value)
     {
-        $this->image = $image;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitre(): string
-    {
-        return $this->titre;
-    }
-
-    /**
-     * @param string $titre
-     */
-    public function setTitre(string $titre): void
-    {
-        $this->titre = $titre;
-    }
-
-    /**
-     * @return string
-     */
-    public function getResume(): string
-    {
-        return $this->resume;
-    }
-
-    /**
-     * @param string $resume
-     */
-    public function setResume(string $resume): void
-    {
-        $this->resume = $resume;
-    }
-
-    /**
-     * @return float
-     */
-    public function getDuree(): float
-    {
-        return $this->duree;
-    }
-
-    /**
-     * @param float $duree
-     */
-    public function setDuree(float $duree): void
-    {
-        $this->duree = $duree;
+        if (property_exists($this, $attrname)) $this->$attrname = $value;
+        else throw new InvalidPropertyNameException("Nom d'attribut invalide : $attrname");
     }
 
     /**
      * @return bool
      */
-    public function isEstVu(): bool
+    public function estVu(): bool
     {
         return $this->estVu;
     }
