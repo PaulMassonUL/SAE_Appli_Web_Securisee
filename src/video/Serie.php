@@ -17,6 +17,8 @@ class Serie {
 
     private string $descriptif;
 
+    private int $anneeSortie;
+
     private string $dateAjout;
 
     private Note $notes;
@@ -36,13 +38,15 @@ class Serie {
 
 
     public function __construct(string $t, string $img, string $genre, string $public,
-                                string $desc, string $annee)
+                                string $desc, int $annee, string $dateAjout)
     {
         $this->titre = $t;
         $this->image = $img;
         $this->genre = $genre;
         $this->public = $public;
         $this->descriptif = $desc;
+        $this->anneeSortie = $annee;
+        $this->dateAjout = $dateAjout;
         $this->episodes = [];
         $this->commentaires = [];
     }
@@ -55,6 +59,11 @@ class Serie {
     public function supprimerEpisode(Episode $ep) : void
     {
         unset($this->episodes[array_search($ep, $this->episodes)]);
+    }
+
+    public function getEpisodes(): array
+    {
+        return $this->episodes;
     }
 
     /**
