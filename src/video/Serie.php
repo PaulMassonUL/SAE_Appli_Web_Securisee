@@ -49,8 +49,9 @@ class Serie {
         $this->episodes = ep;
     }
 
-    public function supprmierEpisode(int $i) : void
+    public function supprimerEpisode(Episode $ep) : void
     {
-        unset($this->episodes[i]);
+        //unset($this->episodes[i]);
+        unset($this->episodes[array_search($ep, $this->episodes)]);
     }
 }
