@@ -6,18 +6,25 @@ class SerieRenderer implements Renderer
 {
     private Serie $serie;
 
+    public function __construct(Serie $serie)
+    {
+        $this->serie = $serie;
+    }
+
     public function render(int $selector): string
     {
+        $html = "";
         switch ($selector) {
             case 1 :
-                $this->renderCompact();
+                $html = $this->renderCompact();
                 break;
             case 2 :
-                $this->renderDetail();
+                $html = $this->renderDetail();
                 break;
             default:
                 throw new \Exception("erreur de parametre");
         }
+        return $html;
     }
 
     public function renderCompact() : string
