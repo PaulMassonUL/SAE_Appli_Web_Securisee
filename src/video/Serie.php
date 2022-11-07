@@ -3,11 +3,10 @@
 namespace netvod\video;
 
 use iutnc\deefy\exception\InvalidPropertyNameException;
-use netvod\avis\Commentaire;
 use netvod\avis\Note;
 
-class Serie {
-
+class Serie
+{
     private string $titre;
 
     private string $image;
@@ -52,12 +51,12 @@ class Serie {
         $this->commentaires = [];
     }
 
-    public function ajouterEpisode(Episode $ep) : void
+    public function ajouterEpisode(Episode $ep): void
     {
         $this->episodes[] = $ep;
     }
 
-    public function supprimerEpisode(Episode $ep) : void
+    public function supprimerEpisode(Episode $ep): void
     {
         unset($this->episodes[array_search($ep, $this->episodes)]);
     }
