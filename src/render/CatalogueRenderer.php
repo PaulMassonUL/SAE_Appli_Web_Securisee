@@ -18,7 +18,8 @@ class CatalogueRenderer implements Renderer
     {
         $html = "";
         foreach ($this->catalogue->__get("series") as $serie) {
-            $html .= $serie->render(Renderer::COMPACT);
+            $renderer = new SerieRenderer($serie);
+            $html .= $renderer->render(Renderer::COMPACT);
         }
         return $html;
     }
