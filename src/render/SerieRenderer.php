@@ -2,11 +2,15 @@
 
 namespace netvod\render;
 
+use netvod\video\Serie;
+
+use netvod\render\EpisodeRenderer;
+
 class SerieRenderer implements Renderer
 {
     private Serie $serie;
 
-    public function __construct(Serie $serie)
+    function __construct($serie)
     {
         $this->serie = $serie;
     }
@@ -15,10 +19,10 @@ class SerieRenderer implements Renderer
     {
         $html = "";
         switch ($selector) {
-            case 1 :
+            case Renderer::COMPACT :
                 $html = $this->renderCompact();
                 break;
-            case 2 :
+            case Renderer::DETAIL :
                 $html = $this->renderDetail();
                 break;
             default:
@@ -29,8 +33,15 @@ class SerieRenderer implements Renderer
 
     public function renderCompact() : string
     {
-        $html = "<ol>";
-        $html .= "<li><strong><a href = ""$this->serie->titre";
+        $html = '<a href="nouvellepage?serie=">
+            <div>
+                <p>'.$this->serie->__get("titre").'</p>
+                <img src="'.$this->serie->getImage().'">
+                <p>'.$this->serie->__get("duree").'</p>
+            </div>
+        </a>';
+
+        return $html;
     }
 
     public function renderDetail() : string
@@ -46,5 +57,7 @@ class SerieRenderer implements Renderer
 
 
         }
+        $html .= "</ol>";
+        return $html;
     }
 }
