@@ -13,12 +13,12 @@ class AddUserAction extends Action
         {
             return <<<END
             <form method="post" action="?action=add-user">                
-                <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
-                <label> password :  <input type="password" name="password" placeholder = "<password>"> </label></br>
-                <label> rentrer une seconde fois votre password :  <input type="password" name="verifpassword" placeholder = "<password>"> </label>
+                <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
+                <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
+                <label> rentrer une seconde fois votre password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
                 
                 <button type="submit"> Valider </button> 
-            </form>
+            </form></br>
             <a href="?action=signin">Connection</a>
             END;
         }
@@ -29,25 +29,45 @@ class AddUserAction extends Action
             try
             {
                 $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
-                $passwd = htmlspecialchars($_POST['password']);
-                Authentification::register($email, $passwd,$_POST['verifpassword']);
-                $html.=<<<END
+                if (isset($_POST['password']) && isset($_POST['verifpassword'])){
+                    if ($_POST['password'] !== $_POST['verifpassword']) {
+                        throw new AuthException("passwords not match");
+                    }
+                    $passwd = htmlspecialchars($_POST['password']);
+                    $vpasswd = htmlspecialchars($_POST['verifpassword']);
+                    Authentification::register($email, $passwd,$vpasswd);
+                    $html.=<<<END
                     <b>Inscription is good</b>
                     <a href="?action=signin">Connection</a>
                 END;
+                }else{
+                    $html .= <<<END
+                <form method="post" action="?action=add-user">               
+                    <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
+                    <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
+                    <label> rentrer une seconde fois votre password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
+                    
+                    <button type="submit"> Valider </button> 
+                </form>
+                <b>Erreur, passwd or vpasswd non defini</b></br>
+                <a href="?action=signin">Connection</a>
+                END;
+                }
+
+
 
             }
             catch(AuthException $e)
             {
                 $html .= <<<END
                 <form method="post" action="?action=add-user">               
-                    <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
-                    <label> password :  <input type="password" name="password" placeholder = "<password>"> </label>
-                    <label> rentrer une seconde fois votre password :  <input type="password" name="password" placeholder = "<password>"> </label>
+                    <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
+                    <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
+                    <label> rentrer une seconde fois votre password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
                     
                     <button type="submit"> Valider </button> 
-                </form>
-                <b>erreur de création de compte : {$e->getMessage()}";</b> 
+                </form></br>
+                <b>{$e->getMessage()}";</b> </br>
                 <a href="?action=signin">Connection</a>
                 END;
             }

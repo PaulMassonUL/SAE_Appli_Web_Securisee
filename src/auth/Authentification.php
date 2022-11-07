@@ -1,5 +1,6 @@
 <?php
 namespace netvod\auth;
+use netvod\user\User;
 use PDO;
 use \netvod\db\ConnectionFactory as ConnectionFactory;
 use \netvod\exception\AuthException as AuthException;
@@ -9,16 +10,23 @@ class Authentification
 
     // controler la solidité des mots de passe avant de les hacher dans la base
     public static function checkPasswordStrength(string $pass, int $minimumLength): bool {
-        $length = (strlen($pass) < $minimumLength); // longueur minimale
+        $length=false;
+        if (strlen($pass) > $minimumLength){
+            $length = true; // longueur minimale
+        }
         $digit = preg_match("#[\d]#", $pass); // au moins un digit
         $special = preg_match("#[\W]#", $pass); // au moins un car. spécial
-        $lower = preg_match("#[a-z]#", $pass); // au moins une minuscule
+        $lower =  preg_match("#[a-z]#", $pass); // au moins une minuscule
         $upper = preg_match("#[A-Z]#", $pass); // au moins une majuscule
-        if (!$length || !$digit || !$special || !$lower || !$upper) return false;
-        return true;
+        if (!$length || !$digit || !$special || !$lower || !$upper){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
-    public static function authenticate(string $email, string $mdpUser) : void
+    public static function authenticate(string $email, string $mdpUser) : User
     {
         $db = ConnectionFactory::makeConnection();
         $query = "SELECT * from user where email = ?";
@@ -35,13 +43,11 @@ class Authentification
         if (!$user ) throw new AuthException("invalid credentials : invalid email or password");
         if (!password_verify($mdpUser, $user['passwd'])) throw new AuthException("invalid credentials : invalid email or password");
 
+        return new User($email,$user['passwd']);
     }
 
     public static function register(string $email, string $pass,string $vpass) : bool
     {
-        if ($pass === $vpass) {
-            throw new AuthException("passwords not match");
-        }else{
             if (!self::checkPasswordStrength($pass, 7)){
                 throw new AuthException("password not enought strong : password must have at list 1 number, 1 Upper and Lower Case,1 special caracters(!:;,...) and have 7 characters or more");
             }else{
@@ -69,7 +75,7 @@ class Authentification
                     }
                 }
             }
-        }
+
         return true;
     }
 }

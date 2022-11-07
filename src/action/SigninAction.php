@@ -36,13 +36,9 @@ class SigninAction extends Action
                try {
                     $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
                     $email = htmlspecialchars($email);
-                    $passwd = htmlspecialchars($_POST['passwd']);
-                    Authentification::authenticate($email,$passwd);
-                    $html .= "<h2> connexion réussie </h2>";
-
-                    $user1 = new User($email,$passwd);
-                    $_SESSION['user'] = $user1;
-
+                    $passwd = htmlspecialchars();
+                    $_SESSION['user'] = Authentification::authenticate($email,$passwd);
+                    header('Location: accueil.php');
 
                 } catch (AuthException $e) {
                     $html .= "erreur : {$e->getMessage()}";
