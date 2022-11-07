@@ -38,7 +38,7 @@ class SigninAction extends Action
                     $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
                     $email = htmlspecialchars($email);
                     $passwd = htmlspecialchars($_POST['passwd']);
-                    $_SESSION['user'] = Authentification::authenticate($email,$passwd);
+                    $_SESSION['user'] = serialize(Authentification::authenticate($email,$passwd));
                     $dis = new Dispatcher();
                     $dis->run();
                     //header('Location: accueil.php');

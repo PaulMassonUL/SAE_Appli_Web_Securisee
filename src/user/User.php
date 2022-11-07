@@ -9,7 +9,7 @@ class User
     /**
      * email de l'utilisateur
      */
-    protected string $email;
+    private string $email;
 
     /**
      * mot de passe de l'utilisateur

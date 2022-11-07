@@ -10,7 +10,7 @@ class Dispatcher_Auth
 
     public function __construct()
     {
-        $this->action = isset($_GET['action']) ? $_GET['action'] : null;
+        $this->action = $_GET['action'] ?? null;
     }
 
     public function run() : void

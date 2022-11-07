@@ -10,7 +10,7 @@ class ShowFavsAction extends Action
 
     public function execute(): string
     {
-        $user = $_SESSION['user'];
+        $user = unserialize($_SESSION['user']);
         $catalogue = $user->getSeriesPref();
         $renderer = new CatalogueRenderer($catalogue);
         return $renderer->render(Renderer::COMPACT);
