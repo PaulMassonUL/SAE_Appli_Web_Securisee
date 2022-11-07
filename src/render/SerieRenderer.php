@@ -23,15 +23,13 @@ class SerieRenderer implements Renderer
             case Renderer::DETAIL :
                 $html = $this->renderDetail();
                 break;
-            default:
-                throw new \Exception("erreur de parametre");
         }
         return $html;
     }
 
     public function renderCompact() : string
     {
-        $html = '<a href="nouvellepage?serie=">
+        $html = '<a href="serie.php?id='.$this->serie->__get("id").'">
             <div>
                 <p>'.$this->serie->__get("titre").'</p>
                 <img src="'.$this->serie->getImage().'">
