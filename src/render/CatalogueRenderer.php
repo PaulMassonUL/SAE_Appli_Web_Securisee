@@ -17,7 +17,7 @@ class CatalogueRenderer implements Renderer
     public function render(int $selector): string
     {
         $html = "";
-        foreach ($this->catalogue->__get("series") as $serie) {
+        foreach ($this->catalogue->getSeries() as $serie) {
             $html .= $serie->render(Renderer::COMPACT);
         }
         return $html;

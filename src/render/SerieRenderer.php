@@ -2,28 +2,36 @@
 
 namespace netvod\render;
 
+use netvod\video\Serie;
+
+use netvod\render\EpisodeRenderer;
+
 class SerieRenderer implements Renderer
 {
     private Serie $serie;
 
     public function render(int $selector): string
     {
+        $html = "";
         switch ($selector) {
-            case 1 :
-                $this->renderCompact();
+            case Renderer::COMPACT :
+                $html = $this->renderCompact();
                 break;
-            case 2 :
-                $this->renderDetail();
+            case Renderer::DETAIL :
+                $html = $this->renderDetail();
                 break;
             default:
                 throw new \Exception("erreur de parametre");
         }
+        return $html;
     }
 
     public function renderCompact() : string
     {
         $html = "<ol>";
-        $html .= "<li><strong><a href = ""$this->serie->titre";
+        $html .= "<li> <strong> <p> {$this->serie->getTitre()} </p> </strong> <a href = {$this->renderDetail()} /> </li> ";
+        $html .= "</ol>";
+        return $html;
     }
 
     public function renderDetail() : string
@@ -39,5 +47,7 @@ class SerieRenderer implements Renderer
 
 
         }
+        $html .= "</ol>";
+        return $html;
     }
 }
