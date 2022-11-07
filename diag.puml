@@ -1,0 +1,122 @@
+@startuml
+
+title Application Web Sécurisée
+
+
+class ConnectionFactory {
+  -static db
+  -static config
+  +static setConfig(String) : void
+  +static makeConnection() : void
+  +static close() : void
+}
+
+class Dispatcher {
+  #action : String
+  +Dispatcher()
+  +run() : void
+  +renderPage(String) : void
+}
+
+class Auth {
+  +static checkPasswordStrength() : boolean
+  +static authenticate(String, String) : User
+  +static register(String, String) : boolean
+}
+
+class AuthException extends Exception {
+}
+
+class User {
+  -email : String
+  -passwd : String
+  -catalogue : Catalogue
+  -seriesPref : Catalogue
+
+  +User()
+  +getCatalogue() : array
+  +getSeriesPref() : array
+}
+
+class Catalogue {
+  - series : array
+  + ajouterSerie(Serie s)
+}
+
+class Serie {
+  -titre : String
+  -image : String
+  -genre : String
+  -public : String
+  -descriptif : String
+  -dateAjout : int
+  -episodes : array
+  -commentaires : array
+  -notes : Note
+  -note : double
+  -commentee : boolean
+  -preferee : boolean
+  -enCours : boolean
+  +ajouterEpisode(Episode) : void
+  +supprimerEpisode(int) : void
+
+}
+
+class Episode {
+  -image : String
+  -titre : String
+  -resume : String
+  -duree : float
+  -vu : boolean
+}
+
+class Commentaire {
+  -commentaire : String
+  -date : String
+  -user : User
+  +Commentaire(String, String, User)
+}
+
+class Note {
+  -moyenne : float
+  -nbNote : int
+  +Note()
+  +ajouterNote(double) : void
+}
+
+interface Renderer {
+  +static COMPACT : int
+  +static LONG : int
+
+  +render(int) : String
+}
+
+class CatalogueRenderer implements Renderer {
+  -catalogue : Catalogue
+  +render(int) : String
+}
+
+class SerieRenderer implements Renderer {
+  -serie : Serie
+  +SerieRenderer()
+  +render(int) : String
+  -renderCompact() : String
+  -renderLong() : String
+}
+
+class EpisodeRenderer implements Renderer {
+  -episode : Episode
+  +EpisodeRenderer()
+  +render(int) : String
+  -renderCompact() : String
+  -renderLong() : String
+}
+
+Catalogue "1" -> "*" Serie
+Serie "1" -> "*" Episode : episodes
+Serie "1" -> "1" Note : note
+Serie "1" -> "*" Commentaire : commentaires
+Auth -- AuthException
+Dispatcher "1" -> "1" Auth
+
+@enduml
