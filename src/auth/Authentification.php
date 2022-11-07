@@ -1,11 +1,10 @@
 <?php
-namespace iutnc\deefy\auth;
-use iutnc\deefy\auth\User as User;
+namespace netvod\auth;
 use PDO;
-use iutnc\deefy\db\ConnectionFactory as ConnectionFactory;
-use iutnc\deefy\AuthException\AuthException as AuthException;
+use \netvod\db\ConnectionFactory as ConnectionFactory;
+use \netvod\exception\AuthException as AuthException;
 
-class Auth
+class Authentification
 {
 
     // controler la solidité des mots de passe avant de les hacher dans la base
@@ -21,9 +20,6 @@ class Auth
 
     public static function authenticate(string $email, string $mdpUser) : void
     {
-        /*$hash = "select passwd from user where email = $email ";
-        if (!password_verify($mdpUser, $hash)) return new User($email, $mdpUser, 1);
-        return null; */
         $db = ConnectionFactory::makeConnection();
         $query = "SELECT * from user where email = ?";
 
@@ -32,44 +28,48 @@ class Auth
         $res = $stmt->execute([$email]); // [$email]
 
         // execute renvoie un booleen si aucune donnee execute, pareil pour fetch
-        if (!$res) throw new AuthException("auth error : db query failed");
+        if (!$res) throw new Aut("db query failed");
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$user ) throw new AuthException("auth failed : invalid credentials");
-        if (!password_verify($mdpUser, $user['passwd'])) throw new AuthException("auth failed : invalid credentials");
-        //$user = new User($email, $user['passwd'], $user['role']);
-        //$_SESSION['user'] = serialize($user);
+        if (!$user ) throw new AuthException("invalid credentials : invalid email or password");
+        if (!password_verify($mdpUser, $user['passwd'])) throw new AuthException("invalid credentials : invalid email or password");
 
-        return; //$user;
     }
 
-    public static function register(string $email, string $pass) : bool
+    public static function register(string $email, string $pass,string $vpass) : bool
     {
-        if (!self::checkPasswordStrength($pass, 4))
-            throw new AuthException("password trop faible");
-        $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 12]);
-        try
-        {
-            $db = ConnectionFactory::makeConnection();
+        if ($pass === $vpass) {
+            throw new AuthException("passwords not match");
+        }else{
+            if (!self::checkPasswordStrength($pass, 7)){
+                throw new AuthException("password not enought strong : password must have at list 1 number, 1 Upper and Lower Case,1 special caracters(!:;,...) and have 7 characters or more");
+            }else{
+                $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 12]);
+                try
+                {
+                    $db = ConnectionFactory::makeConnection();
+                }
+                catch (DBException $e)
+                {
+                    throw new AuthException($e->getMessage());
+                }
+                $query_email = "select * from user where email = ?";
+                $stmt = $db->prepare($query_email);
+                $res = $stmt->execute([$email]);
+                if ($stmt->fetch()){
+                    throw new AuthException("account already exist");
+                }else{
+                    try {
+                        $query = "insert into user (email, passwd) values (?, ?)";
+                        $stmt = $db->prepare($query);
+                        $stmt->execute([$email, $hash]);
+                    } catch (\PDOException $e) {
+                        throw new AuthException("erreur de création de compte : ".$e->getMessage());
+                    }
+                }
+            }
         }
-        catch (DBException $e)
-        {
-            throw new AuthException($e->getMessage());
-        }
-        $query_email = "select * from user where email = ?";
-        $stmt = $db->prepare($query_email);
-        $res = $stmt->execute([$email]);
-        if ($stmt->fetch()) throw new AuthException("compte deja existant");
-
-        try {
-            $query = "insert into user (email, passwd) values (?, ?)";
-            $stmt = $db->prepare($query);
-            $res = $stmt->execute([$email, $hash]);
-        } catch (\PDOException $e) {
-            throw new AuthException("erreur de création de compte : ".$e->getMessage());
-        }
-
         return true;
     }
 }

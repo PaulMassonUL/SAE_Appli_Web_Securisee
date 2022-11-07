@@ -1,12 +1,10 @@
 <?php
 namespace netvod\dispatch;
 
-use \iutnc\deefy\action\DisplayPlaylistAction as DisplayPlaylistAction;
-use \iutnc\deefy\action\AddUserAction as AddUserAction;
-use \iutnc\deefy\action\SigninAction as SigninAction;
-use \iutnc\deefy\action\AddPodcastTrackAction as AddPodcastTrackAction;
+use netvod\action\AddUserAction as AddUserAction;
+use  netvod\action\SigninAction as SigninAction;
 
-class Dispatcher
+class Dispatcher_Auth
 {
     protected ?string $action = null;
 

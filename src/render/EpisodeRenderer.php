@@ -2,6 +2,7 @@
 
 namespace netvod\render;
 
+use iutnc\deefy\exception\InvalidPropertyNameException;
 use netvod\video\Episode;
 
 class EpisodeRenderer implements Renderer
@@ -19,14 +20,23 @@ class EpisodeRenderer implements Renderer
         $this->episode = $episode;
     }
 
+    private function compact()
+    {
+        // TODO: Implement compact() method.
+    }
+
+    /**
+     * @throws InvalidPropertyNameException
+     */
     public function detail(): string
     {
         return $html = "<div class='episode'>
-                      <h3>Titre {$this->episode->getTitre()}</h3>
-                      <h4>Durée {$this->episode->getDuree()}</h4>
-                      <p><u>Résumé de l'épisode : </u><br> {$this->episode->getResume()}</p>
-                      <video controls> <source src={$this->episode->getImage()} type='video/mp4'> </video><br>";
+                      <h3>Titre {$this->episode->__get("titre")}</h3>
+                      <h4>Durée {$this->episode->__get("duree")}</h4>
+                      <p><u>Résumé de l'épisode : </u><br> {$this->episode->__get("resume")}</p>
+                      <video controls> <source src={$this->episode->__get("image")} type='video/mp4'> </video><br>";
     }
+
 
     public function render(int $selector): string
     {
@@ -42,8 +52,5 @@ class EpisodeRenderer implements Renderer
         return $html;
     }
 
-    private function compact()
-    {
-        // TODO: Implement compact() method.
-    }
+
 }
