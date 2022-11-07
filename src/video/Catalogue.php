@@ -13,7 +13,7 @@ class Catalogue {
 
     public function ajouterSerie(Serie $s) : void
     {
-        $this->series[] = $s;
+        $this->series = $s;
     }
 
 
