@@ -44,6 +44,7 @@ class Catalogue {
 }
 
 class Serie {
+  -id : int
   -titre : String
   -image : String
   -genre : String
@@ -63,6 +64,7 @@ class Serie {
 }
 
 class Episode {
+  -nb : int
   -image : String
   -titre : String
   -resume : String
@@ -118,5 +120,6 @@ Serie "1" -> "1" Note : note
 Serie "1" -> "*" Commentaire : commentaires
 Auth -- AuthException
 Dispatcher "1" -> "1" Auth
+User -> ConnectionFactory
 
 @enduml
