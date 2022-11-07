@@ -24,7 +24,7 @@ class EpisodeRenderer implements Renderer
                       <h3>Titre {$this->episode->getTitre()}</h3>
                       <h4>Durée {$this->episode->getDuree()}</h4>
                       <p><u>Résumé de l'épisode : </u><br> {$this->episode->getResume()}</p>
-                      <video src={$this->episode->getImage()}><br>";
+                      <video controls> <source src={$this->episode->getImage()} type='video/mp4'> </video><br>";
     }
     
     public function render(int $selector): string
