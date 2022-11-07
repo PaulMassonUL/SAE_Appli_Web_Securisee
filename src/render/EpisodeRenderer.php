@@ -31,9 +31,9 @@ class EpisodeRenderer implements Renderer
     public function detail(): string
     {
         return $html = "<div class='episode'>
-                      <h3>Titre {$this->episode->__get("titre")}</h3>
-                      <h4>Durée {$this->episode->__get("duree")}</h4>
-                      <p><u>Résumé de l'épisode : </u><br> {$this->episode->__get("resume")}</p>
+                      <h2>Titre : {$this->episode->__get("titre")}</h2>
+                      <h3>Durée : {$this->episode->__get("duree")}</h3>
+                      <p><u id='TitreParagraphe'>Résumé de l'épisode : </u><br> {$this->episode->__get("resume")}</p>
                       <video controls> <source src={$this->episode->__get("image")} type='video/mp4'> </video><br>";
     }
 

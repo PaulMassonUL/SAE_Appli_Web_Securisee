@@ -17,24 +17,10 @@ class CatalogueRenderer implements Renderer
     public function render(int $selector): string
     {
         $html = "";
-        switch ($selector)
-        {
-            case Renderer::COMPACT:
-                foreach ($this->catalogue->getSeries() as $serie) {
-                    $serieRend = new SerieRenderer($serie);
-                    $html .= $serieRend->render(Renderer::COMPACT);
-                }
-                break;
-            case Renderer::DETAIL :
-                foreach ($this->catalogue->getSeries() as $serie) {
-                    $serieRend = new SerieRenderer($serie);
-                    $html .= $serieRend->render(Renderer::DETAIL);
-                }
-                break;
-            default:
-                throw new \Exception("erreur de parametre");
+        foreach ($this->catalogue->__get("series") as $serie) {
+            $renderer = new SerieRenderer($serie);
+            $html .= $renderer->render(Renderer::COMPACT);
         }
-
         return $html;
     }
 
