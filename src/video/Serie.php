@@ -1,6 +1,6 @@
 <?php
 
-namespace \netvod\video;
+namespace netvod\video;
 
 class Serie {
 
@@ -46,7 +46,7 @@ class Serie {
 
     public function ajouterEpisode(Episode $ep) : void
     {
-        $this->episodes = ep;
+        $this->episodes = $ep;
     }
 
     public function supprimerEpisode(Episode $ep) : void
