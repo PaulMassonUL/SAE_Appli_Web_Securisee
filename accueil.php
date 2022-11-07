@@ -7,5 +7,6 @@ if (!isset($_SESSION['user'])) {
 
 use netvod\dispatch\Dispatcher;
 
+echo "accueil";
 $choixcatalogue = new Dispatcher();
 $choixcatalogue->run();

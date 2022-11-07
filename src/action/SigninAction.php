@@ -2,6 +2,7 @@
 namespace netvod\action;
 
 use netvod\auth\Authentification;
+use netvod\dispatch\Dispatcher;
 use netvod\exception\AuthException;
 use \netvod\render\AudioListRenderer;
 
@@ -21,8 +22,8 @@ class SigninAction extends Action
             
             <form method="post" action="?action=signin">
               
-                <label> Email :  <input type="email" name="email" placeholder="email"> </label>
-                <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label>
+                <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
+                <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>
                 
                 <button type="submit"> Valider </button> 
             </form>
@@ -36,13 +37,25 @@ class SigninAction extends Action
                try {
                     $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
                     $email = htmlspecialchars($email);
-                    $passwd = htmlspecialchars();
+                    $passwd = htmlspecialchars($_POST['passwd']);
                     $_SESSION['user'] = Authentification::authenticate($email,$passwd);
-                    header('Location: accueil.php');
+                    $dis = new Dispatcher();
+                    $dis->run();
+                    //header('Location: accueil.php');
 
-                } catch (AuthException $e) {
-                    $html .= "erreur : {$e->getMessage()}";
-                } 
+               } catch (AuthException $e) {
+                    $html .= <<<END
+                        <form method="post" action="?action=signin">
+                          
+                            <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
+                            <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>
+                            
+                            <button type="submit"> Valider </button> 
+                        </form>
+                        <b>{$e->getMessage()}</b></br>
+                        <a href="?action=add-user">inscription</a>
+                        END;
+               }
             return $html;
             
         }

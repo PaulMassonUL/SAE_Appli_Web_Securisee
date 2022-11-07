@@ -32,7 +32,10 @@ class Dispatcher_Auth
                 break;
             
         }
-        $this->renderPage($html);
+        if (!isset($_SESSION['user'])){
+            $this->renderPage($html);
+        }
+
         
     }
 

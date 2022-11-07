@@ -41,9 +41,9 @@ class Authentification
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$user ) throw new AuthException("invalid credentials : invalid email or password");
-        if (!password_verify($mdpUser, $user['passwd'])) throw new AuthException("invalid credentials : invalid email or password");
+        if (!password_verify($mdpUser, $user['password'])) throw new AuthException("invalid credentials : invalid email or password");
 
-        return new User($email,$user['passwd']);
+        return new User($email,$user['password']);
     }
 
     public static function register(string $email, string $pass,string $vpass) : bool
@@ -67,7 +67,7 @@ class Authentification
                     throw new AuthException("account already exist");
                 }else{
                     try {
-                        $query = "insert into user (email, passwd) values (?, ?)";
+                        $query = "insert into user values (?, ?)";
                         $stmt = $db->prepare($query);
                         $stmt->execute([$email, $hash]);
                     } catch (\PDOException $e) {

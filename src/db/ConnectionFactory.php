@@ -16,6 +16,7 @@ class ConnectionFactory
 
     public static function makeConnection()
     {
+        ConnectionFactory::setConfig("config.db.ini");
         if (self::$db != null) return self::$db;
 
         $dsn = self::$config['driver'] . ':host=' . self::$config['host'] . ';dbname=' . self::$config['database'];

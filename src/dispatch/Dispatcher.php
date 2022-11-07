@@ -33,7 +33,6 @@ class Dispatcher
                 ';
 
         }
-
         $this->renderPage($html);
     }
 
