@@ -12,9 +12,9 @@ class Note
 
     }
 
-    public function ajouterNote($note) : void
+    public function ajouterNote(float $note) : void
     {
         $this->nbNotes++;
-        $this->moyenne += $note;
+        $this->moyenne += $note / $this->nbNotes;
     }
 }

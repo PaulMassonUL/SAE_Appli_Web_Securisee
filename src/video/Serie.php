@@ -2,6 +2,9 @@
 
 namespace netvod\video;
 
+use netvod\avis\Commentaire;
+use netvod\avis\Note;
+
 class Serie {
 
     private string $titre;
@@ -46,23 +49,19 @@ class Serie {
 
     public function ajouterEpisode(Episode $ep) : void
     {
-        $this->episodes = $ep;
+        $this->episodes[] = $ep;
     }
 
     public function supprimerEpisode(Episode $ep) : void
     {
-        //unset($this->episodes[i]);
         unset($this->episodes[array_search($ep, $this->episodes)]);
     }
 
-    public function ajouterNote(Note $n) : void
+    /**
+     * @return tableau de commentaires
+     */
+    public function getCommentaires(): array
     {
-
+       return $this->commentaires;
     }
-
-    public function ajouterCommentaire(Commentaire $c) : void
-    {
-
-    }
-
 }

@@ -10,10 +10,11 @@ class Commentaire
     protected string $date;
     protected User $user;
 
-     public function __construct($pComm, $pDate, $pUser)
+    function __construct($pComm, $pDate, $pUser)
      {
          $this->commentaire = $pComm;
          $this->date = $pDate;
          $this->user = $pUser;
      }
+
 }
