@@ -1,0 +1,8 @@
+{
+  "description": "SAE de développement web",
+  "type": "project",
+
+  "autoload": {
+    "psr-4": {"netvod\\" : "src/"}
+  }
+}
