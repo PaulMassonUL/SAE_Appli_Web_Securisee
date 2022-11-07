@@ -36,6 +36,21 @@ class Serie {
                                 string $desc, string $annee)
     {
         $this->titre = $t;
-        $this->
+        $this->image = $img;
+        $this->genre = $genre;
+        $this->public = $public;
+        $this->descriptif = $desc;
+        $this->episodes = [];
+        $this->commentaires = [];
+    }
+
+    public function ajouterEpisode(Episode $ep) : void
+    {
+        $this->episodes = ep;
+    }
+
+    public function supprmierEpisode(int $i) : void
+    {
+        unset($this->episodes[i]);
     }
 }
