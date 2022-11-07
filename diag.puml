@@ -67,7 +67,7 @@ class Episode {
   -titre : String
   -resume : String
   -duree : float
-  -vu : boolean
+  -estVu : boolean
 }
 
 class Commentaire {
