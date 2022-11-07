@@ -2,6 +2,7 @@
 
 namespace netvod\video;
 
+use iutnc\deefy\exception\InvalidPropertyNameException;
 use netvod\avis\Commentaire;
 use netvod\avis\Note;
 
@@ -25,11 +26,11 @@ class Serie {
 
     private float $note = 0;
 
-    private boolean $commentee = false;
+    private bool $commentee = false;
 
-    private boolean $preferee = false;
+    private bool $preferee = false;
 
-    private boolean $enCours = false;
+    private bool $enCours = false;
 
 
     private array $episodes;
@@ -61,72 +62,15 @@ class Serie {
         unset($this->episodes[array_search($ep, $this->episodes)]);
     }
 
-    public function getEpisodes(): array
+    public function __get($attrname)
     {
-        return $this->episodes;
+        if (property_exists($this, $attrname)) return $this->$attrname;
+        throw new InvalidPropertyNameException("Nom d'attribut invalide : $attrname");
     }
 
-    /**
-     * @return string
-     */
-    public function getImage(): string
+    public function __set($attrname, $value)
     {
-        return $this->image;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitre(): string
-    {
-        return $this->titre;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGenre(): string
-    {
-        return $this->genre;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAnneeSortie(): int
-    {
-        return $this->anneeSortie;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescriptif(): string
-    {
-        return $this->descriptif;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPublic(): string
-    {
-        return $this->public;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDateAjout(): string
-    {
-        return $this->dateAjout;
-    }
-
-    /**
-     * @return tableau de commentaires
-     */
-    public function getCommentaires(): array
-    {
-       return $this->commentaires;
+        if (property_exists($this, $attrname)) $this->$attrname = $value;
+        else throw new InvalidPropertyNameException("Nom d'attribut invalide : $attrname");
     }
 }

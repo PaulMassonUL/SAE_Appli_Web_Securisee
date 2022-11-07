@@ -46,16 +46,16 @@ class SerieRenderer implements Renderer
 
     public function renderDetail() : string
     {
-        $html = "<h1>{$this->serie->titre}</h1>";
-        $html .= "<h2>{$this->serie->genre} - {$this->serie->public}</h2>";
-        $html .= "<p>$this->serie->descriptif</p>";
-        $html .= "<p><<strong>Annee de sortie : </strong>$this->serie->anneeSortie<strong> - Date d ajout : $this->serie->dateAjout</strong>";
-        $html .= "<p>Nb episodes :". count($this->serie->getEpisodes())."</p>";
-
+        $html = "<h1>{$this->serie->__get("titre")}</h1>";
+        $html .= "<h2>{$this->serie->__get("genre")} - {$this->serie->__get("public")}</h2>";
+        $html .= "<p>{$this->serie->__get("descriptif")}</p>";
+        $html .= "<p><<strong>Annee de sortie : </strong>{$this->serie->__get("anneeSortie")}<strong> - Date d'ajout : {$this->serie->__get("dateAjout")}</strong>";
+        $html .= "<p>Nb episodes :". count($this->serie->__get("episodes"))."</p>";
+        $html .= "<ol>";
         foreach ($this->serie as $key=>$ep) {
-            
-
-
+            $html .= "<li><strong>Episode $key</strong>";
+            $epRend = new EpisodeRenderer($ep);
+            $html .= "{$epRend->render(Renderer::DETAIL)}</li>";
         }
         $html .= "</ol>";
         return $html;
