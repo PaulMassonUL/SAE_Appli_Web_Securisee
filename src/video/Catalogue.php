@@ -1,11 +1,10 @@
 <?php
 
-namespace \netvod\video;
+namespace netvod\video;
 
 class Catalogue {
 
     private array $series;
-
 
     public function __construct()
     {
