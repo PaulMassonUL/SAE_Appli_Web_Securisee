@@ -3,6 +3,7 @@
 namespace netvod\dispatch;
 
 use netvod\action\ShowCatalogAction;
+use netvod\action\ShowEpisodeAction;
 use netvod\action\ShowSerieAction;
 use netvod\user\User;
 

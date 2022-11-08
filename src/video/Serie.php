@@ -74,6 +74,16 @@ class Serie
         return false;
     }
 
+    public function getEpisodeByNum(int $num): ?Episode
+    {
+        foreach ($this->episodes as $ep) {
+            if ($ep->__get("numero") == $num) {
+                return $ep;
+            }
+        }
+        return null;
+    }
+
     public function __get($attrname)
     {
         if (property_exists($this, $attrname)) return $this->$attrname;
