@@ -2,6 +2,7 @@
 
 namespace netvod\action;
 
+use netvod\render\EpisodeRenderer;
 use netvod\render\Renderer;
 use netvod\render\SerieRenderer;
 use netvod\video\Episode;
