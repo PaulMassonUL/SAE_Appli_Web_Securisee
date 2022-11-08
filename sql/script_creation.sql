@@ -12,14 +12,14 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Notation (
-    idSerie int(2) NOT NULL,
+    idSerie int(11) NOT NULL,
     email varchar(75) NOT NULL,
     note int(1),
     PRIMARY KEY (idSerie, email)
 );
 
 CREATE TABLE Commentaire (
-    idSerie int(2) NOT NULL,
+    idSerie int(11) NOT NULL,
     email varchar(75) NOT NULL,
     commentaire LONGTEXT,
     dateComm DATE,
@@ -27,7 +27,7 @@ CREATE TABLE Commentaire (
 );
 
 CREATE TABLE seriePreferee (
-    idSerie int(2) NOT NULL,
+    idSerie int(11) NOT NULL,
     email varchar(75) NOT NULL,
     PRIMARY KEY (idSerie, email)
 );
