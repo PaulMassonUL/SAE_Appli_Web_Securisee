@@ -3,7 +3,7 @@
 namespace netvod\dispatch;
 
 use netvod\action\ShowCatalogAction;
-use netvod\action\ShowDetailsAction;
+use netvod\action\ShowDetailsSerieAction;
 use netvod\user\User;
 
 class Dispatcher
@@ -38,12 +38,12 @@ class Dispatcher
                     $html = $action->execute();
                 }
                 break;
-            case 'show-details':
+            case 'show-details-serie':
                 $user = User::getInstance();
                 if (!is_null($user)) {
                     if (isset($_POST['serieId'])) {
                         $serieId = intval($_POST['serieId']);
-                        $action = new ShowDetailsAction($user->getCatalogue()->getSerieById($serieId));
+                        $action = new ShowDetailsSerieAction($user->getCatalogue()->getSerieById($serieId));
                         $html = $action->execute();
                     }
                 }
