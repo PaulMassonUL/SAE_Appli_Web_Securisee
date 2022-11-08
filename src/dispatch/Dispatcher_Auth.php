@@ -47,7 +47,7 @@ class Dispatcher_Auth
             <body>
                 <header id="header">
                     <nav id="nav">
-                        <a id="title" href="accueil.php">NetVOD</a>
+                        <a id="title" href="index.php">NetVOD</a>
                         <a href="?action=signin">signin</a>
                         <a href="?action=add-user">signup</a>                       
                     </nav>
