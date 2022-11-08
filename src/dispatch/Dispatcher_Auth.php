@@ -2,8 +2,8 @@
 
 namespace netvod\dispatch;
 
-use netvod\action\AddUserAction as AddUserAction;
-use  netvod\action\SigninAction as SigninAction;
+use netvod\action\AddUserAction;
+use  netvod\action\SigninAction;
 
 class Dispatcher_Auth
 {
@@ -19,18 +19,16 @@ class Dispatcher_Auth
         switch ($this->action) {
             case 'add-user':
                 $act = new AddUserAction();
-                $html = $act->execute();
                 break;
 //            case 'signin':
 //                $act = new SigninAction();
-//                $html = $act->execute();
 //                break;
             default:
                 $act = new SigninAction();
-                $html = $act->execute();
                 break;
 
         }
+        $html = $act->execute();
         $this->renderPage($html);
 
     }
@@ -43,7 +41,7 @@ class Dispatcher_Auth
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="../SAE_Appli_Web_Securisee/1css/typeIndex.css">
+                <link rel="stylesheet" href="css/typeIndex.css">
                 <title>Deefy</title>
             </head>
             <body>
@@ -63,5 +61,3 @@ class Dispatcher_Auth
         END;
     }
 }
-
-?>
