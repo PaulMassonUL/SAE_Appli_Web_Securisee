@@ -22,12 +22,11 @@ class EpisodeRenderer implements Renderer
 
     private function renderCompact() : string
     {
-        return '<button type=\"submit name=episodeId value="' . $this->episode->__get("numero") .'">
-            <div class=\'episode\'>
-                 <h2>Titre : {$this->episode->__get("titre")}</h2>
-                 <h3>Durée : {$this->episode->__get("duree")} minutes</h3>
-                <video controls> <source src={$this->episode->__get("image")} type="video/mp4"> </video><br>;
-                </button>';
+        return '<br><button type="submit" name="episodeId" value="' . $this->episode->__get("numero") .'">
+            <h2>' . $this->episode->__get("titre") . '</h2>
+            <h3>' . $this->episode->__get("duree") .'</h3>
+            <img src="' . $this->episode->__get("image") . '" alt="' . $this->episode->__get("titre") . '">
+        </button>';
 
     }
 
@@ -41,7 +40,6 @@ class EpisodeRenderer implements Renderer
                       <h3>Durée : {$this->episode->__get("duree")} minutes</h3>
                       <p><u id='TitreParagraphe'>Résumé de l'épisode : </u><br> {$this->episode->__get("resume")}</p>
                       <video controls> <source src={$this->episode->__get("image")} type='video/mp4'> </video><br>";
-
     }
 
 
