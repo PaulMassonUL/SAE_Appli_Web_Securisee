@@ -25,7 +25,7 @@ class Dispatcher_Auth
                 $html = $act->execute();
                 break;
             default:
-                $html = '<ul>
+                $html = '<ul id="listac">
                             <li><a href="?action=signin">Connexion</a></li>
                             <li><a href="?action=add-user">Inscription</a></li>
                         </ul>';
@@ -47,9 +47,15 @@ class Dispatcher_Auth
             <head>
                 <meta charset="UTF-8">>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="./css/typeIndex.css">
                 <title>Deefy</title>
             </head>
             <body>
+                <nav id="nav1">
+                    <h2>NetVOD</h2>
+                    <a href="?action=signin">Connexion</a>
+                    <a href="?action=add-user">Inscription</a>
+                </nav>
                 <h1>Bienvenue sur la platforme NetVOD</h1>
                 <nav>
                     $html
