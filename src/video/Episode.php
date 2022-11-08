@@ -52,12 +52,12 @@ class Episode
      */
     public function __construct(int $num, string $image, string $titre, string $resume, float $duree, bool $vu)
     {
-        $this->num = $num;
+        $this->numero = $num;
         $this->image = $image;
         $this->titre = $titre;
         $this->resume = $resume;
         $this->duree = $duree;
-        $this->estVu = $vu;
+        $this->vu = $vu;
     }
 
     public function __get($attrname)
