@@ -46,7 +46,7 @@ CREATE TABLE `serie` (
                          `img` varchar(256) NOT NULL,
                          `annee` int(11) NOT NULL,
                          `date_ajout` date NOT NULL,
-                         PRIMARY KEY (`id`)
+                          PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `episode`;
