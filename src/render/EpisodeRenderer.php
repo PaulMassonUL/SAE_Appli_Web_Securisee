@@ -22,7 +22,7 @@ class EpisodeRenderer implements Renderer
 
     private function renderCompact() : string
     {
-        return '<br><button type="submit" name="episodeId" value="' . $this->episode->__get("numero") .'">
+        return '<br><button type="submit" name="numEpisode" value="' . $this->episode->__get("numero") .'">
             <h2>' . $this->episode->__get("titre") . '</h2>
             <h3>' . $this->episode->__get("duree") .'</h3>
             <img src="' . $this->episode->__get("image") . '" alt="' . $this->episode->__get("titre") . '">

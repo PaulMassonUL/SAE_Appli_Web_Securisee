@@ -55,16 +55,15 @@ class Dispatcher
                 break;
             case 'show-episode-details':
                 $user = User::getInstance();
-                if (!is_null($user)) {
-                    if (isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
-                        $serieId = intval($_POST['serieId']);
-                        $numEpisode = intval($_POST['numEpisode']);
-                        $serie = $user->getCatalogue()->getSerieById($serieId);
-                        if (!is_null($serie)) {
-                            $action = new ShowEpisodeAction($serie->getEpisodeByNum($numEpisode));
-                            $html = $action->execute();
-                        }
-                    }
+                if (!is_null($user) && isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
+                    $serieId = intval($_POST['serieId']);
+                    $numEpisode = intval($_POST['numEpisode']);
+                    $serie = $user->getCatalogue()->getSerieById($serieId);
+                    $action = new ShowEpisodeAction($serie->getEpisodeByNum($numEpisode));
+                    $html = $action->execute();
+
+                } else {
+                    $html = 'ERROR';
                 }
                 break;
             case 'logout':
