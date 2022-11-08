@@ -5,7 +5,7 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-CREATE TABLE User (
+CREATE TABLE users (
     email varchar(75) NOT NULL,
     password LONGTEXT NOT NULL,
     PRIMARY KEY (email, password)
@@ -51,14 +51,14 @@ CREATE TABLE `serie` (
 
 DROP TABLE IF EXISTS `episode`;
 CREATE TABLE `episode` (
-                           `numero` int(11) NOT NULL AUTO_INCREMENT DEFAULT 1,
+                           `id` int(11) NOT NULL AUTO_INCREMENT,
+                           `numero` int(11) NOT NULL DEFAULT 1,
                            `titre` varchar(128) NOT NULL,
                            `resume` text DEFAULT NULL,
                            `duree` int(11) NOT NULL DEFAULT 0,
                            `file` varchar(256) DEFAULT NULL,
                            `serie_id` int(11) DEFAULT NULL,
-                            PRIMARY KEY (`id`),
-                            FOREIGN KEY (`serie_id`) REFERENCES serie(`id`)
+                            PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `episode` (`id`, `numero`, `titre`, `resume`, `duree`, `file`, `serie_id`) VALUES
