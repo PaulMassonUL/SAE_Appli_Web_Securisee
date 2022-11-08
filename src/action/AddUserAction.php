@@ -19,7 +19,6 @@ class AddUserAction extends Action
                 
                 <button type="submit"> Valider </button> 
             </form></br>
-            <a href="?action=signin">Connection</a>
             END;
         }
         else
@@ -50,7 +49,6 @@ class AddUserAction extends Action
                     <button type="submit"> Valider </button> 
                 </form>
                 <b>Erreur, passwd or vpasswd non defini</b></br>
-                <a href="?action=signin">Connection</a>
                 END;
                 }
 

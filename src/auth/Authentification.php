@@ -32,7 +32,7 @@ class Authentification
     public static function authenticate(string $email, string $mdpUser): User
     {
         $db = ConnectionFactory::makeConnection();
-        $query = "SELECT * from user where email = ?";
+        $query = "SELECT * from users where email = ?";
 
 
         $stmt = $db->prepare($query);
@@ -60,14 +60,14 @@ class Authentification
             } catch (PDOException $e) {
                 throw new AuthException($e->getMessage());
             }
-            $query_email = "select * from user where email = ?";
+            $query_email = "select * from users where email = ?";
             $stmt = $db->prepare($query_email);
             $stmt->execute([$email]);
             if ($stmt->fetch()) {
                 throw new AuthException("account already exist");
             } else {
                 try {
-                    $query = "insert into user values (?, ?)";
+                    $query = "insert into users values (?, ?)";
                     $stmt = $db->prepare($query);
                     $stmt->execute([$email, $hash]);
                 } catch (PDOException $e) {

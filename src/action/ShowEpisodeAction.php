@@ -2,6 +2,7 @@
 
 namespace netvod\action;
 
+use netvod\render\EpisodeRenderer;
 use netvod\render\Renderer;
 use netvod\render\SerieRenderer;
 use netvod\video\Episode;
@@ -22,7 +23,7 @@ class ShowEpisodeAction extends Action
 
     public function execute(): string
     {
-        $renderer = new SerieRenderer($this->episode);
+        $renderer = new EpisodeRenderer($this->episode);
         return $renderer->render(Renderer::DETAIL);
     }
 }

@@ -17,14 +17,13 @@ class SigninAction extends Action
         if ($this->http_method === 'GET') {
             return <<<END
             
-            <form method="post" action="?action=signin">
+            <form id="Formsignin" method="post" action="?action=signin">
               
                 <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
                 <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>
                 
                 <button type="submit"> Valider </button>
             </form><br>
-            <a href="?action=add-user">inscription</a>
             END;
 
         } else // POST
@@ -51,7 +50,6 @@ class SigninAction extends Action
                             <button type="submit"> Valider </button> 
                         </form>
                         <b>{$e->getMessage()}</b></br>
-                        <a href="?action=add-user">inscription</a>
                         END;
             }
             return $html;

@@ -21,15 +21,13 @@ class Dispatcher_Auth
                 $act = new AddUserAction();
                 $html = $act->execute();
                 break;
-            case 'signin':
+//            case 'signin':
+//                $act = new SigninAction();
+//                $html = $act->execute();
+//                break;
+            default:
                 $act = new SigninAction();
                 $html = $act->execute();
-                break;
-            default:
-                $html = '<ul id="listac">
-                            <li><a href="?action=signin">Connexion</a></li>
-                            <li><a href="?action=add-user">Inscription</a></li>
-                        </ul>';
                 break;
 
         }
@@ -45,17 +43,19 @@ class Dispatcher_Auth
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="./css/typeIndex.css">
+                <link rel="stylesheet" href="../SAE_Appli_Web_Securisee/1css/typeIndex.css">
                 <title>Deefy</title>
             </head>
             <body>
-                <nav id="nav1">
-                    <h2>NetVOD</h2>
-                    <a href="?action=signin">Connexion</a>
-                    <a href="?action=add-user">Inscription</a>
-                </nav>
-                <h1>Bienvenue sur la platforme NetVOD</h1>
-                <nav>
+                <header id="header">
+                    <nav id="nav">
+                        <a id="title" href="accueil.php">NetVOD</a>
+                        <a href="?action=signin">signin</a>
+                        <a href="?action=add-user">signup</a>                       
+                    </nav>
+                </header>    
+                <nav id="signin">
+                    <h1>Bienvenue</h1>
                     $html
                 </nav><br>
             </body>
