@@ -6,7 +6,7 @@ use netvod\render\Renderer;
 use netvod\render\SerieRenderer;
 use netvod\video\Serie;
 
-class ShowDetailsAction extends Action
+class ShowDetailsSerieAction extends Action
 {
     private Serie $serie;
 

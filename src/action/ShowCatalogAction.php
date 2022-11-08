@@ -24,7 +24,7 @@ class ShowCatalogAction extends Action
     {
         $renderer = new CatalogueRenderer($this->catalogue);
 
-        $html = '<form method="post" action="?action=show-details">';
+        $html = '<form method="post" action="?action=show-details-serie">';
         $html .= $renderer->render(Renderer::COMPACT);
         $html .= '</form>';
         return $html;
