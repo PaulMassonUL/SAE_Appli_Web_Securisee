@@ -2,7 +2,7 @@
 
 namespace netvod\video;
 
-use iutnc\deefy\exception\InvalidPropertyNameException;
+use netvod\exception\InvalidPropertyNameException;
 
 class Episode
 {

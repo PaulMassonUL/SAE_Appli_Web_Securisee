@@ -2,7 +2,7 @@
 
 namespace netvod\render;
 
-use iutnc\deefy\exception\InvalidPropertyNameException;
+use netvod\exception\InvalidPropertyNameException;
 use netvod\video\Episode;
 
 class EpisodeRenderer implements Renderer

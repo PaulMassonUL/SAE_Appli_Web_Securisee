@@ -48,7 +48,7 @@ class SerieRenderer implements Renderer
             $key = $key+1;
             $html .= "<li><strong>Episode $key</strong>";
             $epRend = new EpisodeRenderer($ep);
-            $html .= "{$epRend->render(Renderer::DETAIL)}</li>";
+            $html .= "{$epRend->render(Renderer::DETAIL)}</li><br>";
         }
         $html .= "</ol>";
         return $html;
