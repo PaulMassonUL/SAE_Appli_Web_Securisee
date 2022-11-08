@@ -32,10 +32,10 @@ class Episode
     private string $resume;
 
     /**
-     * @var float $duree
+     * @var string $duree
      * correspond à la durée de l'épisode
      */
-    private float $duree;
+    private string $duree;
 
     /**
      * @var bool $vu
@@ -47,10 +47,10 @@ class Episode
      * @param string $image
      * @param string $titre
      * @param string $resume
-     * @param float $duree
+     * @param string $duree
      * @param bool $vu
      */
-    public function __construct(int $num, string $image, string $titre, string $resume, float $duree, bool $vu)
+    public function __construct(int $num, string $image, string $titre, string $resume, string $duree, bool $vu)
     {
         $this->numero = $num;
         $this->image = $image;

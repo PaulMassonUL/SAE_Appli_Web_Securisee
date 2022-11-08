@@ -48,10 +48,11 @@ class SerieRenderer implements Renderer
         $html .= "<p><strong>Annee de sortie : </strong>{$this->serie->__get("anneeSortie")}<strong> - Date d'ajout : {$this->serie->__get("dateAjout")}</strong>";
         $html .= "<p>Nb episodes : ". count($this->serie->__get("episodes"))."</p>";
         $html .= "<ol>";
-        foreach ($this->serie as $key=>$ep) {
+        foreach ($this->serie->__get("episodes") as $key=>$ep) {
+            $key = $key+1;
             $html .= "<li><strong>Episode $key</strong>";
             $epRend = new EpisodeRenderer($ep);
-            $html .= "{$epRend->render(Renderer::DETAIL)}</li>";
+            $html .= "{$epRend->render(Renderer::DETAIL)}</li><br>";
         }
         $html .= "</ol>";
         return $html;
