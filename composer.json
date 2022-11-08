@@ -4,5 +4,8 @@
 
   "autoload": {
     "psr-4": {"netvod\\" : "src/"}
+  },
+  "require": {
+    "ext-pdo": "*"
   }
 }

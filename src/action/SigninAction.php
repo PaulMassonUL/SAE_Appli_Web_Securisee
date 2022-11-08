@@ -1,23 +1,20 @@
 <?php
+
 namespace netvod\action;
 
 use netvod\auth\Authentification;
 use netvod\dispatch\Dispatcher;
 use netvod\exception\AuthException;
-use \netvod\render\AudioListRenderer;
-
 
 use netvod\user\User;
-use PDO;
 
 class SigninAction extends Action
 {
-    public function execute() : string
+    public function execute(): string
     {
-      
-        
-        if ($this->http_method === 'GET')
-        {
+
+
+        if ($this->http_method === 'GET') {
             return <<<END
             
             <form method="post" action="?action=signin">
@@ -29,22 +26,23 @@ class SigninAction extends Action
             </form><br>
             <a href="?action=add-user">inscription</a>
             END;
-            
-        }
-        else // POST
+
+        } else // POST
         {
             $html = "";
-               try {
-                    $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
-                    $email = htmlspecialchars($email);
-                    $passwd = htmlspecialchars($_POST['passwd']);
-                    $_SESSION['user'] = serialize(Authentification::authenticate($email,$passwd));
-                    $dis = new Dispatcher();
-                    $dis->run();
-                    //header('Location: accueil.php');
+            try {
+                $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+                $email = htmlspecialchars($email);
+                $passwd = htmlspecialchars($_POST['passwd']);
 
-               } catch (AuthException $e) {
-                    $html .= <<<END
+                User::setInstance(Authentification::authenticate($email, $passwd));
+                $dis = new Dispatcher();
+                $dis->run();
+                header('Location: accueil.php');
+                exit();
+
+            } catch (AuthException $e) {
+                $html .= <<<END
                         <form method="post" action="?action=signin">
                           
                             <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
@@ -55,16 +53,11 @@ class SigninAction extends Action
                         <b>{$e->getMessage()}</b></br>
                         <a href="?action=add-user">inscription</a>
                         END;
-               }
+            }
             return $html;
-            
+
         }
 
-        
-       
-        
+
     }
 }
-
-
-?>

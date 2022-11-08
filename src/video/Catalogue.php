@@ -2,7 +2,7 @@
 
 namespace netvod\video;
 
-use iutnc\deefy\exception\InvalidPropertyNameException;
+use netvod\exception\InvalidPropertyNameException;
 
 class Catalogue
 {
@@ -43,5 +43,16 @@ class Catalogue
         throw new InvalidPropertyNameException("Nom d'attribut invalide : $attname");
     }
 
+    /**
+     * @param int $id id de la serie
+     * @return Serie|null la serie trouvée ou null
+     */
+    public function getSerieById(int $id): ?Serie
+    {
+        foreach ($this->series as $serie) {
+            if ($serie->__get("id") === $id) return $serie;
+        }
+        return null;
+    }
 }
 

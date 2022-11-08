@@ -1,4 +1,5 @@
 <?php
+
 namespace netvod\dispatch;
 
 use netvod\action\AddUserAction as AddUserAction;
@@ -13,7 +14,7 @@ class Dispatcher_Auth
         $this->action = $_GET['action'] ?? null;
     }
 
-    public function run() : void
+    public function run(): void
     {
         switch ($this->action) {
             case 'add-user':
@@ -30,16 +31,13 @@ class Dispatcher_Auth
                             <li><a href="?action=add-user">Inscription</a></li>
                         </ul>';
                 break;
-            
-        }
-        if (!isset($_SESSION['user'])){
-            $this->renderPage($html);
-        }
 
-        
+        }
+        $this->renderPage($html);
+
     }
 
-    private function renderPage(string $html) : void
+    private function renderPage(string $html): void
     {
         echo <<<END
         <!DOCTYPE html>
@@ -59,4 +57,5 @@ class Dispatcher_Auth
         END;
     }
 }
+
 ?>

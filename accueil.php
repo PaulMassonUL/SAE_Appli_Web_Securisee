@@ -1,12 +1,15 @@
 <?php
 
-if (!isset($_SESSION['user'])) {
-    header('Location: index.php');
-    exit();
-}
+include 'header.php';
+
+require_once 'vendor/autoload.php';
 
 use netvod\dispatch\Dispatcher;
 
-echo "accueil";
+//if (!isset($_SESSION['user'])) {
+//    header('Location: index.php');
+//    exit();
+//}
+
 $choixcatalogue = new Dispatcher();
 $choixcatalogue->run();
