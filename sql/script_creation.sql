@@ -6,10 +6,42 @@ SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 CREATE TABLE User (
-                      email varchar(75) NOT NULL,
-                      password LONGTEXT NOT NULL,
-                      PRIMARY KEY (email, password)
+    email varchar(75) NOT NULL,
+    password LONGTEXT NOT NULL,
+    PRIMARY KEY (email, password)
 );
+
+CREATE TABLE Notation (
+    idSerie int(2) NOT NULL,
+    email varchar(75) NOT NULL,
+    note int(1),
+    PRIMARY KEY (idSerie, email)
+);
+
+CREATE TABLE Commentaire (
+    idSerie int(2) NOT NULL,
+    email varchar(75) NOT NULL,
+    commentaire LONGTEXT,
+    dateComm DATE,
+    PRIMARY KEY (idSerie, email)
+);
+
+CREATE TABLE seriePreferee (
+    idSerie int(2) NOT NULL,
+    email varchar(75) NOT NULL,
+    PRIMARY KEY (idSerie, email)
+);
+
+DROP TABLE IF EXISTS `serie`;
+CREATE TABLE `serie` (
+                         `id` int(11) NOT NULL AUTO_INCREMENT,
+                         `titre` varchar(128) NOT NULL,
+                         `descriptif` text NOT NULL,
+                         `img` varchar(256) NOT NULL,
+                         `annee` int(11) NOT NULL,
+                         `date_ajout` date NOT NULL,
+                         PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `episode`;
 CREATE TABLE `episode` (
@@ -20,7 +52,8 @@ CREATE TABLE `episode` (
                            `duree` int(11) NOT NULL DEFAULT 0,
                            `file` varchar(256) DEFAULT NULL,
                            `serie_id` int(11) DEFAULT NULL,
-                           PRIMARY KEY (`id`)
+                            PRIMARY KEY (`id`),
+                            FOREIGN KEY (`serie_id`) REFERENCES serie(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `episode` (`id`, `numero`, `titre`, `resume`, `duree`, `file`, `serie_id`) VALUES
@@ -46,16 +79,7 @@ INSERT INTO `episode` (`id`, `numero`, `titre`, `resume`, `duree`, `file`, `seri
                                                                                            (20,	1,	'Ça roule, ça roule',	'Ça roule, ça roule toute la nuit. Jack fonce dans sa camionnette pour rejoindre le spot de surf.',	27,	'cars-by-night.mp4',	6),
                                                                                            (21,	2,	'Ça roule, ça roule toujours',	'Ça roule la nuit, comme chaque nuit. Jim fonce avec son taxi, pour rejoindre Jack à la plage. De l\'eau a coulé sous les ponts. Le mystère du Lac trouve sa solution alors que les chevaux sont de retour après une virée sur l\'Etoile Noire.',	27,	'cars-by-night.mp4',	6);
 
-DROP TABLE IF EXISTS `serie`;
-CREATE TABLE `serie` (
-                         `id` int(11) NOT NULL AUTO_INCREMENT,
-                         `titre` varchar(128) NOT NULL,
-                         `descriptif` text NOT NULL,
-                         `img` varchar(256) NOT NULL,
-                         `annee` int(11) NOT NULL,
-                         `date_ajout` date NOT NULL,
-                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 INSERT INTO `serie` (`id`, `titre`, `descriptif`, `img`, `annee`, `date_ajout`) VALUES
                                                                                     (1,	'Le lac aux mystères',	'C\'est l\'histoire d\'un lac mystérieux et plein de surprises. La série, bluffante et haletante, nous entraine dans un labyrinthe d\'intrigues époustouflantes. A ne rater sous aucun prétexte !',	'',	2020,	'2022-10-30'),
