@@ -45,8 +45,8 @@ class SerieRenderer implements Renderer
         $html = "<h1>{$this->serie->__get("titre")}</h1>";
         $html .= "<h2>{$this->serie->__get("genre")} - {$this->serie->__get("public")}</h2>";
         $html .= "<p>{$this->serie->__get("descriptif")}</p>";
-        $html .= "<p><<strong>Annee de sortie : </strong>{$this->serie->__get("anneeSortie")}<strong> - Date d'ajout : {$this->serie->__get("dateAjout")}</strong>";
-        $html .= "<p>Nb episodes :". count($this->serie->__get("episodes"))."</p>";
+        $html .= "<p><strong>Annee de sortie : </strong>{$this->serie->__get("anneeSortie")}<strong> - Date d'ajout : {$this->serie->__get("dateAjout")}</strong>";
+        $html .= "<p>Nb episodes : ". count($this->serie->__get("episodes"))."</p>";
         $html .= "<ol>";
         foreach ($this->serie as $key=>$ep) {
             $html .= "<li><strong>Episode $key</strong>";

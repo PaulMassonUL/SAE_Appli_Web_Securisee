@@ -2,7 +2,7 @@
 
 require_once 'vendor/autoload.php';
 
-$serie = new \netvod\video\Serie(1,"titre","ressources/beach.mp4","genre","public","ok",2020,"01/03/2021");
+$serie = new \netvod\video\Serie(1,"Une série cool","ressources/beach.mp4","horreur","adulte","vraiment une série trop cool",2020,"01/03/2021");
 
 
 $text = "Maecenas at mattis dolor, ac egestas ex. Maecenas accumsan libero a euismod ullamcorper. Duis maximus purus in velit dapibus volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc sit amet pretium nulla, nec lacinia mauris. Aenean ut accumsan justo. Vestibulum at sapien dapibus, dignissim diam sed, maximus diam. Nam semper fringilla justo ac consequat. Suspendisse auctor in eros sed lobortis. Donec efficitur eleifend ante id tempus.";
@@ -16,5 +16,6 @@ $episodeRender2 = new \netvod\render\EpisodeRenderer($episode2);
 echo $episodeRender2->render(2);
 
 $serie->ajouterEpisode($episode1);
+$serie->ajouterEpisode($episode2);
 $serieRender = new \netvod\render\SerieRenderer($serie);
 echo $serieRender->render(2);
