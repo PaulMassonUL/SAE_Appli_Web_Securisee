@@ -32,6 +32,12 @@ CREATE TABLE seriePreferee (
     PRIMARY KEY (idSerie, email)
 );
 
+CREATE TABLE serieVisionnee (
+    idSerie int(11) NOT NULL,
+    email varchar(75) NOT NULL,
+    PRIMARY KEY (idSerie, email)
+);
+
 DROP TABLE IF EXISTS `serie`;
 CREATE TABLE `serie` (
                          `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -45,8 +51,7 @@ CREATE TABLE `serie` (
 
 DROP TABLE IF EXISTS `episode`;
 CREATE TABLE `episode` (
-                           `id` int(11) NOT NULL AUTO_INCREMENT,
-                           `numero` int(11) NOT NULL DEFAULT 1,
+                           `numero` int(11) NOT NULL AUTO_INCREMENT DEFAULT 1,
                            `titre` varchar(128) NOT NULL,
                            `resume` text DEFAULT NULL,
                            `duree` int(11) NOT NULL DEFAULT 0,
