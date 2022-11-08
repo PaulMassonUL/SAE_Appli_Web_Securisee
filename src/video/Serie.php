@@ -2,11 +2,13 @@
 
 namespace netvod\video;
 
-use iutnc\deefy\exception\InvalidPropertyNameException;
+use netvod\exception\InvalidPropertyNameException;
 use netvod\avis\Note;
 
 class Serie
 {
+    private int $id;
+
     private string $titre;
 
     private string $image;
@@ -29,17 +31,15 @@ class Serie
 
     private bool $preferee = false;
 
-    private bool $enCours = false;
-
-
     private array $episodes;
 
     private array $commentaires;
 
 
-    public function __construct(string $t, string $img, string $genre, string $public,
+    public function __construct(int    $id, string $t, string $img, string $genre, string $public,
                                 string $desc, int $annee, string $dateAjout)
     {
+        $this->id = $id;
         $this->titre = $t;
         $this->image = $img;
         $this->genre = $genre;
@@ -59,6 +59,19 @@ class Serie
     public function supprimerEpisode(Episode $ep): void
     {
         unset($this->episodes[array_search($ep, $this->episodes)]);
+    }
+
+    /**
+     * @return int
+     */
+    public function estEnCours(): bool
+    {
+        foreach ($this->episodes as $ep) {
+            if ($ep->__get("vu")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function __get($attrname)

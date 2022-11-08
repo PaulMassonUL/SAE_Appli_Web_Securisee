@@ -6,10 +6,23 @@ use netvod\video\Catalogue;
 
 class User
 {
+    private static ?User $instance = null;
+
+    public static function getInstance(): ?User
+    {
+        return self::$instance;
+    }
+
+    public static function setInstance(User $user): void
+    {
+        self::$instance = $user;
+        $_SESSION['user'] = true;
+    }
+
     /**
      * email de l'utilisateur
      */
-    protected string $email;
+    private string $email;
 
     /**
      * mot de passe de l'utilisateur
@@ -27,10 +40,10 @@ class User
     private Catalogue $seriesPref;
 
     /**
-     * @param $eml email
-     * @param $pwd mot de passe
+     * @param string $eml email
+     * @param string $pwd mot de passe
      */
-    public function __construct($eml, $pwd)
+    public function __construct(string $eml, string $pwd)
     {
         $this->email = $eml;
         $this->passwd = $pwd;
@@ -51,5 +64,4 @@ class User
     {
         return $this->seriesPref;
     }
-
 }

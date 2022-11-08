@@ -1,4 +1,4 @@
 <?php
 
-namespace iutnc\deefy\exception;
+namespace netvod\exception;
 class InvalidPropertyNameException extends \Exception {}

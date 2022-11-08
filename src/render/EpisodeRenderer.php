@@ -32,7 +32,7 @@ class EpisodeRenderer implements Renderer
     {
         return $html = "<div class='episode'>
                       <h2>Titre : {$this->episode->__get("titre")}</h2>
-                      <h3>Durée : {$this->episode->__get("duree")}</h3>
+                      <h3>Durée : {$this->episode->__get("duree")} minutes</h3>
                       <p><u id='TitreParagraphe'>Résumé de l'épisode : </u><br> {$this->episode->__get("resume")}</p>
                       <video controls> <source src={$this->episode->__get("image")} type='video/mp4'> </video><br>";
     }
