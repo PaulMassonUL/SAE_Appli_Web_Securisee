@@ -11,5 +11,7 @@ use netvod\dispatch\Dispatcher;
 //    exit();
 //}
 
+\netvod\user\User::setInstance(new \netvod\user\User("mail", "mdp"));
+
 $choixcatalogue = new Dispatcher();
 $choixcatalogue->run();
