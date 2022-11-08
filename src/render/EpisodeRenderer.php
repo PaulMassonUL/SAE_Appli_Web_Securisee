@@ -20,13 +20,13 @@ class EpisodeRenderer implements Renderer
         $this->episode = $episode;
     }
 
-    private function compact()
+    private function renderCompact() : string
     {
         return '<button type=\"submit name=episodeId value="' . $this->episode->__get("numero") .'">
             <div class=\'episode\'>
                  <h2>Titre : {$this->episode->__get("titre")}</h2>
                  <h3>Durée : {$this->episode->__get("duree")} minutes</h3>
-                <video controls> <source src={$this->episode->__get("image")} type='video/mp4'> </video><br>;
+                <video controls> <source src={$this->episode->__get("image")} type="video/mp4"> </video><br>;
                 </button>';
 
     }
@@ -34,9 +34,9 @@ class EpisodeRenderer implements Renderer
     /**
      * @throws InvalidPropertyNameException
      */
-    public function detail(): string
+    public function renderDetail(): string
     {
-        return $html = "<div class='episode'>
+        return "<div class='episode'>
                       <h2>Titre : {$this->episode->__get("titre")}</h2>
                       <h3>Durée : {$this->episode->__get("duree")} minutes</h3>
                       <p><u id='TitreParagraphe'>Résumé de l'épisode : </u><br> {$this->episode->__get("resume")}</p>
@@ -45,15 +45,18 @@ class EpisodeRenderer implements Renderer
     }
 
 
+    /**
+     * @throws InvalidPropertyNameException
+     */
     public function render(int $selector): string
     {
         $html = "";
         switch ($selector) {
             case Renderer::COMPACT:
-                $html = $this->Compact();
+                $html = $this->renderCompact();
                 break;
             case Renderer::DETAIL:
-                $html = $this->Detail();
+                $html = $this->renderDetail();
                 break;
         }
         return $html;
