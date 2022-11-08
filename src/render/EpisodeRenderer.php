@@ -43,10 +43,10 @@ class EpisodeRenderer implements Renderer
         $html = "";
         switch ($selector) {
             case Renderer::COMPACT:
-                $html = $this->compact();
+                $html = $this->renderCompact();
                 break;
             case Renderer::DETAIL:
-                $html = $this->detail();
+                $html = $this->renderDetail();
                 break;
         }
         return $html;
