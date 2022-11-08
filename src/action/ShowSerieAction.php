@@ -6,7 +6,7 @@ use netvod\render\Renderer;
 use netvod\render\SerieRenderer;
 use netvod\video\Serie;
 
-class ShowDetailsSerieAction extends Action
+class ShowSerieAction extends Action
 {
     private Serie $serie;
 
@@ -22,6 +22,11 @@ class ShowDetailsSerieAction extends Action
     public function execute(): string
     {
         $renderer = new SerieRenderer($this->serie);
-        return $renderer->render(Renderer::DETAIL);
+
+        $html = '<form method="post" action="?action=show-episode-details">';
+        $html .= '<input type="hidden" name="serieId" value="' . $this->serie->__get("id") . '">';
+        $html .= $renderer->render(Renderer::DETAIL);
+        $html .= '</form>';
+        return $html;
     }
 }
