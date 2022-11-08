@@ -20,7 +20,7 @@ class EpisodeRenderer implements Renderer
         $this->episode = $episode;
     }
 
-    private function compact()
+    private function renderCompact()
     {
         // TODO: Implement compact() method.
     }
@@ -28,7 +28,7 @@ class EpisodeRenderer implements Renderer
     /**
      * @throws InvalidPropertyNameException
      */
-    public function detail(): string
+    public function renderDetail(): string
     {
         return $html = "<div class='episode'>
                       <h2>Titre : {$this->episode->__get("titre")}</h2>
