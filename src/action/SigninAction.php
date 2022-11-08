@@ -25,8 +25,8 @@ class SigninAction extends Action
                 <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
                 <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>
                 
-                <button type="submit"> Valider </button> 
-            </form>
+                <button type="submit"> Valider </button>
+            </form><br>
             <a href="?action=add-user">inscription</a>
             END;
             
