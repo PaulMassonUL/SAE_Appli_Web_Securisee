@@ -20,9 +20,13 @@ class Dispatcher
     public function run(): void
     {
         $html = '
-                <h1>Choix du programme</h1>
-                <a href="?action=show-favorites"><button>Favorite shows</button></a>                
-                <a href="?action=browse"><button>Browse catalog</button></a>
+                <div id="choice">
+                    <h1 id="title"><u>Choix du programme</u></h1>
+                    <div id="action">
+                        <a class="button" href="?action=show-favorites"><p>FAVORITE SHOWS</p></a>                
+                        <a class="button" href="?action=browse"><p>BROWSE CATALOG</p></a>
+                    </div>
+                </div>
                 ';
         switch ($this->action) {
             case 'show-favorites':
@@ -77,14 +81,25 @@ class Dispatcher
         echo <<<END
             <!DOCTYPE html>
             <html lang="fr">
-                <head>
-                    <title>NetVOD | Accueil</title>
-                    <meta charset="utf-8" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
-                </head>
-                <body>
+            <head>
+                    <title>NetVOD | Séries à la demande</title>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <link rel="stylesheet" href="css/style.css">
+            </head>
+            <body>
+                <header id="header">
+                    <nav id="nav">
+                        <a id="title" href="accueil.php">NetVOD</a>
+                        <a href="?action=browse">Catalogue</a>
+                        <a href="?action=show-favorites">Favoris</a>
+                    </nav>
+                    <a id="logout" href="?action=logout">
+                        <button>LOGOUT</button>
+                    </a>
+                </header>
                     $html
-                </body>
+            </body>
             </html> 
             END;
     }
