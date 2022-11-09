@@ -36,12 +36,13 @@ class Authentification
         $res = $stmt->execute([$email]); // [$email]
 
         // execute renvoie un booleen si aucune donnee execute, pareil pour fetch
-        if (!$res) throw new Aut("db query failed");
+        if (!$res) throw new AuthException("failed to check user in database");
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$user) throw new AuthException("invalid credentials : invalid email or password");
         if (!password_verify($mdpUser, $user['password'])) throw new AuthException("invalid credentials : invalid email or password");
+        if ($user['active'] == 0) throw new AuthException("Your account is not active, please check your email to activate it");
 
         return new User($email);
     }

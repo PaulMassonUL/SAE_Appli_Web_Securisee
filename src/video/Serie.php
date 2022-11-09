@@ -4,7 +4,6 @@ namespace netvod\video;
 
 use netvod\db\ConnectionFactory;
 use netvod\exception\InvalidPropertyNameException;
-use netvod\avis\Note;
 
 class Serie
 {
@@ -20,14 +19,14 @@ class Serie
 
     private string $dateAjout;
 
-    private array $genres;
+    private string $genre;
 
-    private array $publics;
+    private string $public;
 
     private array $episodes;
 
 
-    public function __construct(int $id, string $t, string $desc, string $img, int $annee, string $dateAjout, array $genres, array $publics)
+    public function __construct(int $id, string $t, string $desc, string $img, int $annee, string $dateAjout, string $genre, string $public)
     {
         $this->id = $id;
         $this->titre = $t;
@@ -35,8 +34,8 @@ class Serie
         $this->image = $img;
         $this->annee = $annee;
         $this->dateAjout = $dateAjout;
-        $this->genres = $genres;
-        $this->publics = $publics;
+        $this->genre = $genre;
+        $this->public = $public;
         $this->episodes = $this->getEpisodes();
     }
 
@@ -53,6 +52,19 @@ class Serie
         return $episodes;
     }
 
+    public function getCommentaires(): array
+    {
+        $connection = ConnectionFactory::makeConnection();
+        $resultset = $connection->prepare("SELECT * FROM Commentaire WHERE serie_id = :id");
+        $resultset->execute(['id' => $this->id]);
+
+        $commentaires = [];
+        while ($row = $resultset->fetch()) {
+            $commentaires[$row['email']] = $row['commentaire'];
+        }
+        return $commentaires;
+    }
+
     /**
      * @return bool true si la série est en cours, false sinon
      */
@@ -66,17 +78,8 @@ class Serie
         return false;
     }
 
-    public function estNotee(): bool
+    public function estPreferee(): bool
     {
-        return false;
-    }
-
-    public function estCommentee(): bool
-    {
-        return false;
-    }
-
-    public function estPreferee () : bool {
         $connection = ConnectionFactory::makeConnection();
         $resultset = $connection->prepare("SELECT count(*) as nb FROM seriePreferee WHERE idSerie = :id and email = :email");
         $user = unserialize($_SESSION['user']);
@@ -86,8 +89,32 @@ class Serie
         return $row['nb'] == 1;
     }
 
-    public function ajouterFavoris() : void {
-        if (! $this->estPreferee()) {
+    public function getNote(): float
+    {
+        $connection = ConnectionFactory::makeConnection();
+        $resultset = $connection->prepare("SELECT note FROM Notation WHERE idSerie = :id and email = :email");
+        $user = unserialize($_SESSION['user']);
+        $resultset->execute(['id' => $this->id, 'email' => $user->__get("email")]);
+
+        $row = $resultset->fetch();
+        return $row['note'];
+    }
+
+    public function estCommentee(): bool
+    {
+        $connection = ConnectionFactory::makeConnection();
+        $resultset = $connection->prepare("SELECT count(*) as nb FROM Commentaire WHERE idSerie = :id and email = :email");
+        $user = unserialize($_SESSION['user']);
+        $resultset->execute(['id' => $this->id, 'email' => $user->__get("email")]);
+
+        $row = $resultset->fetch();
+        return $row['nb'] == 1;
+    }
+
+
+    public function ajouterPreferee(): void
+    {
+        if (!$this->estPreferee()) {
             $db = ConnectionFactory::makeConnection();
             $st = $db->prepare("INSERT INTO seriePreferee VALUES ( ? , ? )");
             $user = unserialize($_SESSION['user']);
@@ -95,11 +122,25 @@ class Serie
         }
     }
 
-    public function getNote(): float
+    public function ajouterNote(float $note): void
     {
-        return 0.0;
+        if (!$this->estNotee()) {
+            $db = ConnectionFactory::makeConnection();
+            $st = $db->prepare("INSERT INTO Notation VALUES ( ? , ? , ? )");
+            $user = unserialize($_SESSION['user']);
+            $st->execute([$this->id, $user->__get("email"), $note]);
+        }
     }
 
+    public function ajouterCommentaire(string $commentaire): void
+    {
+        if (!$this->estCommentee()) {
+            $db = ConnectionFactory::makeConnection();
+            $st = $db->prepare("INSERT INTO Commentaire VALUES ( ? , ? , ? )");
+            $user = unserialize($_SESSION['user']);
+            $st->execute([$this->id, $user->__get("email"), $commentaire]);
+        }
+    }
 
 
     public function getEpisodeByNum(int $num): ?Episode

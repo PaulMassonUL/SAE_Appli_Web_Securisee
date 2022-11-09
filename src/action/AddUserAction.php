@@ -11,59 +11,32 @@ class AddUserAction extends Action
      * @return string
      * fonction sign up
      */
-    public function execute() : string
+    public function execute(): string
     {
-        if ($this->http_method === 'GET')
-        {
-            return <<<END
-            <h1>Sign up</h1>
-            <form class="form" method="post" action="?action=add-user">                
-                <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
-                <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
-                <label> confirm your password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
-                
-                <button type="submit"> Valider </button> 
-            </form></br>
-            END;
-        }
-        else
-        {  //if ($_SERVER['REQUEST_METHOD'] === 'POST')
-            $html = "";
+        $error = "";
 
-            try
-            {
-                $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
-                if (isset($_POST['password']) && isset($_POST['verifpassword'])){
-                    if ($_POST['password'] !== $_POST['verifpassword']) {
-                        throw new AuthException("passwords not match");
-                    }
-                    $passwd = htmlspecialchars($_POST['password']);
-                    $url = Authentification::register($email, $passwd);
-                    $html.=<<<END
-                    <b>Signed up !</br>you need now to activate your account</br>please click on the <a href="$url"> here </a> </b>
-                    
-                END;
-                }else{
-                    $html .= <<<END
-                <h1>Sign up</h1>
-                <form class="form" method="post" action="?action=add-user">                
-                    <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
-                    <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
-                    <label> confirm your password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
-                    
-                    <button type="submit"> Valider </button> 
-                </form></br>
-                <b>Erreur, passwd or vpasswd non defini</b></br>
-                END;
+        if ($this->http_method === 'POST') {
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+            $email = htmlspecialchars($email);
+            $passwd = htmlspecialchars($_POST['password']);
+
+            try {
+                if ($_POST['password'] !== $_POST['verifpassword']) {
+                    throw new AuthException("passwords are not the same");
                 }
+                $url = Authentification::register($email, $passwd);
+                $html = <<<END
+                    <b>Signed up !</br>Now you need to activate your account,</br>please click <a href="$url">here</a>.</b>
+                END;
 
-
-
+            } catch (AuthException $e) {
+                $error = "<b>{$e->getMessage()}</b>";
             }
-            catch(AuthException $e)
-            {
-                $html .= <<<END
-                <h1>Sign up</h1>
+
+        }
+
+        return <<<END
+                <h1>Register</h1>
                 <form class="form" method="post" action="?action=add-user">                
                     <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
                     <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
@@ -71,12 +44,9 @@ class AddUserAction extends Action
                     
                     <button type="submit"> Valider </button> 
                 </form></br>
-                <b>{$e->getMessage()}";</b> </br>
-                END;
-            }
-            
-            return $html;
-        }
+                $error
+            END;
     }
 }
+
 ?>

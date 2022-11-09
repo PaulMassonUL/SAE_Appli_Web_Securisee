@@ -50,49 +50,6 @@ class User
         return new CatalogueEncours();
     }
 
-    public function ajouterSerieEnCours(Serie $s): void
-    {
-        try {
-            $query = "INSERT INTO serieVisionnee VALUES ( ? , ? )";
-            $db = ConnectionFactory::makeConnection();
-            $st = $db->prepare($query);
-            $st->execute([$s->__GET('id'), $this->email]);
-        } catch (PDOException $e) {
-            throw new \Exception("erreur d'insersion dans catalogue en cours");
-        } catch (InvalidPropertyNameException $e) {
-            throw new \Exception("nom incorrecte");
-        }
-    }
-
-    public function ajouterCommentaire(Serie $s, string $commentaire)
-    {
-        try {
-            $query = "INSERT INTO Commentaire VALUES (?, ?, ?, ?)";
-            $db = ConnectionFactory::makeConnection();
-            $st = $db->prepare($query);
-            date_default_timezone_set('Europe/Paris');
-            $date = date('d-m-y h:i:s');
-            $st->execute([$s->__get('id'), $this->email, $commentaire, $date]);
-        } catch (PDOException $e) {
-            throw new \Exception("erreur d'insertion dans la table Commentaire");
-        } catch (InvalidPropertyNameException $e) {
-            throw new \Exception("nom incorrecte");
-        }
-    }
-
-    public function ajouterNotation(Serie $s, int $note)
-    {
-        try {
-            $query = "INSERT INTO Notation VALUES (?, ?, ?)";
-            $db = ConnectionFactory::makeConnection();
-            $st = $db->prepare($query);
-            $st->execute([$s->__get('id'), $this->email, $note]);
-        } catch (PDOException $e) {
-            throw new \Exception("erreur d'insertion dans la table Notation");
-        } catch (InvalidPropertyNameException $e) {
-            throw new \Exception("nom incorrecte");
-        }
-    }
 
     public function __get($attrname)
     {

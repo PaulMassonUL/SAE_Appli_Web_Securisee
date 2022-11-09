@@ -49,45 +49,50 @@ class SerieRenderer implements Renderer
         $episodes = $this->serie->__get("episodes");
         $nbEpisodes = count($episodes);
         $titre = $this->serie->__get("titre");
-        $genre = $this->serie->__get("genres");
-        $public = $this->serie->__get("publics");
+        $genre = $this->serie->__get("genre");
+        $public = $this->serie->__get("public");
         $descriptif = $this->serie->__get("descriptif");
         $annee = $this->serie->__get("annee");
         $ajout = $this->serie->__get("dateAjout");
 
         $html = <<<END
         <div id="serie">
-            <div id="serie-details">
-                <div id="serie-title">
+            <div id="details">
+                <div id="title">
                     <h1>$titre</h1>
-                    <h2>$genre[0]</h2>
+                    <form action="?action=add-serie-fav" method="post">
+                        <button id="favoris" type="submit" name="serieId" value="$id" title="Ajouter aux favoris">Add to favorite</button>
+                    </form>
+                    <h3>$annee</h3>
                 </div>
-                <div id="serie-description">
-                    <label>$descriptif</label>
+                <div id="description">
+                    <p>$descriptif</p>
                 </div>
-                <div id="serie-info">
-                    <label>Public: $public[0]</label><br>
-                    <label>$annee</label><br>
-                    <label>Date d'ajout: $ajout</label>
+                <div id="info">
+                    <h3>Genre : $genre</h3>
+                    <h3>Public : $public</h3>
+                    <p>Date d'ajout: $ajout</p>
                 </div>
             </div>
             
             <br>
-            <fieldset>
-                <legend>Note</legend>
-                <form id="note" action="." method="post">
-                    <input type="number" min="1" max="5" name="note" placeholder="1 - 5" required>
-                    <input type="submit" name="noter" value="Noter">
-                </form>
-            </fieldset>
-            
-            <fieldset>
-                <legend>Commentaire</legend>
-                <form id="commentaire" action="." method="post">
-                    <textarea name="commentaire" rows="4" cols="60" maxlength="250" placeholder="Entrer un commentaire" required></textarea>
-                    <input type="submit" name="commenter" value="Commenter">
-                </form>
-            </fieldset>
+            <div id="avis">
+                <fieldset>
+                    <legend>Note</legend>
+                    <form id="note" action="?action=add-serie-note" method="post">
+                        <input type="number" min="1" max="5" name="note" placeholder="1 - 5" required>
+                        <input type="submit" name="noter" value="Noter">
+                    </form>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Commentaire</legend>
+                    <form id="commentaire" action="?action=add-serie-comment" method="post">
+                        <textarea name="commentaire" rows="4" cols="60" maxlength="250" placeholder="Entrer un commentaire" required></textarea>
+                        <input type="submit" name="commenter" value="Commenter">
+                    </form>
+                </fieldset>
+            </div>
             
             <form method="post" action="?action=show-episode-details">
                 <input type="hidden" name="serieId" value="$id">
@@ -112,12 +117,6 @@ class SerieRenderer implements Renderer
         </div>
         END;
 
-        $html .= '
-        <div id="fav">
-        <form method="post" action="?action=add-serie-fav">
-                        <button id="favoris" type="submit" name="serieId2" value="' . $this->serie->__get("id") .'" title="Ajouter aux favoris"></button>
-                    </form><br>
-        </div>';
         return $html;
     }
 }

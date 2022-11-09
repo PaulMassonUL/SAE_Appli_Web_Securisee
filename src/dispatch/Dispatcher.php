@@ -2,7 +2,7 @@
 
 namespace netvod\dispatch;
 
-use netvod\action\AddSerieFavAction;
+use netvod\action\ShowSucessMessageAction;
 use netvod\action\ShowCatalogAction;
 use netvod\action\ShowEpisodeAction;
 use netvod\action\ShowSerieAction;
@@ -23,7 +23,73 @@ class Dispatcher
      */
     public function run(): void
     {
-        $html = '
+        $errorMessage = "<h2 class='error'>Une erreur est survenue à l'affichage de cette page. Retournez à l'accueil.</h2>";
+        $user = unserialize($_SESSION['user']);
+        switch ($this->action) {
+            case 'browse':
+                $action = new ShowCatalogAction($user->getCatalogue());
+                $html = $action->execute();
+                break;
+            case 'favorites':
+                $action = new ShowCatalogAction($user->getSeriesPref());
+                $html = $action->execute();
+                break;
+            case 'inprogress':
+                $action = new ShowCatalogAction($user->getSeriesEnCours());
+                $html = $action->execute();
+                break;
+            case 'show-serie-details':
+                if (isset($_POST['serieId'])) {
+                    $serieId = intval($_POST['serieId']);
+                    $action = new ShowSerieAction($user->getCatalogue()->getSerieById($serieId));
+                    $html = $action->execute();
+                } else {
+                    $this->renderPage($errorMessage);
+                    return;
+                }
+                break;
+            case 'add-serie-fav' :
+                if (isset($_POST['serieId'])) {
+                    $serieId = intval($_POST['serieId']);
+                    $serie = $user->getCatalogue()->getSerieById($serieId);
+                    $serie->ajouterPreferee($user);
+                    $action = new ShowSucessMessageAction($serie->__get("titre") . " was successfully added to your favorites.");
+                    $html = $action->execute();
+                } else {
+                    $this->renderPage($errorMessage);
+                    return;
+                }
+                break;
+            case 'add-serie-note' :
+                if (isset($_POST['serieId'])) {
+                    $serieId = intval($_POST['serieId']);
+                    $serie = $user->getCatalogue()->getSerieById($serieId);
+                    $serie->ajouterNote($user);
+                    $action = new ShowSucessMessageAction($serie->__get("titre") . " was successfully added to your favorites.");
+                    $html = $action->execute();
+                } else {
+                    $this->renderPage($errorMessage);
+                    return;
+                }
+                break;
+            case 'show-episode-details':
+                if (isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
+                    $serieId = intval($_POST['serieId']);
+                    $numEpisode = intval($_POST['numEpisode']);
+                    $serie = $user->getCatalogue()->getSerieById($serieId);
+                    $action = new ShowEpisodeAction($serie->getEpisodeByNum($numEpisode));
+                    $html = $action->execute();
+                } else {
+                    $this->renderPage($errorMessage);
+                    return;
+                }
+                break;
+            case 'logout':
+                session_destroy();
+                header('Location: index.php');
+                exit();
+            default:
+                $html = '
                 <div id="choice">
                     <h1 id="title"><label>Welcome to NetVOD</label></h1>
                     <h3><label>What are we watching?</label></h3>
@@ -34,70 +100,7 @@ class Dispatcher
                     </div>
                 </div>
                 ';
-        switch ($this->action) {
-            case 'browse':
-                $user = unserialize($_SESSION['user']);
-                if (!is_null($user)) {
-                    $action = new ShowCatalogAction($user->getCatalogue());
-                    $html = $action->execute();
-                } else {
-                    $html = 'ERROR';
-                }
                 break;
-            case 'favorites':
-                $user = unserialize($_SESSION['user']);
-                if (!is_null($user)) {
-                    $action = new ShowCatalogAction($user->getSeriesPref());
-                    $html = $action->execute();
-                } else {
-                    $html = 'ERROR';
-                }
-                break;
-            case 'inprogress':
-                $user = unserialize($_SESSION['user']);
-                if (!is_null($user)) {
-                    $action = new ShowCatalogAction($user->getSeriesEnCours());
-                    $html = $action->execute();
-                } else {
-                    $html = 'ERROR';
-                }
-                break;
-            case 'show-serie-details':
-                $user = unserialize($_SESSION['user']);
-                if (!is_null($user) && isset($_POST['serieId'])) {
-                    $serieId = intval($_POST['serieId']);
-                    $action = new ShowSerieAction($user->getCatalogue()->getSerieById($serieId));
-                    $html = $action->execute();
-                } else {
-                    $html = 'ERROR';
-                }
-                break;
-            case 'show-episode-details':
-                $user = unserialize($_SESSION['user']);
-                if (!is_null($user) && isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
-                    $serieId = intval($_POST['serieId']);
-                    $numEpisode = intval($_POST['numEpisode']);
-                    $serie = $user->getCatalogue()->getSerieById($serieId);
-                    $action = new ShowEpisodeAction($serie->getEpisodeByNum($numEpisode));
-                    $html = $action->execute();
-
-                } else {
-                    $html = 'ERROR';
-                }
-                break;
-            case 'logout':
-                session_destroy();
-                header('Location: index.php');
-                exit();
-            case 'add-serie-fav' :
-                $user = unserialize($_SESSION['user']);
-                if (! is_null($user) && isset($_POST['serieId2'])) {
-                    $serieId = intval($_POST['serieId2']);
-                    $serie = $user->getCatalogue()->getSerieById($serieId);
-                    $action = new AddSerieFavAction($serie);
-                    $html = $action->execute();
-                }
-
         }
         $this->renderPage($html);
     }

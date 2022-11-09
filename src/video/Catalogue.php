@@ -42,7 +42,7 @@ class Catalogue
     {
         $series = [];
         while ($row = $resultSet->fetch()) {
-            $series[] = new Serie($row['id'], $row['titre'], $row['descriptif'], $row['img'], $row['annee'], $row['date_ajout'], ["genre"], ["public"]);
+            $series[] = new Serie($row['id'], $row['titre'], $row['descriptif'], $row['img'], $row['annee'], $row['date_ajout'], $row['genre'], $row['public']);
         }
         return $series;
     }
