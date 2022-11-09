@@ -11,10 +11,10 @@ sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE users
 (
-    email    varchar(75) NOT NULL,
-    password LONGTEXT    NOT NULL,
-    active int(1) DEFAULT 0,
-    activation_token varchar(128),
+    email              varchar(75) NOT NULL,
+    password           LONGTEXT    NOT NULL,
+    active             int(1) DEFAULT 0,
+    activation_token   varchar(128),
     activation_expires timestamp,
     PRIMARY KEY (email)
 );
@@ -34,7 +34,6 @@ CREATE TABLE Commentaire
     idSerie     int(11) NOT NULL,
     email       varchar(75) NOT NULL,
     commentaire LONGTEXT,
-    dateComm    DATE,
     PRIMARY KEY (idSerie, email)
 );
 
@@ -50,7 +49,7 @@ DROP TABLE IF EXISTS `episodeVisionne`;
 CREATE TABLE episodeVisionne
 (
     idEpisode int(11) NOT NULL,
-    email   varchar(75) NOT NULL,
+    email     varchar(75) NOT NULL,
     PRIMARY KEY (idEpisode, email)
 );
 
@@ -63,6 +62,8 @@ CREATE TABLE `serie`
     `img`        varchar(256) NOT NULL,
     `annee`      int(11) NOT NULL,
     `date_ajout` date         NOT NULL,
+    `genre`      varchar(128) NOT NULL,
+    `public`     varchar(128) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -80,23 +81,6 @@ CREATE TABLE `episode`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
-
-DROP TABLE IF EXISTS `genres`;
-CREATE TABLE genres
-(
-    idSerie int(11) NOT NULL,
-    genre   varchar(128) NOT NULL,
-    PRIMARY KEY (idSerie, genre)
-);
-DROP TABLE IF EXISTS `genres`;
-
-DROP TABLE IF EXISTS `publics`;
-CREATE TABLE publics
-(
-    idSerie int(11) NOT NULL,
-    public  varchar(128) NOT NULL,
-    PRIMARY KEY (idSerie, public)
-);
 
 INSERT INTO `episode` (`id`, `numero`, `titre`, `resume`, `duree`, `file`, `serie_id`)
 VALUES (1, 1, 'Le lac', 'Le lac se révolte ', 8, 'lake.mp4', 1),
@@ -150,24 +134,25 @@ VALUES (1, 1, 'Le lac', 'Le lac se révolte ', 8, 'lake.mp4', 1),
 
 
 
-INSERT INTO `serie` (`id`, `titre`, `descriptif`, `img`, `annee`, `date_ajout`)
+INSERT INTO `serie` (`id`, `titre`, `descriptif`, `img`, `annee`, `date_ajout`, `genre`, `public`)
 VALUES (1, 'Le lac aux mystères',
         'C\'est l\'histoire d\'un lac mystérieux et plein de surprises. La série, bluffante et haletante,
         nous entraine dans un labyrinthe d\'intrigues époustouflantes. A ne rater sous aucun prétexte !',
-        'lac_aux_mysteres.jpg', 2020, '2022-10-30'),
+        'lac_aux_mysteres.jpg', 2020, '2022-10-30', 'Fantaisie', 'Tout public'),
        (2, 'L\'eau a coulé',
         'Une série nostalgique qui nous invite à revisiter notre passé et à se remémorer tout ce qui s\'est passé depuis que tant d\'eau a coulé sous les ponts.',
-        'eau_a_coule.jpg', 1907, '2022-10-29'),
+        'eau_a_coule.jpg', 1907, '2022-10-29', 'Histoire', 'Tout public'),
        (3, 'Chevaux fous', 'Une série sur la vie des chevals sauvages en liberté. Décoiffante.', 'chevaux_fous.jpg', 2017,
-        '2022-10-31'),
-       (4, 'A la plage', 'Le succès de l\'été 2021, à regarder sans modération et entre amis.', 'a_la_plage.jpg', 2021, '2022-11-04'),
+        '2022-10-31', 'Documentaire', 'Tout public'),
+       (4, 'A la plage', 'Le succès de l\'été 2021, à regarder sans modération et entre amis.', 'a_la_plage.jpg', 2021,
+        '2022-11-04', 'Comédie', 'Adultes'),
        (5, 'Champion',
         'La vie trépidante de deux champions de surf, passionnés dès leur plus jeune age. Ils consacrent leur vie à ce sport. ',
-        'champion.jpg', 2022, '2022-11-03'),
+        'champion.jpg', 2022, '2022-11-03', 'Sport', 'Tout public'),
        (6, 'Une ville la nuit',
         'C\'est beau une ville la nuit, avec toutes ces voitures qui passent et qui repassent. La série suit un livreur,
         un chauffeur de taxi, et un insomniaque. Tous parcourent la grande ville une fois la nuit venue, au volant de leur véhicule.',
-        'une_ville_la_nuit.jpg', 2017, '2022-10-31');
+        'une_ville_la_nuit.jpg', 2017, '2022-10-31', 'Documentaire', 'Tout public');
 
 -- 2022-10-31 16:33:40
 
