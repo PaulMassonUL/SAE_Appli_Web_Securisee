@@ -63,7 +63,7 @@ class Episode
     }
 
 
-    public function estVu() : bool
+    public function estVu(): bool
     {
         $connection = ConnectionFactory::makeConnection();
         $resultset = $connection->prepare("SELECT count(*) as nb FROM episodeVisionne WHERE idEpisode = :id and email = :email");
@@ -72,6 +72,18 @@ class Episode
 
         $row = $resultset->fetch();
         return $row['nb'] == 1;
+    }
+
+    public function voir(): void
+    {
+        try {
+            $db = ConnectionFactory::makeConnection();
+            $st = $db->prepare("INSERT INTO episodeVisionne VALUES ( ? , ? )");
+            $user = unserialize($_SESSION['user']);
+            $st->execute([$this->id, $user->__get("email")]);
+        } catch (PDOException $e) {
+            throw new \Exception("erreur d'insersion dans catalogue en cours");
+        }
     }
 
     /**
