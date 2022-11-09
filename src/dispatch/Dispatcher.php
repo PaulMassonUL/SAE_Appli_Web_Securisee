@@ -5,6 +5,7 @@ namespace netvod\dispatch;
 use netvod\action\ShowCatalogAction;
 use netvod\action\ShowEpisodeAction;
 use netvod\action\ShowSerieAction;
+use netvod\exception\InvalidPropertyNameException;
 
 class Dispatcher
 {
@@ -16,6 +17,9 @@ class Dispatcher
         $this->action = $_GET['action'] ?? null;
     }
 
+    /**
+     * @throws InvalidPropertyNameException
+     */
     public function run(): void
     {
         $html = '
