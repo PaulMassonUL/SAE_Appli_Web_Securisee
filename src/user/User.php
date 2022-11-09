@@ -88,7 +88,7 @@ class User
             $st = $db->prepare($query);
             $st->execute([$s->__get('id'), $this->email, $note]);
         } catch (PDOException $e) {
-            throw new \Exception("erreur d'insertion dans la table Commentaire");
+            throw new \Exception("erreur d'insertion dans la table Notation");
         } catch (InvalidPropertyNameException $e) {
             throw new \Exception("nom incorrecte");
         }
