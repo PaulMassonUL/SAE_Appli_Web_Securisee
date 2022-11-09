@@ -45,7 +45,7 @@ class Authentification
         return new User($email);
     }
 
-    public static function register(string $email, string $pass, string $vpass): bool
+    public static function register(string $email, string $pass, string $vpass): string
     {
         if (!self::checkPasswordStrength($pass, 7)) {
             throw new AuthException("password not enought strong : password must have at list 1 number, 1 Upper and Lower Case,1 special caracters(!:;,...) and have 7 characters or more");
@@ -63,16 +63,22 @@ class Authentification
                 throw new AuthException("account already exist");
             } else {
                 try {
-                    $query = "insert into users values (?, ?)";
+                    $query = "insert into users values (?, ?,?,?,?)";
                     $stmt = $db->prepare($query);
-                    $stmt->execute([$email, $hash]);
+                    //creation du token
+                    $token = bin2hex(random_bytes(32));
+
+                    $stmt->execute([$email, $hash,0,$token,time() + 60*60*24]);
+                    //creation de l'url de validation
+                    $url_act = "http://{$_SERVER['HTTP_HOST']}index.php?action=active+token=$token";
+
                 } catch (PDOException $e) {
                     throw new AuthException("erreur de création de compte : " . $e->getMessage());
                 }
             }
         }
 
-        return true;
+        return $url_act;
     }
 }
 

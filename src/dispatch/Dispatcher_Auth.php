@@ -2,6 +2,7 @@
 
 namespace netvod\dispatch;
 
+use netvod\action\ActiveAction;
 use netvod\action\AddUserAction;
 use  netvod\action\SigninAction;
 
@@ -20,9 +21,9 @@ class Dispatcher_Auth
             case 'add-user':
                 $act = new AddUserAction();
                 break;
-//            case 'signin':
-//                $act = new SigninAction();
-//                break;
+            case 'active':
+                $act = new ActiveAction();
+                break;
             default:
                 $act = new SigninAction();
                 break;

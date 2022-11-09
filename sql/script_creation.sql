@@ -13,6 +13,9 @@ CREATE TABLE users
 (
     email    varchar(75) NOT NULL,
     password LONGTEXT    NOT NULL,
+    active int(1) DEFAULT 0,
+    activation_token varchar(128),
+    activation_expires timestamp,
     PRIMARY KEY (email)
 );
 

@@ -35,10 +35,10 @@ class AddUserAction extends Action
                     }
                     $passwd = htmlspecialchars($_POST['password']);
                     $vpasswd = htmlspecialchars($_POST['verifpassword']);
-                    Authentification::register($email, $passwd,$vpasswd);
+                    $url = Authentification::register($email, $passwd,$vpasswd);
                     $html.=<<<END
-                    <b>Inscription is good</b>
-                    <a href="?action=signin">Connection</a>
+                    <b>Signed up !</br>you need now to activate your account</br>please click on the link:</b>
+                    <b>$url</b>
                 END;
                 }else{
                     $html .= <<<END
