@@ -73,11 +73,12 @@ class User
             $query = "INSERT INTO episodeVisionne VALUES ( ? , ? )";
             $db = ConnectionFactory::makeConnection();
             $st = $db->prepare($query);
-            $st->execute([$e->__get('numero'), $this->email]);
+            $st->execute([$e->__get('idepisode'), $this->email]);
         } catch (PDOException $e) {
             throw new \Exception("erreur d'insersion dans catalogue en cours");
         } catch (InvalidPropertyNameException $e) {
             throw new \Exception("nom incorrecte");
         }
     }
+
 }
