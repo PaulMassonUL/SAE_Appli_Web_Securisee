@@ -13,7 +13,7 @@ CREATE TABLE users
 (
     email    varchar(75) NOT NULL,
     password LONGTEXT    NOT NULL,
-    PRIMARY KEY (email, password)
+    PRIMARY KEY (email)
 );
 
 DROP TABLE IF EXISTS `Notation`;
