@@ -5,6 +5,7 @@ namespace netvod\user;
 use netvod\db\ConnectionFactory;
 use netvod\exception\InvalidPropertyNameException;
 use netvod\video\Catalogue;
+use netvod\video\Episode;
 use netvod\video\Serie;
 use PDOException;
 
@@ -67,12 +68,12 @@ class User
         return new Catalogue("Favorite Series", $series);
     }
 
-    public function ajouterSerieEnCours(Serie $s) : void {
+    public function voirEpisode(Episode $e) : void {
         try {
-            $query = "INSERT INTO serieVisionnee VALUES ( ? , ? )";
+            $query = "INSERT INTO episodeVisionne VALUES ( ? , ? )";
             $db = ConnectionFactory::makeConnection();
             $st = $db->prepare($query);
-            $st->execute([$s->__GET('id'), $this->email]);
+            $st->execute([$e->__get('numero'), $this->email]);
         } catch (PDOException $e) {
             throw new \Exception("erreur d'insersion dans catalogue en cours");
         } catch (InvalidPropertyNameException $e) {

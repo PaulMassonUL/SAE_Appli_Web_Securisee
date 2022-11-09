@@ -59,7 +59,7 @@ class Episode
     public function estVu() : bool
     {
         $connection = ConnectionFactory::makeConnection();
-        $resultset = $connection->prepare("SELECT * FROM episodeVisionne WHERE serie_id = :id");
+        $resultset = $connection->prepare("SELECT * FROM episodeVisionne WHERE idEpisode = :id");
         $resultset->execute(['id' => $this->id]);
 
         $episodes = [];
