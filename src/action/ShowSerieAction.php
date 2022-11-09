@@ -31,11 +31,6 @@ class ShowSerieAction extends Action
     public function execute(): string
     {
         $renderer = new SerieRenderer($this->serie);
-
-        $html = '<form method="post" action="?action=show-episode-details">';
-        $html .= '<input type="hidden" name="serieId" value="' . $this->serie->__get("id") . '">';
-        $html .= $renderer->render(Renderer::DETAIL);
-        $html .= '</form>';
-        return $html;
+        return $renderer->render(Renderer::DETAIL);
     }
 }

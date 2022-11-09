@@ -35,7 +35,7 @@ class SerieRenderer implements Renderer
                     </form><br>
             <div class="miniature">
                 <div id="view">
-                    <img src="' . "ressources/". $this->serie->__get("image") . '" alt="' . $this->serie->__get("image") . '">
+                    <img src="' . "ressources/" . $this->serie->__get("image") . '" alt="' . $this->serie->__get("image") . '">
                     <label>' . $this->serie->__get("titre") . '</label>
                 </div>
                 <button id="action" type="submit" name="serieId" value="' . $this->serie->__get("id") . '" title="' . $this->serie->__get("titre") . '"></button>
@@ -48,6 +48,7 @@ class SerieRenderer implements Renderer
 
     public function renderDetail(): string
     {
+        $id = $this->serie->__get("id");
         $episodes = $this->serie->__get("episodes");
         $nbEpisodes = count($episodes);
         $titre = $this->serie->__get("titre");
@@ -75,33 +76,43 @@ class SerieRenderer implements Renderer
                 </div>
             </div>
             
-            <div id="notation">
-                <br>
-                <label> Commentaire : <input type="textarea" name="commentaire" placeholder="Entrer un commentaire" > </label>
-                <label> Note : <input type="number" min="1" max="5" name="note" placeholder="Entrer une note de 1 a 5" > </label>
-                <br>
-                <button type="submit"> Envoyer </button>
-            </div>
-            <div id="serie-episodes">
+            <br>
+            <fieldset>
+                <legend>Note</legend>
+                <form id="note" action="." method="post">
+                    <input type="number" min="1" max="5" name="note" placeholder="1 - 5" required>
+                    <input type="submit" name="noter" value="Noter">
+                </form>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Commentaire</legend>
+                <form id="commentaire" action="." method="post">
+                    <textarea name="commentaire" rows="4" cols="60" maxlength="250" placeholder="Entrer un commentaire" required></textarea>
+                    <input type="submit" name="commenter" value="Commenter">
+                </form>
+            </fieldset>
+            
+            <form method="post" action="?action=show-episode-details">
+                <input type="hidden" name="serieId" value="$id">
                 <h3><label>Episodes ($nbEpisodes)</label></h3>
                 <div id="episodes">
-                    <ol>
+                    <menu>
             
         END;
 
         foreach ($episodes as $num => $episode) {
             $num = $num + 1;
-            $html .= "<li><strong>Episode $num</strong>";
+            $html .= "<li>Episode $num";
             $epRend = new EpisodeRenderer($episode);
             $html .= $epRend->render(Renderer::COMPACT) . "</li><br>";
         }
 
 
-
         $html .= <<<END
-                    </ol>
+                    </menu>
                 </div>
-            </div>;
+            </form>
         </div>
         END;
         return $html;
