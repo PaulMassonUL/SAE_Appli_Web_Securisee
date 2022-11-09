@@ -2,6 +2,7 @@
 
 namespace netvod\video;
 
+use netvod\db\ConnectionFactory;
 use netvod\exception\InvalidPropertyNameException;
 
 class Episode
@@ -52,6 +53,20 @@ class Episode
         $this->resume = $resume;
         $this->duree = $duree;
         $this->fichier = $fichier;
+    }
+
+
+    public function estVu() : bool
+    {
+        $connection = ConnectionFactory::makeConnection();
+        $resultset = $connection->prepare("SELECT * FROM episodeVisionne WHERE serie_id = :id");
+        $resultset->execute(['id' => $this->id]);
+
+        $episodes = [];
+        while ($row = $resultset->fetch()) {
+            $episodes[] = new Episode($row['numero'], $row['titre'], $row['resume'], $row['duree'], $row['file']);
+        }
+        return $episodes;
     }
 
     /**

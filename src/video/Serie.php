@@ -59,7 +59,7 @@ class Serie
     public function estEnCours(): bool
     {
         foreach ($this->episodes as $ep) {
-            if ($ep->__get("vu")) {
+            if ($ep->estVu()) {
                 return true;
             }
         }
