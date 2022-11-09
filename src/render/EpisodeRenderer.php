@@ -26,7 +26,7 @@ class EpisodeRenderer implements Renderer
      */
     private function renderCompact() : string
     {
-        return '<br><button type="submit" name="numEpisode" value="' . $this->episode->__get("numero") .'">
+        return '<br><button id="buttonFav" type="submit" name="numEpisode" value="' . $this->episode->__get("numero") .'">
             <h2>' . $this->episode->__get("titre") . '</h2>
             <h3>' . $this->episode->__get("duree") .'</h3>
             <img src="' . $this->episode->__get("image") . '" alt="' . $this->episode->__get("titre") . '">
@@ -39,6 +39,7 @@ class EpisodeRenderer implements Renderer
      */
     public function renderDetail(): string
     {
+        //TODO à supprimer quand AddToFavAction sera fait
         $html = '<br><button type="submit" name="addFav" value="Add to favorite">Add to favorite</button>';
         $html .= "<div class='episode'>
                       <h2>Titre : {$this->episode->__get("titre")}</h2>
