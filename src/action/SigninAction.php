@@ -19,8 +19,8 @@ class SigninAction extends Action
             <h1>Sign in</h1>
             <form class="form" method="post" action="?action=signin">
                 <div class="labelSin">
-                    <label> Email :  <input type="Iemail" name="email" placeholder="email"> </label></br>
-                    <label> Password :  <input type="Ipassword" name="passwd" placeholder = "<mot de passe>"> </label></br>    
+                    <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
+                    <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>    
                 </div>    
                 
                 <button type="submit"> Valider </button>
@@ -44,8 +44,8 @@ class SigninAction extends Action
                             <h1>Sign in</h1>
                             <form class="form" method="post" action="?action=signin">
                                 <div class="labelSin">
-                                    <label> Email :  <input type="Iemail" name="email" placeholder="email"> </label></br>
-                                    <label> Password :  <input type="Ipassword" name="passwd" placeholder = "<mot de passe>"> </label></br>    
+                                    <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
+                                    <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>    
                                 </div>    
                                 
                                 <button type="submit"> Valider </button>
