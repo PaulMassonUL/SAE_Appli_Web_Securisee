@@ -6,19 +6,6 @@ use netvod\video\Catalogue;
 
 class User
 {
-    private static ?User $instance = null;
-
-    public static function getInstance(): ?User
-    {
-        return self::$instance;
-    }
-
-    public static function setInstance(User $user): void
-    {
-        self::$instance = $user;
-        $_SESSION['user'] = true;
-    }
-
     /**
      * email de l'utilisateur
      */
