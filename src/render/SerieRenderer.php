@@ -72,7 +72,8 @@ class SerieRenderer implements Renderer
                 <br>
                 <label> Commentaire : <input type="textarea" name="commentaire" placeholder="Entrer un commentaire" > </label>
                 <label> Note : <input type="number" min="1" max="5" name="note" placeholder="Entrer une note de 1 a 5" > </label>
-                <button type="submit"> Envoyer  </input>
+                <br>
+                <button type="submit"> Envoyer </button>
             </div>
             <div id="serie-episodes">
                 <h3><label>Episodes ($nbEpisodes)</label></h3>
