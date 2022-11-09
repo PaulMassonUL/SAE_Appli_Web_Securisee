@@ -35,8 +35,6 @@ class SigninAction extends Action
                 $passwd = htmlspecialchars($_POST['passwd']);
 
                 User::setInstance(Authentification::authenticate($email, $passwd));
-                $dis = new Dispatcher();
-                $dis->run();
                 header('Location: accueil.php');
                 exit();
 
