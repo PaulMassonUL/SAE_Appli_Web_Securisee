@@ -69,6 +69,7 @@ class SerieRenderer implements Renderer
             </div>
             
             <div id="notation">
+                <br>
                 <label> Commentaire : <input type="text" name="commentaire" placeholder="Entrer un commentaire" > </label>
                 <label> Note : <input type="number" name="note" placeholder="Entrer une note de 1 a 5" > </label>
             </div>
