@@ -77,7 +77,7 @@ class Dispatcher
                     $serieId = intval($_POST['serieId']);
                     $numEpisode = intval($_POST['numEpisode']);
                     $serie = $user->getCatalogue()->getSerieById($serieId);
-                    $action = new ShowEpisodeAction($serie, $serie->getEpisodeByNum($numEpisode));
+                    $action = new ShowEpisodeAction($serie->getEpisodeByNum($numEpisode));
                     $html = $action->execute();
 
                 } else {
