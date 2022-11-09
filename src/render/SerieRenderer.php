@@ -32,7 +32,7 @@ class SerieRenderer implements Renderer
         return '
             <div class="miniature">
                 <div id="view">
-                    <img src="' . $this->serie->__get("image") . '" alt="' . $this->serie->__get("image") . '">
+                    <img src="' . "ressources/". $this->serie->__get("image") . '" alt="' . $this->serie->__get("image") . '">
                     <label>' . $this->serie->__get("titre") . '</label>
                 </div>
                 <button id="action" type="submit" name="serieId" value="' . $this->serie->__get("id") . '" title="' . $this->serie->__get("titre") . '"></button>
