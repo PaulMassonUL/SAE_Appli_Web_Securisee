@@ -7,7 +7,13 @@ use netvod\exception\InvalidPropertyNameException;
 
 class Episode
 {
-    private int $idepisode;
+
+    /**
+     * @var int
+     * id de l'épisode
+     */
+    private int $id;
+
     /**
      * @var int $numero
      * numero de l'episode
@@ -46,9 +52,9 @@ class Episode
      * @param string $fichier
      * constructeur paramétré
      */
-    public function __construct(int $idepisode,int $num, string $titre, string $resume, string $duree, string $fichier)
+    public function __construct(int $id, int $num, string $titre, string $resume, string $duree, string $fichier)
     {
-        $this->idepisode = $idepisode;
+        $this->id = $id;
         $this->numero = $num;
         $this->titre = $titre;
         $this->resume = $resume;
@@ -56,21 +62,16 @@ class Episode
         $this->fichier = $fichier;
     }
 
-    /**
-     * @return bool
-     * vérifie si un épisode a déjà été vu par l'utilisateur
-     */
+
     public function estVu() : bool
     {
         $connection = ConnectionFactory::makeConnection();
-        $resultset = $connection->prepare("SELECT * FROM episodeVisionne WHERE idEpisode = :id");
-        $resultset->execute(['id' => $this->id]);
+        $resultset = $connection->prepare("SELECT count(*) as nb FROM episodeVisionne WHERE idEpisode = :id and email = :email");
+        $user = unserialize($_SESSION['user']);
+        $resultset->execute(['id' => $this->id, 'email' => $user->__get("email")]);
 
-        $episodes = [];
-        while ($row = $resultset->fetch()) {
-            $episodes[] = new Episode($row['idepisode'] ,$row['numero'], $row['titre'], $row['resume'], $row['duree'], $row['file']);
-        }
-        return $episodes;
+        $row = $resultset->fetch();
+        return $row['nb'] == 1;
     }
 
     /**

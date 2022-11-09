@@ -40,7 +40,7 @@ class Serie
         $this->episodes = $this->getEpisodes();
     }
 
-    private function getEpisodes(): array
+    public function getEpisodes(): array
     {
         $connection = ConnectionFactory::makeConnection();
         $resultset = $connection->prepare("SELECT * FROM episode WHERE serie_id = :id");
@@ -48,7 +48,7 @@ class Serie
 
         $episodes = [];
         while ($row = $resultset->fetch()) {
-            $episodes[] = new Episode($row['id'] ,$row['numero'], $row['titre'], $row['resume'], $row['duree'], $row['file']);
+            $episodes[] = new Episode($row['id'], $row['numero'], $row['titre'], $row['resume'], $row['duree'], $row['file']);
         }
         return $episodes;
     }

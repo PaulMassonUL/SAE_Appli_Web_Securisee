@@ -5,7 +5,9 @@ namespace netvod\user;
 use netvod\db\ConnectionFactory;
 use netvod\exception\InvalidPropertyNameException;
 use netvod\video\Catalogue;
-use netvod\video\Episode;
+use netvod\video\CatalogueEncours;
+use netvod\video\CatalogueFavoris;
+use netvod\video\CatalogueGlobal;
 use netvod\video\Serie;
 use PDOException;
 
@@ -23,57 +25,36 @@ class User
     }
 
     /**
-     * @return Catalogue
+     * @return Catalogue catalogue principal
      */
     public function getCatalogue(): Catalogue
     {
-        $connection = ConnectionFactory::makeConnection();
-        $resultset = $connection->prepare("SELECT * FROM serie");
-        $resultset->execute();
-
-        $series = [];
-        while ($row = $resultset->fetch()) {
-            $series[] = new Serie($row['id'], $row['titre'], $row['descriptif'], $row['img'], $row['annee'], $row['date_ajout'], ["genre"], ["public"]);
-        }
-        $connection = null;
-
-        return new Catalogue("Available Series", $series);
+        return new Catalogue();
     }
 
     /**
-     * @return Catalogue
+     * @return Catalogue catalogue de favoris
      */
     public function getSeriesPref(): Catalogue
     {
-        $connection = ConnectionFactory::makeConnection();
-        $resultset = $connection->prepare("SELECT * FROM serie, seriePreferee WHERE seriePreferee.idSerie = serie.id AND seriePreferee.email = :email");
-        $resultset->execute(['email' => $this->email]);
-
-        $series = [];
-        while ($row = $resultset->fetch()) {
-            $series[] = new Serie($row['id'], $row['titre'], $row['descriptif'], $row['img'], $row['annee'], $row['date_ajout'], ["genre"], ["public"]);
-        }
-        $connection = null;
-        return new Catalogue("Favorite Series", $series);
+        return new CatalogueFavoris();
     }
 
-
-    public function getSeriesEnCours() : Catalogue {
-        $series = [];
-        foreach ($this->getCatalogue()->__get("series") as $serie) {
-            if ($serie->estEnCours()) {
-                $series[] = $serie;
-            }
-        }
-        return new Catalogue("Favorite Series", $series);
+    /**
+     * @return Catalogue catalogue de series en cours
+     */
+    public function getSeriesEnCours(): Catalogue
+    {
+        return new CatalogueEncours();
     }
 
-    public function voirEpisode(Episode $e) : void {
+    public function ajouterSerieEnCours(Serie $s): void
+    {
         try {
-            $query = "INSERT INTO episodeVisionne VALUES ( ? , ? )";
+            $query = "INSERT INTO serieVisionnee VALUES ( ? , ? )";
             $db = ConnectionFactory::makeConnection();
             $st = $db->prepare($query);
-            $st->execute([$e->__get('idepisode'), $this->email]);
+            $st->execute([$s->__GET('id'), $this->email]);
         } catch (PDOException $e) {
             throw new \Exception("erreur d'insersion dans catalogue en cours");
         } catch (InvalidPropertyNameException $e) {
@@ -81,4 +62,9 @@ class User
         }
     }
 
+    public function __get($attrname)
+    {
+        if (property_exists($this, $attrname)) return $this->$attrname;
+        throw new InvalidPropertyNameException("Nom d'attribut invalide : $attrname");
+    }
 }

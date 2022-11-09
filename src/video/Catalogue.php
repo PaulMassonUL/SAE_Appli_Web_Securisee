@@ -2,7 +2,9 @@
 
 namespace netvod\video;
 
+use netvod\db\ConnectionFactory;
 use netvod\exception\InvalidPropertyNameException;
+use PDOStatement;
 
 class Catalogue
 {
@@ -10,44 +12,39 @@ class Catalogue
      * @var string
      * nom du catalogue
      */
-    private string $nom;
+    protected string $nom = "Available Series";
 
     /**
      * @var array
      * correspond à la liste des séries
      */
-    private array $series;
+    protected array $series;
 
     /**
-     * @param array $series
-     * Constructeur paramétré
+     * Consructeur par défaut
      */
-    public function __construct(string $nom, array $series)
+    public function __construct()
     {
-        $this->nom = $nom;
-        $this->series = $series;
+        $this->series = $this->getSeries();
     }
 
-    /**
-     * @param Serie $s
-     * @return void
-     * Ajoute une série à la liste
-     */
-    public function ajouterSerie(Serie $s): void
+    protected function getSeries() : array
     {
-        $this->series[] = $s;
+        $connection = ConnectionFactory::makeConnection();
+        $resultset = $connection->prepare("SELECT * FROM serie");
+        $resultset->execute();
+        $connection = null;
+
+        return $this->retrieveSerieList($resultset);
     }
 
-    /**
-     * @param int $id id de la serie
-     * @return Serie|null la serie trouvée ou null
-     */
-    public function getSerieById(int $id): ?Serie
+    protected function retrieveSerieList(PDOStatement $resultSet) : array
     {
-        foreach ($this->series as $serie) {
-            if ($serie->__get("id") === $id) return $serie;
+        $series = [];
+        while ($row = $resultSet->fetch()) {
+            $series[] = new Serie($row['id'], $row['titre'], $row['descriptif'], $row['img'], $row['annee'], $row['date_ajout'], ["genre"], ["public"]);
         }
-        return null;
+        return $series;
     }
 
     /**
