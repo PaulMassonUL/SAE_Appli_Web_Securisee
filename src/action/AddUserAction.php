@@ -12,7 +12,8 @@ class AddUserAction extends Action
         if ($this->http_method === 'GET')
         {
             return <<<END
-            <form method="post" action="?action=add-user">                
+            <h1>Sign up</h1>
+            <form class="form" method="post" action="?action=add-user">                
                 <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
                 <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
                 <label> confirm your password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
@@ -41,13 +42,14 @@ class AddUserAction extends Action
                 END;
                 }else{
                     $html .= <<<END
-                <form method="post" action="?action=add-user">               
+                <h1>Sign up</h1>
+                <form class="form" method="post" action="?action=add-user">                
                     <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
                     <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
                     <label> confirm your password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
                     
                     <button type="submit"> Valider </button> 
-                </form>
+                </form></br>
                 <b>Erreur, passwd or vpasswd non defini</b></br>
                 END;
                 }
@@ -58,7 +60,8 @@ class AddUserAction extends Action
             catch(AuthException $e)
             {
                 $html .= <<<END
-                <form method="post" action="?action=add-user">               
+                <h1>Sign up</h1>
+                <form class="form" method="post" action="?action=add-user">                
                     <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
                     <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
                     <label> confirm your password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
@@ -66,7 +69,6 @@ class AddUserAction extends Action
                     <button type="submit"> Valider </button> 
                 </form></br>
                 <b>{$e->getMessage()}";</b> </br>
-                <a href="?action=signin">Connection</a>
                 END;
             }
             

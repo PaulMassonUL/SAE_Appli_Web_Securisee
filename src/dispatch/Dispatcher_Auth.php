@@ -53,7 +53,7 @@ class Dispatcher_Auth
                     </nav>
                 </header>    
                 <div class="signin">
-                    <h1>Bienvenue</h1>
+                    
                     $html
                 </div><br>
             </body>

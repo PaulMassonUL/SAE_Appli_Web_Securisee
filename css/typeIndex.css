@@ -51,42 +51,20 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    max-width: 400px;
-    left: 50%;
+    max-width: 40%;
+    top: 30%;
+    left: 40%;
     color: black;
     background-color: white;
     box-shadow: 1px 1px 12px #555;
 }
 
+.signin h1{
+    display: flex;
+    justify-content: center;
+}
+
 .form{
     display: flex;
     flex-direction: column;
-}
-
-.labelSin{
-    display: grid;
-    grid-template-rows: auto auto;
-    grid-template-columns: auto auto;
-    grid-gap: 5px;
-    padding: 20px;
-}
-
-.Lemail{
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.Iemail{
-    grid-column: 2;
-    grid-row: 1;
-}
-
-.Lpasswd{
-    grid-column: 1;
-    grid-row: 2;
-}
-
-.Ipasswd{
-    grid-column: 2;
-    grid-row: 2;
 }

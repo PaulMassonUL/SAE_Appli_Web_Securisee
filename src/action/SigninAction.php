@@ -1,5 +1,6 @@
 <?php
 
+
 namespace netvod\action;
 
 use netvod\auth\Authentification;
@@ -7,7 +8,6 @@ use netvod\dispatch\Dispatcher;
 use netvod\exception\AuthException;
 
 use netvod\user\User;
-
 class SigninAction extends Action
 {
     public function execute(): string
@@ -16,11 +16,11 @@ class SigninAction extends Action
 
         if ($this->http_method === 'GET') {
             return <<<END
-            
+            <h1>Sign in</h1>
             <form class="form" method="post" action="?action=signin">
                 <div class="labelSin">
-                    <label class="Lemail"> Email :  <input type="Iemail" name="email" placeholder="email"> </label></br>
-                    <label class="Lpasswd"> Password :  <input type="Ipassword" name="passwd" placeholder = "<mot de passe>"> </label></br>    
+                    <label> Email :  <input type="Iemail" name="email" placeholder="email"> </label></br>
+                    <label> Password :  <input type="Ipassword" name="passwd" placeholder = "<mot de passe>"> </label></br>    
                 </div>    
                 
                 <button type="submit"> Valider </button>
@@ -36,21 +36,20 @@ class SigninAction extends Action
                 $passwd = htmlspecialchars($_POST['passwd']);
 
                 User::setInstance(Authentification::authenticate($email, $passwd));
-                $dis = new Dispatcher();
-                $dis->run();
                 header('Location: accueil.php');
                 exit();
 
             } catch (AuthException $e) {
                 $html .= <<<END
-                        <form  method="post" action="?action=signin">
-                            <div class="form">
-                              <label class="Lemail"> Email :  <input type="Iemail" name="email" placeholder="email"> </label></br>
-                              <label class="passwd"> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>    
-                            </div>    
-                            <button class="bSin" type="submit"> Valider </button> 
-                        </form>
-                        <b>{$e->getMessage()}</b></br>
+                            <h1>Sign in</h1>
+                            <form class="form" method="post" action="?action=signin">
+                                <div class="labelSin">
+                                    <label> Email :  <input type="Iemail" name="email" placeholder="email"> </label></br>
+                                    <label> Password :  <input type="Ipassword" name="passwd" placeholder = "<mot de passe>"> </label></br>    
+                                </div>    
+                                
+                                <button type="submit"> Valider </button>
+                            </form><br>
                         END;
             }
             return $html;
