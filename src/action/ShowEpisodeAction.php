@@ -5,18 +5,21 @@ namespace netvod\action;
 use netvod\render\EpisodeRenderer;
 use netvod\render\Renderer;
 use netvod\render\SerieRenderer;
+use netvod\user\User;
 use netvod\video\Episode;
 use netvod\video\Serie;
 
 class ShowEpisodeAction extends Action
 {
+    private Serie $serie;
     private Episode $episode;
 
     /**
      * @param Episode $episode
      */
-    public function __construct(Episode $episode)
+    public function __construct(Serie $serie, Episode $episode)
     {
+        $this->serie = $serie;
         $this->episode = $episode;
         parent::__construct();
     }
