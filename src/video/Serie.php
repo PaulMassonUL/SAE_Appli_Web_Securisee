@@ -48,7 +48,7 @@ class Serie
 
         $episodes = [];
         while ($row = $resultset->fetch()) {
-            $episodes[] = new Episode($row['numero'], $row['titre'], $row['resume'], $row['duree'], $row['file']);
+            $episodes[] = new Episode($row['id'] ,$row['numero'], $row['titre'], $row['resume'], $row['duree'], $row['file']);
         }
         return $episodes;
     }

@@ -7,7 +7,7 @@ use netvod\exception\InvalidPropertyNameException;
 
 class Episode
 {
-
+    private int $idepisode;
     /**
      * @var int $numero
      * numero de l'episode
@@ -46,8 +46,9 @@ class Episode
      * @param string $fichier
      * constructeur paramétré
      */
-    public function __construct(int $num, string $titre, string $resume, string $duree, string $fichier)
+    public function __construct(int $idepisode,int $num, string $titre, string $resume, string $duree, string $fichier)
     {
+        $this->idepisode = $idepisode;
         $this->numero = $num;
         $this->titre = $titre;
         $this->resume = $resume;
@@ -67,7 +68,7 @@ class Episode
 
         $episodes = [];
         while ($row = $resultset->fetch()) {
-            $episodes[] = new Episode($row['numero'], $row['titre'], $row['resume'], $row['duree'], $row['file']);
+            $episodes[] = new Episode($row['idepisode'] ,$row['numero'], $row['titre'], $row['resume'], $row['duree'], $row['file']);
         }
         return $episodes;
     }
