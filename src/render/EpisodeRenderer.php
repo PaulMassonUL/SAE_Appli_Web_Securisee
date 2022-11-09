@@ -39,13 +39,13 @@ class EpisodeRenderer implements Renderer
      */
     public function renderDetail(): string
     {
-        $html = "<div class='episode'>
+        $html = '<br><button type="submit" name="addFav" value="Add to favorite">Add to favorite</button>';
+        $html .= "<div class='episode'>
                       <h2>Titre : {$this->episode->__get("titre")}</h2>
                       <h3>Durée : {$this->episode->__get("duree")} minutes</h3>
                       <p><u id='TitreParagraphe'>Résumé de l'épisode : </u><br> {$this->episode->__get("resume")}</p>
                       <video controls> <source src={$this->episode->__get("image")} type='video/mp4'> </video><br>
                  </div>";
-        $html .= '<br><button type="submit" name="addFav" value="Add to favorite"></button>';
         return $html;
 
     }

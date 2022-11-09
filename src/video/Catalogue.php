@@ -61,5 +61,6 @@ class Catalogue
         if (property_exists($this, $attname)) return $this->$attname;
         throw new InvalidPropertyNameException("Nom d'attribut invalide : $attname");
     }
+
 }
 
