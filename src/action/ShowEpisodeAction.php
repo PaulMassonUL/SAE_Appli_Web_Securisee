@@ -21,6 +21,10 @@ class ShowEpisodeAction extends Action
         parent::__construct();
     }
 
+    /**
+     * @return string correspondant au rendu sur le site
+     * @throws \netvod\exception\InvalidPropertyNameException
+     */
     public function execute(): string
     {
         $renderer = new EpisodeRenderer($this->episode);

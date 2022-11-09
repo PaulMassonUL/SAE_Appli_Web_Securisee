@@ -34,4 +34,4 @@ $series = array($serie1,$serie2);
 
 $catalogue = new \netvod\video\Catalogue($series);
 $catalogueRender = new \netvod\render\CatalogueRenderer($catalogue);
-//echo $catalogueRender->render(1);//TODO permet de tester affichage catalogue
+echo $catalogueRender->render(1);
