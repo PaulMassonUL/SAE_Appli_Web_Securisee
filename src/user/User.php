@@ -50,7 +50,7 @@ class User
 
         $series = [];
         while ($row = $resultset->fetch()) {
-            $series[] = new Serie($row['id'], $row['titre'], $row['descriptif'], $row['img'], $row['annee'], $row['date_ajout'], ["genre"], ["public"], $episodes);
+            $series[] = new Serie($row['id'], $row['titre'], $row['descriptif'], $row['img'], $row['annee'], $row['date_ajout'], ["genre"], ["public"]);
         }
         $connection = null;
         return new Catalogue("Favorite Series", $series);
@@ -58,15 +58,13 @@ class User
 
 
     public function getSeriesEnCours() : Catalogue {
-        $c = new Catalogue("enCours", []);
-        $query = "SELECT * FROM serieVisionnee INNER JOIN serie WHERE email = ?";
-        $db = ConnectionFactory::makeConnection();
-        $st = $db->prepare($query);
-        $res = $st->execute([$this->email]);
-        if(  $res) {
-
+        $series = [];
+        foreach ($this->getCatalogue()->__get("series") as $serie) {
+            if ($serie->estEnCours()) {
+                $series[] = $serie;
+            }
         }
-        return $c;
+        return new Catalogue("Favorite Series", $series);
     }
 
     public function ajouterSerieEnCours(Serie $s) : void {
