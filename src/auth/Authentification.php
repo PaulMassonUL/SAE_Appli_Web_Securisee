@@ -1,6 +1,7 @@
 <?php
 namespace netvod\auth;
 
+use netvod\action\ActiveAction;
 use netvod\user\User;
 use PDO;
 use netvod\db\ConnectionFactory as ConnectionFactory;
@@ -45,7 +46,7 @@ class Authentification
         return new User($email);
     }
 
-    public static function register(string $email, string $pass, string $vpass): string
+    public static function register(string $email, string $pass): string
     {
         if (!self::checkPasswordStrength($pass, 7)) {
             throw new AuthException("password not enought strong : password must have at list 1 number, 1 Upper and Lower Case,1 special caracters(!:;,...) and have 7 characters or more");
@@ -63,14 +64,13 @@ class Authentification
                 throw new AuthException("account already exist");
             } else {
                 try {
-                    $query = "insert into users values (?, ?,?,?,?)";
+                    $query = "insert into users values (?, ?,0,null,null)";
                     $stmt = $db->prepare($query);
-                    //creation du token
-                    $token = bin2hex(random_bytes(32));
 
-                    $stmt->execute([$email, $hash,0,$token,time() + 60*60*24]);
+                    $stmt->execute([$email, $hash]);
+
                     //creation de l'url de validation
-                    $url_act = "http://{$_SERVER['HTTP_HOST']}index.php?action=active+token=$token";
+                    $url_act = ActiveAction::creationActivationToken($email);
 
                 } catch (PDOException $e) {
                     throw new AuthException("erreur de création de compte : " . $e->getMessage());

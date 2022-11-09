@@ -38,11 +38,10 @@ class AddUserAction extends Action
                         throw new AuthException("passwords not match");
                     }
                     $passwd = htmlspecialchars($_POST['password']);
-                    $vpasswd = htmlspecialchars($_POST['verifpassword']);
-                    $url = Authentification::register($email, $passwd,$vpasswd);
+                    $url = Authentification::register($email, $passwd);
                     $html.=<<<END
-                    <b>Signed up !</br>you need now to activate your account</br>please click on the link:</b>
-                    <b>$url</b>
+                    <b>Signed up !</br>you need now to activate your account</br>please click on the <a href="$url"> here </a> </b>
+                    
                 END;
                 }else{
                     $html .= <<<END
