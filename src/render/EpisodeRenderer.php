@@ -29,7 +29,6 @@ class EpisodeRenderer implements Renderer
         return '<br><button id="buttonFav" type="submit" name="numEpisode" value="' . $this->episode->__get("numero") .'">
             <h2>' . $this->episode->__get("titre") . '</h2>
             <h3>' . $this->episode->__get("duree") .'</h3>
-            <img src="' . $this->episode->__get("image") . '" alt="' . $this->episode->__get("titre") . '">
         </button>';
 
     }
@@ -39,13 +38,12 @@ class EpisodeRenderer implements Renderer
      */
     public function renderDetail(): string
     {
-        $html = "<div class='episode'>
+        return "<div class='episode'>
                       <h2>Titre : {$this->episode->__get("titre")}</h2>
                       <h3>Durée : {$this->episode->__get("duree")} minutes</h3>
                       <p><u id='TitreParagraphe'>Résumé de l'épisode : </u><br> {$this->episode->__get("resume")}</p>
                       <video controls> <source src={$this->episode->__get("image")} type='video/mp4'> </video><br>
                  </div>";
-        return $html;
 
     }
 
