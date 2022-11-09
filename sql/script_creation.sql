@@ -82,7 +82,8 @@ CREATE TABLE genres
     idSerie int(11)      NOT NULL,
     genre   varchar(128) NOT NULL,
     PRIMARY KEY (idSerie, genre)
-);DROP TABLE IF EXISTS `genres`;
+);
+DROP TABLE IF EXISTS `genres`;
 
 DROP TABLE IF EXISTS `publics`;
 CREATE TABLE publics
