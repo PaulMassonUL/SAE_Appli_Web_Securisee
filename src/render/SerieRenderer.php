@@ -30,12 +30,18 @@ class SerieRenderer implements Renderer
     public function renderCompact(): string
     {
         return '
+<form method="post" action="?action=add-serie-fav">
+                        <button id="favoris" type="submit" name="serieId2" value="' . $this->serie->__get("id") .'" title="Ajouter aux favoris"></button>
+                    </form><br>
             <div class="miniature">
                 <div id="view">
                     <img src="' . "ressources/". $this->serie->__get("image") . '" alt="' . $this->serie->__get("image") . '">
                     <label>' . $this->serie->__get("titre") . '</label>
                 </div>
                 <button id="action" type="submit" name="serieId" value="' . $this->serie->__get("id") . '" title="' . $this->serie->__get("titre") . '"></button>
+                
+            
+
             </div>
         ';
     }
@@ -55,6 +61,7 @@ class SerieRenderer implements Renderer
         <div id="serie">
             <div id="serie-details">
                 <div id="serie-title">
+             
                     <h1>$titre</h1>
                     <h2>$genre[0]</h2>
                 </div>
