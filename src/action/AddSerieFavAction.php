@@ -14,6 +14,7 @@ class AddSerieFavAction extends Action {
 
     public function execute(): string
     {
+        $this->serie->ajouterFavoris();
         return $html = $this->serie->__get('titre') . " ajouté aux favoris !!!";
 
     }

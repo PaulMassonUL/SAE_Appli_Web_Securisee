@@ -76,10 +76,31 @@ class Serie
         return false;
     }
 
+    public function estPreferee () : bool {
+        $connection = ConnectionFactory::makeConnection();
+        $resultset = $connection->prepare("SELECT count(*) as nb FROM seriePreferee WHERE idSerie = :id and email = :email");
+        $user = unserialize($_SESSION['user']);
+        $resultset->execute(['id' => $this->id, 'email' => $user->__get("email")]);
+
+        $row = $resultset->fetch();
+        return $row['nb'] == 1;
+    }
+
+    public function ajouterFavoris() : void {
+        if (! $this->estPreferee()) {
+            $db = ConnectionFactory::makeConnection();
+            $st = $db->prepare("INSERT INTO seriePreferee VALUES ( ? , ? )");
+            $user = unserialize($_SESSION['user']);
+            $st->execute([$this->id, $user->__get("email")]);
+        }
+    }
+
     public function getNote(): float
     {
         return 0.0;
     }
+
+
 
     public function getEpisodeByNum(int $num): ?Episode
     {
