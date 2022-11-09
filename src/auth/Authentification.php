@@ -42,7 +42,7 @@ class Authentification
         if (!$user) throw new AuthException("invalid credentials : invalid email or password");
         if (!password_verify($mdpUser, $user['password'])) throw new AuthException("invalid credentials : invalid email or password");
 
-        return new User($email, $user['password']);
+        return new User($email);
     }
 
     public static function register(string $email, string $pass, string $vpass): bool

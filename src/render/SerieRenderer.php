@@ -32,7 +32,7 @@ class SerieRenderer implements Renderer
         return '
             <div class="miniature">
                 <div id="view">
-                    <img src="' . $this->serie->__get("image") . '" alt="' . $this->serie->__get("image") . '">
+                    <img src="' . "ressources/". $this->serie->__get("image") . '" alt="' . $this->serie->__get("image") . '">
                     <label>' . $this->serie->__get("titre") . '</label>
                 </div>
                 <button id="action" type="submit" name="serieId" value="' . $this->serie->__get("id") . '" title="' . $this->serie->__get("titre") . '"></button>
@@ -45,10 +45,10 @@ class SerieRenderer implements Renderer
         $episodes = $this->serie->__get("episodes");
         $nbEpisodes = count($episodes);
         $titre = $this->serie->__get("titre");
-        $genre = $this->serie->__get("genre");
-        $public = $this->serie->__get("public");
+        $genre = $this->serie->__get("genres");
+        $public = $this->serie->__get("publics");
         $descriptif = $this->serie->__get("descriptif");
-        $annee = $this->serie->__get("anneeSortie");
+        $annee = $this->serie->__get("annee");
         $ajout = $this->serie->__get("dateAjout");
 
         $html = <<<END
@@ -56,29 +56,25 @@ class SerieRenderer implements Renderer
             <div id="serie-details">
                 <div id="serie-title">
                     <h1>$titre</h1>
-                    <h2>$genre</h2>
+                    <h2>$genre[0]</h2>
                 </div>
                 <div id="serie-description">
                     <label>$descriptif</label>
                 </div>
                 <div id="serie-info">
-                    <label>Public: $public</label><br>
+                    <label>Public: $public[0]</label><br>
                     <label>$annee</label><br>
                     <label>Date d'ajout: $ajout</label>
                 </div>
             </div>
             
             <div id="notation">
-                <label> Commentaire : <input type="text" name="commentaire" value="Entrer un commentaire" > </label>
-                <form method="post" action="#" oninput="result.value=Range.value">
-                    <fieldset>
-                    <input type="range" name="Range" value="" min="1" max="5" >
-                    note : <output for="out" name="result"> </output>
-                    </fieldset>
-                </form>
+                <br>
+                <label> Commentaire : <input type="textarea" name="commentaire" placeholder="Entrer un commentaire" > </label>
+                <label> Note : <input type="number" min="1" max="5" name="note" placeholder="Entrer une note de 1 a 5" > </label>
             </div>
             <div id="serie-episodes">
-                <h3>Episodes ($nbEpisodes)</h3>
+                <h3><label>Episodes ($nbEpisodes)</label></h3>
                 <div id="episodes">
                     <ol>
             

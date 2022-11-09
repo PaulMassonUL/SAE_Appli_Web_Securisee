@@ -5,7 +5,7 @@ namespace netvod\dispatch;
 use netvod\action\ShowCatalogAction;
 use netvod\action\ShowEpisodeAction;
 use netvod\action\ShowSerieAction;
-use netvod\user\User;
+use netvod\exception\InvalidPropertyNameException;
 
 class Dispatcher
 {
@@ -17,6 +17,9 @@ class Dispatcher
         $this->action = $_GET['action'] ?? null;
     }
 
+    /**
+     * @throws InvalidPropertyNameException
+     */
     public function run(): void
     {
         $html = '
@@ -25,33 +28,47 @@ class Dispatcher
                     <h3><label>What are we watching?</label></h3>
                     <div id="action">
                         <a class="button" href="?action=browse"><p>BROWSE CATALOG</p></a>
-                        <a class="button" href="?action=show-favorites"><p>FAVORITE SERIES</p></a>                
+                        <a class="button" href="?action=favorites"><p>FAVORITE SERIES</p></a>                
+                        <a class="button" href="?action=inprogress"><p>SERIES IN PROGRESS</p></a>                
                     </div>
                 </div>
                 ';
         switch ($this->action) {
-            case 'show-favorites':
-                $user = unserialize($_SESSION['user']);
-                if (!is_null($user)) {
-                    $action = new ShowCatalogAction($user->getSeriesPref());
-                    $html = $action->execute();
-                }
-                break;
             case 'browse':
                 $user = unserialize($_SESSION['user']);
                 if (!is_null($user)) {
                     $action = new ShowCatalogAction($user->getCatalogue());
                     $html = $action->execute();
+                } else {
+                    $html = 'ERROR';
+                }
+                break;
+            case 'favorites':
+                $user = unserialize($_SESSION['user']);
+                if (!is_null($user)) {
+                    $action = new ShowCatalogAction($user->getSeriesPref());
+                    $html = $action->execute();
+                } else {
+                    $html = 'ERROR';
+                }
+                break;
+            case 'inprogress':
+                $user = unserialize($_SESSION['user']);
+                if (!is_null($user)) {
+                    $action = new ShowCatalogAction($user->getSeriesEnCours());
+                    $html = $action->execute();
+                } else {
+                    $html = 'ERROR';
                 }
                 break;
             case 'show-serie-details':
                 $user = unserialize($_SESSION['user']);
-                if (!is_null($user)) {
-                    if (isset($_POST['serieId'])) {
-                        $serieId = intval($_POST['serieId']);
-                        $action = new ShowSerieAction($user->getCatalogue()->getSerieById($serieId));
-                        $html = $action->execute();
-                    }
+                if (!is_null($user) && isset($_POST['serieId'])) {
+                    $serieId = intval($_POST['serieId']);
+                    $action = new ShowSerieAction($user->getCatalogue()->getSerieById($serieId));
+                    $html = $action->execute();
+                } else {
+                    $html = 'ERROR';
                 }
                 break;
             case 'show-episode-details':
@@ -92,7 +109,8 @@ class Dispatcher
                     <nav id="nav">
                         <a id="title" href="accueil.php">NetVOD</a>
                         <a href="?action=browse">Series</a>
-                        <a href="?action=show-favorites">Favorite</a>
+                        <a href="?action=favorites">Favorite</a>
+                        <a href="?action=inprogress">In progress</a>
                     </nav>
                     <a id="logout" href="?action=logout">
                         <button>LOGOUT</button>

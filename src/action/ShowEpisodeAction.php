@@ -2,6 +2,7 @@
 
 namespace netvod\action;
 
+use netvod\exception\InvalidPropertyNameException;
 use netvod\render\EpisodeRenderer;
 use netvod\render\Renderer;
 use netvod\render\SerieRenderer;
@@ -26,10 +27,12 @@ class ShowEpisodeAction extends Action
 
     /**
      * @return string correspondant au rendu sur le site
-     * @throws \netvod\exception\InvalidPropertyNameException
+     * @throws InvalidPropertyNameException
      */
     public function execute(): string
     {
+        $user = unserialize($_SESSION['user']);
+        $user->ajouterSerieEnCours($this->serie);
         $renderer = new EpisodeRenderer($this->episode);
         return $renderer->render(Renderer::DETAIL);
     }

@@ -2,6 +2,7 @@
 
 namespace netvod\video;
 
+use netvod\db\ConnectionFactory;
 use netvod\exception\InvalidPropertyNameException;
 
 class Episode
@@ -12,12 +13,6 @@ class Episode
      * numero de l'episode
      */
     private int $numero;
-
-    /**
-     * @var string $image
-     * correspond au chemin de l'image
-     */
-    private string $image;
 
     /**
      * @var string $titre
@@ -38,27 +33,40 @@ class Episode
     private string $duree;
 
     /**
-     * @var bool $vu
-     * indique si l'épisode à déjà été vu par l'utilisateur
+     * @var string $fichier
+     * correspond au fichier de l'épisode
      */
-    private bool $vu;
+    private string $fichier;
 
     /**
-     * @param string $image
+     * @param int $num
      * @param string $titre
      * @param string $resume
      * @param string $duree
-     * @param bool $vu
+     * @param string $fichier
      * constructeur paramétré
      */
-    public function __construct(int $num, string $image, string $titre, string $resume, string $duree, bool $vu)
+    public function __construct(int $num, string $titre, string $resume, string $duree, string $fichier)
     {
         $this->numero = $num;
-        $this->image = $image;
         $this->titre = $titre;
         $this->resume = $resume;
         $this->duree = $duree;
-        $this->vu = $vu;
+        $this->fichier = $fichier;
+    }
+
+
+    public function estVu() : bool
+    {
+        $connection = ConnectionFactory::makeConnection();
+        $resultset = $connection->prepare("SELECT * FROM episodeVisionne WHERE serie_id = :id");
+        $resultset->execute(['id' => $this->id]);
+
+        $episodes = [];
+        while ($row = $resultset->fetch()) {
+            $episodes[] = new Episode($row['numero'], $row['titre'], $row['resume'], $row['duree'], $row['file']);
+        }
+        return $episodes;
     }
 
     /**
