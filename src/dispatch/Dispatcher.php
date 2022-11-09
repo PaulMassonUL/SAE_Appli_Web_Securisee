@@ -2,6 +2,7 @@
 
 namespace netvod\dispatch;
 
+use netvod\action\AddSerieFavAction;
 use netvod\action\ShowCatalogAction;
 use netvod\action\ShowEpisodeAction;
 use netvod\action\ShowSerieAction;
@@ -88,6 +89,14 @@ class Dispatcher
                 session_destroy();
                 header('Location: index.php');
                 exit();
+            case 'add-serie-fav' :
+                $user = unserialize($_SESSION['user']);
+                if (! is_null($user) && isset($_POST['serieId2'])) {
+                    $serieId = intval($_POST['serieId2']);
+                    $serie = $user->getCatalogue()->getSerieById($serieId);
+                    $action = new AddSerieFavAction($serie);
+                    $html = $action->execute();
+                }
 
         }
         $this->renderPage($html);
