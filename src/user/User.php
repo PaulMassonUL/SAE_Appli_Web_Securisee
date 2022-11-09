@@ -5,6 +5,7 @@ namespace netvod\user;
 use netvod\db\ConnectionFactory;
 use netvod\video\Catalogue;
 use netvod\video\Serie;
+use PDOException;
 
 class User
 {
@@ -13,10 +14,7 @@ class User
      */
     private string $email;
 
-    /**
-     * @param string $eml email
-     * @param string $pwd mot de passe
-     */
+
     public function __construct(string $eml)
     {
         $this->email = $eml;
@@ -54,15 +52,30 @@ class User
             $series[] = new Serie($row['id'], $row['titre'], $row['descriptif'], $row['img'], $row['annee'], $row['date_ajout'], ["genre"], ["public"], $episodes);
         }
         $connection = null;
-
         return new Catalogue("Favorite Series", $series);
     }
 
-    /**
-     * @return Catalogue
-     */
-    public function getSeriesEnCours() : Catalogue
-    {
-        return new Catalogue("Series in progress", []);
+
+    public function getSeriesEnCours() : Catalogue {
+        $c = new Catalogue("enCours", []);
+        $query = "SELECT * FROM serieVisionnee INNER JOIN serie WHERE email = ?";
+        $db = ConnectionFactory::makeConnection();
+        $st = $db->prepare($query);
+        $res = $st->execute([$this->email]);
+        if(  $res) {
+
+        }
+        return $c;
+    }
+
+    public function ajouterSerieEnCours(Serie $s) {
+        try {
+            $query = "INSERT INTO serieVisionnee VALUES ( ? , ? )";
+            $db = ConnectionFactory::makeConnection();
+            $st = $db->prepare($db);
+            $st->execute([$s->get('id'), $this->email]);
+        } catch (PDOException $e) {
+            throw new \Exception("erreur d'insersion dans catalogue en cours");
+        }
     }
 }
