@@ -55,7 +55,7 @@ class Serie
     public function getCommentaires(): array
     {
         $connection = ConnectionFactory::makeConnection();
-        $resultset = $connection->prepare("SELECT * FROM Commentaire WHERE serie_id = :id");
+        $resultset = $connection->prepare("SELECT * FROM Commentaire WHERE idSerie = :id");
         $resultset->execute(['id' => $this->id]);
 
         $commentaires = [];
@@ -63,6 +63,15 @@ class Serie
             $commentaires[$row['email']] = $row['commentaire'];
         }
         return $commentaires;
+    }
+
+    public function getNoteMoyenne(): ?float
+    {
+        $connection = ConnectionFactory::makeConnection();
+        $resultset = $connection->prepare("SELECT AVG(note) FROM Notation WHERE idSerie = :id");
+        $resultset->execute(['id' => $this->id]);
+        $row = $resultset->fetch();
+        return $row[0];
     }
 
     /**
@@ -89,15 +98,15 @@ class Serie
         return $row['nb'] == 1;
     }
 
-    public function getNote(): float
+    public function estNotee(): bool
     {
         $connection = ConnectionFactory::makeConnection();
-        $resultset = $connection->prepare("SELECT note FROM Notation WHERE idSerie = :id and email = :email");
+        $resultset = $connection->prepare("SELECT count(*) as nb FROM Notation WHERE idSerie = :id and email = :email");
         $user = unserialize($_SESSION['user']);
         $resultset->execute(['id' => $this->id, 'email' => $user->__get("email")]);
 
         $row = $resultset->fetch();
-        return $row['note'];
+        return $row['nb'] == 1;
     }
 
     public function estCommentee(): bool
@@ -122,7 +131,7 @@ class Serie
         }
     }
 
-    public function ajouterNote(float $note): void
+    public function ajouterNote(int $note): void
     {
         if (!$this->estNotee()) {
             $db = ConnectionFactory::makeConnection();
