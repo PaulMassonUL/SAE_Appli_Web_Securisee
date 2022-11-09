@@ -31,7 +31,7 @@ class ShowEpisodeAction extends Action
     public function execute(): string
     {
         $user = unserialize($_SESSION['user']);
-        $user->ajouterSerieEnCours();
+        $user->ajouterSerieEnCours($this->serie);
         $renderer = new EpisodeRenderer($this->episode);
         return $renderer->render(Renderer::DETAIL);
     }

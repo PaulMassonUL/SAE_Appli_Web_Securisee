@@ -72,7 +72,7 @@ class User
         try {
             $query = "INSERT INTO serieVisionnee VALUES ( ? , ? )";
             $db = ConnectionFactory::makeConnection();
-            $st = $db->prepare($db);
+            $st = $db->prepare($query);
             $st->execute([$s->get('id'), $this->email]);
         } catch (PDOException $e) {
             throw new \Exception("erreur d'insersion dans catalogue en cours");
