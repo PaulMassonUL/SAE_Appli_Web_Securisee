@@ -21,10 +21,11 @@ class Dispatcher
     {
         $html = '
                 <div id="choice">
-                    <h1 id="title"><u>Choix du programme</u></h1>
+                    <h1 id="title"><label>Welcome to NetVOD</label></h1>
+                    <h3><label>What are we watching?</label></h3>
                     <div id="action">
-                        <a class="button" href="?action=show-favorites"><p>FAVORITE SHOWS</p></a>                
                         <a class="button" href="?action=browse"><p>BROWSE CATALOG</p></a>
+                        <a class="button" href="?action=show-favorites"><p>FAVORITE SERIES</p></a>                
                     </div>
                 </div>
                 ';
@@ -81,7 +82,7 @@ class Dispatcher
             <!DOCTYPE html>
             <html lang="fr">
             <head>
-                    <title>NetVOD | Séries à la demande</title>
+                <title>NetVOD | Series on demand</title>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <link rel="stylesheet" href="css/style.css">
@@ -90,14 +91,17 @@ class Dispatcher
                 <header id="header">
                     <nav id="nav">
                         <a id="title" href="accueil.php">NetVOD</a>
-                        <a href="?action=browse">Catalogue</a>
-                        <a href="?action=show-favorites">Favoris</a>
+                        <a href="?action=browse">Series</a>
+                        <a href="?action=show-favorites">Favorite</a>
                     </nav>
                     <a id="logout" href="?action=logout">
                         <button>LOGOUT</button>
                     </a>
                 </header>
+                
+                <main id="main">
                     $html
+                </main>
             </body>
             </html> 
             END;

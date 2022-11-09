@@ -2,6 +2,7 @@
 
 namespace netvod\render;
 
+use netvod\exception\InvalidPropertyNameException;
 use netvod\video\Catalogue;
 
 class CatalogueRenderer implements Renderer
@@ -16,11 +17,19 @@ class CatalogueRenderer implements Renderer
 
     public function render(int $selector): string
     {
-        $html = "";
+        $html = '<div id="catalog-container">';
+        try {
+            $nom = $this->catalogue->__get("nom");
+        } catch (InvalidPropertyNameException) {
+            $nom = "CATALOG";
+        }
+        $html .= '<div><label id="title">' . $nom . '</label></div>';
+        $html .= '<div id="catalog">';
         foreach ($this->catalogue->__get("series") as $serie) {
             $renderer = new SerieRenderer($serie);
             $html .= $renderer->render(Renderer::COMPACT);
         }
+        $html .= '</div></div>';
         return $html;
     }
 

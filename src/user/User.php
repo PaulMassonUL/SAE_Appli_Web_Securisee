@@ -54,8 +54,8 @@ class User
      */
     public function getCatalogue(): Catalogue
     {
-        $serie1 = new \netvod\video\Serie(1,"Une série cool","ressources/beach.mp4","horreur","adulte","vraiment une série trop cool",2020,"01/03/2021");
-        $serie2 = new \netvod\video\Serie(2, "Une série encore plus cool", "ressources/cars-by-night.mp4", "fantaisie", "ado", "trop bien", 2016, "06/05/2016");
+        $serie1 = new \netvod\video\Serie(1,"Une série cool","fichier/img.png","horreur","adulte","vraiment une série trop cool",2020,"01/03/2021");
+        $serie2 = new \netvod\video\Serie(2, "Une série encore plus cool", "fichier/img.png", "fantaisie", "ado", "trop bien", 2016, "06/05/2016");
 
         $text = "Maecenas at mattis dolor, ac egestas ex. Maecenas accumsan libero a euismod ullamcorper. Duis maximus purus in velit dapibus volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc sit amet pretium nulla, nec lacinia mauris. Aenean ut accumsan justo. Vestibulum at sapien dapibus, dignissim diam sed, maximus diam. Nam semper fringilla justo ac consequat. Suspendisse auctor in eros sed lobortis. Donec efficitur eleifend ante id tempus.";
 
@@ -75,7 +75,7 @@ class User
 
         $series = array($serie1,$serie2);
 
-        $catalogue = new \netvod\video\Catalogue($series);
+        $catalogue = new \netvod\video\Catalogue("AVAILABLE SERIES", $series);
         return $catalogue;
     }
 
@@ -105,7 +105,7 @@ class User
 
         $series = array($serie1,$serie2);
 
-        $catalogue = new \netvod\video\Catalogue($series);
+        $catalogue = new \netvod\video\Catalogue("FAVORITE SERIES", $series);
         return $catalogue;
     }
 }

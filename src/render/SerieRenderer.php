@@ -29,28 +29,63 @@ class SerieRenderer implements Renderer
 
     public function renderCompact(): string
     {
-        return '<button type="submit" name="serieId" value="' . $this->serie->__get("id") . '" title="' . $this->serie->__get("titre") . '">
-            <p>' . $this->serie->__get("titre") . '</p>
-            <img src="' . $this->serie->__get("image") . '" alt="' . $this->serie->__get("titre") . '">
-            <p>' . $this->serie->__get("genre") . '</p>
-        </button>';
+        return '
+            <div class="miniature">
+                <div id="view">
+                    <img src="' . $this->serie->__get("image") . '" alt="' . $this->serie->__get("image") . '">
+                    <label>' . $this->serie->__get("titre") . '</label>
+                </div>
+                <button id="action" type="submit" name="serieId" value="' . $this->serie->__get("id") . '" title="' . $this->serie->__get("titre") . '"></button>
+            </div>
+        ';
     }
 
     public function renderDetail(): string
     {
-        $html = "<h1>{$this->serie->__get("titre")}</h1>";
-        $html .= "<h2>{$this->serie->__get("genre")} - {$this->serie->__get("public")}</h2>";
-        $html .= "<p>{$this->serie->__get("descriptif")}</p>";
-        $html .= "<p><strong>Annee de sortie : </strong>{$this->serie->__get("anneeSortie")}<strong> - Date d'ajout : {$this->serie->__get("dateAjout")}</strong>";
-        $html .= "<p>Nb episodes :" . count($this->serie->__get("episodes")) . "</p>";
-        $html .= "<ol>";
-        foreach ($this->serie->__get("episodes") as $key => $ep) {
-            $key = $key+1;
-            $html .= "<li><strong>Episode $key</strong>";
-            $epRend = new EpisodeRenderer($ep);
-            $html .= "{$epRend->render(Renderer::COMPACT)}</li><br>";
+        $episodes = $this->serie->__get("episodes");
+        $nbEpisodes = count($episodes);
+        $titre = $this->serie->__get("titre");
+        $genre = $this->serie->__get("genre");
+        $public = $this->serie->__get("public");
+        $descriptif = $this->serie->__get("descriptif");
+        $annee = $this->serie->__get("anneeSortie");
+        $ajout = $this->serie->__get("dateAjout");
+
+        $html = <<<END
+        <div id="serie">
+            <div id="serie-details">
+                <div id="serie-title">
+                    <h1>$titre</h1>
+                    <h2>$genre</h2>
+                </div>
+                <div id="serie-description">
+                    <label>$descriptif</label>
+                </div>
+                <div id="serie-info">
+                    <label>Public: $public</label><br>
+                    <label>$annee</label><br>
+                    <label>Date d'ajout: $ajout</label>
+                </div>
+            </div>
+            <div id="serie-episodes">
+                <h3>Episodes ($nbEpisodes)</h3>
+                <div id="episodes">
+                    <ol>
+        END;
+
+        foreach ($episodes as $num => $episode) {
+            $num = $num + 1;
+            $html .= "<li><strong>Episode $num</strong>";
+            $epRend = new EpisodeRenderer($episode);
+            $html .= $epRend->render(Renderer::COMPACT) . "</li><br>";
         }
-        $html .= "</ol>";
+
+        $html .= <<<END
+                    </ol>
+                </div>
+            </div>;
+        </div>
+        END;
         return $html;
     }
 }
