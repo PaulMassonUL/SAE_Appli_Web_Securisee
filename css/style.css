@@ -196,3 +196,34 @@ html, body {
 #catalog .miniature #action:hover {
     border: 2px solid white;
 }
+
+#serie {
+    margin : 3%;
+}
+
+#serie-episode{
+    margin-left: 3%;
+    margin-bottom: 3%;
+}
+
+#episodes {
+    border: ridge white;
+    margin-left : 3%;
+    margin-bottom: 3%;
+    border-radius: 30px;
+}
+
+#episodes li{
+    margin-left: 5px;
+}
+
+#episodes li #buttonFav{
+    margin-left: 2%;
+    margin-top: 1%;
+    border: ridge black;
+    border-radius: 20px;
+    width: 40%;
+    height: 30%;
+    background-color: lightgray;
+}
+

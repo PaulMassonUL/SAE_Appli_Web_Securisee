@@ -28,7 +28,7 @@ class EpisodeRenderer implements Renderer
     {
         return '<br><button id="buttonFav" type="submit" name="numEpisode" value="' . $this->episode->__get("numero") . '">
             <h2>' . $this->episode->__get("titre") . '</h2>
-            <h3>' . $this->episode->__get("duree") . '</h3>
+            <h3>' . $this->episode->__get("duree") . ' secondes</h3>
         </button>';
 
     }

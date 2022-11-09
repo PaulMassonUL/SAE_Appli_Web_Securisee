@@ -59,7 +59,6 @@ class SerieRenderer implements Renderer
         <div id="serie">
             <div id="serie-details">
                 <div id="serie-title">
-             
                     <h1>$titre</h1>
                     <h2>$genre[0]</h2>
                 </div>
