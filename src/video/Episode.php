@@ -76,10 +76,13 @@ class Episode
 
     public function marquerCommeVu(): void
     {
-        $db = ConnectionFactory::makeConnection();
-        $st = $db->prepare("INSERT INTO episodeVisionne VALUES ( ? , ? )");
-        $user = unserialize($_SESSION['user']);
-        $st->execute([$this->id, $user->__get("email")]);
+        if (! $this->estVu()) {
+            $db = ConnectionFactory::makeConnection();
+            $st = $db->prepare("INSERT INTO episodeVisionne VALUES ( ? , ? )");
+            $user = unserialize($_SESSION['user']);
+            $st->execute([$this->id, $user->__get("email")]);
+        }
+
     }
 
     /**

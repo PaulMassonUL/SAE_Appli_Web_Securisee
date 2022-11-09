@@ -48,20 +48,6 @@ class User
         return new CatalogueEncours();
     }
 
-    public function ajouterSerieEnCours(Serie $s): void
-    {
-        try {
-            $query = "INSERT INTO serieVisionnee VALUES ( ? , ? )";
-            $db = ConnectionFactory::makeConnection();
-            $st = $db->prepare($query);
-            $st->execute([$s->__GET('id'), $this->email]);
-        } catch (PDOException $e) {
-            throw new \Exception("erreur d'insersion dans catalogue en cours");
-        } catch (InvalidPropertyNameException $e) {
-            throw new \Exception("nom incorrecte");
-        }
-    }
-
     public function __get($attrname)
     {
         if (property_exists($this, $attrname)) return $this->$attrname;
