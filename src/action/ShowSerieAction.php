@@ -2,12 +2,16 @@
 
 namespace netvod\action;
 
+use netvod\exception\InvalidPropertyNameException;
 use netvod\render\Renderer;
 use netvod\render\SerieRenderer;
 use netvod\video\Serie;
 
 class ShowSerieAction extends Action
 {
+    /**
+     * @var Serie
+     */
     private Serie $serie;
 
     /**
@@ -19,6 +23,11 @@ class ShowSerieAction extends Action
         parent::__construct();
     }
 
+    /**
+     * @return string
+     * @throws InvalidPropertyNameException
+     * execute l'action
+     */
     public function execute(): string
     {
         $renderer = new SerieRenderer($this->serie);

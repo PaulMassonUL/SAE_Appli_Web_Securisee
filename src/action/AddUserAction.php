@@ -7,6 +7,10 @@ use netvod\exception\AuthException;
 
 class AddUserAction extends Action
 {
+    /**
+     * @return string
+     * fonction sign up
+     */
     public function execute() : string
     {
         if ($this->http_method === 'GET')

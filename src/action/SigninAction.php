@@ -10,8 +10,6 @@ class SigninAction extends Action
 {
     public function execute(): string
     {
-
-
         if ($this->http_method === 'GET') {
             return <<<END
             <h1>Sign in</h1>

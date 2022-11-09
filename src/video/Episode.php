@@ -55,7 +55,10 @@ class Episode
         $this->fichier = $fichier;
     }
 
-
+    /**
+     * @return bool
+     * vérifie si un épisode a déjà été vu par l'utilisateur
+     */
     public function estVu() : bool
     {
         $connection = ConnectionFactory::makeConnection();

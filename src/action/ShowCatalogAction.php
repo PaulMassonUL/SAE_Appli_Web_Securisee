@@ -9,10 +9,14 @@ use netvod\video\Catalogue;
 class ShowCatalogAction extends Action
 {
 
+    /**
+     * @var Catalogue
+     */
     private Catalogue $catalogue;
 
     /**
      * @param Catalogue $catalogue
+     * Constructeur paramétré
      */
     public function __construct(Catalogue $catalogue)
     {
@@ -20,6 +24,10 @@ class ShowCatalogAction extends Action
         parent::__construct();
     }
 
+    /**
+     * @return string
+     * execute l'action
+     */
     public function execute(): string
     {
         $renderer = new CatalogueRenderer($this->catalogue);
