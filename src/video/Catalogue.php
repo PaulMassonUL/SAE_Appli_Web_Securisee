@@ -47,6 +47,16 @@ class Catalogue
         return $series;
     }
 
+    public function getSerieById(int $id) : ?Serie
+    {
+        foreach ($this->series as $serie) {
+            if ($serie->__get('id') == $id) {
+                return $serie;
+            }
+        }
+        return null;
+    }
+
     /**
      * @param $attname
      * @return mixed
