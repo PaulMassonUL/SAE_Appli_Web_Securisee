@@ -14,12 +14,6 @@ class Episode
     private int $numero;
 
     /**
-     * @var string $image
-     * correspond au chemin de l'image
-     */
-    private string $image;
-
-    /**
      * @var string $titre
      * correspond au titre de l'épisode
      */
@@ -38,27 +32,26 @@ class Episode
     private string $duree;
 
     /**
-     * @var bool $vu
-     * indique si l'épisode à déjà été vu par l'utilisateur
+     * @var string $fichier
+     * correspond au fichier de l'épisode
      */
-    private bool $vu;
+    private string $fichier;
 
     /**
-     * @param string $image
+     * @param int $num
      * @param string $titre
      * @param string $resume
      * @param string $duree
-     * @param bool $vu
+     * @param string $fichier
      * constructeur paramétré
      */
-    public function __construct(int $num, string $image, string $titre, string $resume, string $duree, bool $vu)
+    public function __construct(int $num, string $titre, string $resume, string $duree, string $fichier)
     {
         $this->numero = $num;
-        $this->image = $image;
         $this->titre = $titre;
         $this->resume = $resume;
         $this->duree = $duree;
-        $this->vu = $vu;
+        $this->fichier = $fichier;
     }
 
     /**

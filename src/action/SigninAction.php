@@ -5,8 +5,6 @@ namespace netvod\action;
 use netvod\auth\Authentification;
 use netvod\exception\AuthException;
 
-use netvod\user\User;
-
 class SigninAction extends Action
 {
     public function execute(): string
@@ -40,8 +38,8 @@ class SigninAction extends Action
                 $html .= <<<END
                         <form method="post" action="?action=signin">
                           
-                            <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
-                            <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>
+                            <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
+                            <label> Password :  <input type="password" name="passwd" placeholder = "mot de passe" required> </label></br>
                             
                             <button type="submit"> Valider </button> 
                         </form>
