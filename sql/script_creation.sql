@@ -46,10 +46,9 @@ CREATE TABLE seriePreferee
 DROP TABLE IF EXISTS `episodeVisionne`;
 CREATE TABLE episodeVisionne
 (
-    idSerie int(11) NOT NULL,
-    numero  int(11) NOT NULL,
+    idEpisode int(11) NOT NULL,
     email   varchar(75) NOT NULL,
-    PRIMARY KEY (idSerie, numero, email)
+    PRIMARY KEY (idEpisode, email)
 );
 
 DROP TABLE IF EXISTS `serie`;
