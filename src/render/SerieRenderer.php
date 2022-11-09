@@ -69,13 +69,10 @@ class SerieRenderer implements Renderer
             </div>
             
             <div id="notation">
-                <label> Commentaire : <input type="text" name="commentaire" value="Entrer un commentaire" > </label>
-                <form method="post" action="#" oninput="result.value=Range.value">
-                    <fieldset>
-                    <input type="range" name="Range" value="" min="1" max="5" >
-                    note : <output for="out" name="result"> </output>
-                    </fieldset>
-                </form>
+                <label> Commentaire : <input type="text" name="commentaire" placeholder="Entrer un commentaire" > </label>
+                <label> Note : <input type="number" name="note" placeholder="Entrer une note" ></label>
+                    
+                 
             </div>
             <div id="serie-episodes">
                 <h3>Episodes ($nbEpisodes)</h3>
