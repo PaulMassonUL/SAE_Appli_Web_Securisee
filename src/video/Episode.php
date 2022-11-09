@@ -74,16 +74,15 @@ class Episode
         return $row['nb'] == 1;
     }
 
-    public function voir(): void
+    public function marquerCommeVu(): void
     {
-        try {
+        if (! $this->estVu()) {
             $db = ConnectionFactory::makeConnection();
             $st = $db->prepare("INSERT INTO episodeVisionne VALUES ( ? , ? )");
             $user = unserialize($_SESSION['user']);
             $st->execute([$this->id, $user->__get("email")]);
-        } catch (PDOException $e) {
-            throw new \Exception("erreur d'insersion dans catalogue en cours");
         }
+
     }
 
     /**
