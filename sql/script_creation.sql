@@ -1,9 +1,12 @@
 -- Adminer 4.8.1 MySQL 5.5.5-10.3.11-MariaDB-1:10.3.11+maria~bionic dump
 
 SET NAMES utf8;
-SET time_zone = '+00:00';
-SET foreign_key_checks = 0;
-SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+SET
+time_zone = '+00:00';
+SET
+foreign_key_checks = 0;
+SET
+sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE users
@@ -16,7 +19,7 @@ CREATE TABLE users
 DROP TABLE IF EXISTS `Notation`;
 CREATE TABLE Notation
 (
-    idSerie int(11)     NOT NULL,
+    idSerie int(11) NOT NULL,
     email   varchar(75) NOT NULL,
     note    int(1),
     PRIMARY KEY (idSerie, email)
@@ -25,7 +28,7 @@ CREATE TABLE Notation
 DROP TABLE IF EXISTS `Commentaire`;
 CREATE TABLE Commentaire
 (
-    idSerie     int(11)     NOT NULL,
+    idSerie     int(11) NOT NULL,
     email       varchar(75) NOT NULL,
     commentaire LONGTEXT,
     dateComm    DATE,
@@ -35,7 +38,7 @@ CREATE TABLE Commentaire
 DROP TABLE IF EXISTS `seriePreferee`;
 CREATE TABLE seriePreferee
 (
-    idSerie int(11)     NOT NULL,
+    idSerie int(11) NOT NULL,
     email   varchar(75) NOT NULL,
     PRIMARY KEY (idSerie, email)
 );
@@ -43,8 +46,8 @@ CREATE TABLE seriePreferee
 DROP TABLE IF EXISTS `episodeVisionne`;
 CREATE TABLE episodeVisionne
 (
-    idSerie int(11)     NOT NULL,
-    numero  int(11)     NOT NULL,
+    idSerie int(11) NOT NULL,
+    numero  int(11) NOT NULL,
     email   varchar(75) NOT NULL,
     PRIMARY KEY (idSerie, numero, email)
 );
@@ -52,11 +55,11 @@ CREATE TABLE episodeVisionne
 DROP TABLE IF EXISTS `serie`;
 CREATE TABLE `serie`
 (
-    `id`         int(11)      NOT NULL AUTO_INCREMENT,
+    `id`         int(11) NOT NULL AUTO_INCREMENT,
     `titre`      varchar(128) NOT NULL,
     `descriptif` text         NOT NULL,
     `img`        varchar(256) NOT NULL,
-    `annee`      int(11)      NOT NULL,
+    `annee`      int(11) NOT NULL,
     `date_ajout` date         NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -65,13 +68,13 @@ CREATE TABLE `serie`
 DROP TABLE IF EXISTS `episode`;
 CREATE TABLE `episode`
 (
-    `id`       int(11)      NOT NULL AUTO_INCREMENT,
-    `numero`   int(11)      NOT NULL DEFAULT 1,
+    `id`       int(11) NOT NULL AUTO_INCREMENT,
+    `numero`   int(11) NOT NULL DEFAULT 1,
     `titre`    varchar(128) NOT NULL,
-    `resume`   text                  DEFAULT NULL,
-    `duree`    int(11)      NOT NULL DEFAULT 0,
-    `file`     varchar(256)          DEFAULT NULL,
-    `serie_id` int(11)               DEFAULT NULL,
+    `resume`   text         DEFAULT NULL,
+    `duree`    int(11) NOT NULL DEFAULT 0,
+    `file`     varchar(256) DEFAULT NULL,
+    `serie_id` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -79,7 +82,7 @@ CREATE TABLE `episode`
 DROP TABLE IF EXISTS `genres`;
 CREATE TABLE genres
 (
-    idSerie int(11)      NOT NULL,
+    idSerie int(11) NOT NULL,
     genre   varchar(128) NOT NULL,
     PRIMARY KEY (idSerie, genre)
 );
@@ -88,7 +91,7 @@ DROP TABLE IF EXISTS `genres`;
 DROP TABLE IF EXISTS `publics`;
 CREATE TABLE publics
 (
-    idSerie int(11)      NOT NULL,
+    idSerie int(11) NOT NULL,
     public  varchar(128) NOT NULL,
     PRIMARY KEY (idSerie, public)
 );
@@ -108,10 +111,11 @@ VALUES (1, 1, 'Le lac', 'Le lac se révolte ', 8, 'lake.mp4', 1),
        (8, 3, 'Eau moins calme', 'Le temps des tourments est pour bientôt, l\'eau s\'agite et le temps passe.', 15,
         'water.mp4', 2),
        (9, 4, 'la tempête',
-        'C\'est la tempête, l\'eau est en pleine agitation. Le temps passe mais rien n\'y fait. Jack trouvera-t-il la solution ?',
-        15, 'water.mp4', 2),
-       (10, 5, 'Le calme après la tempête',
-        'La tempête est passée, l\'eau retrouve son calme. Le temps passe et Jack part en vacances.', 15, 'water.mp4',
+        'C\'est la tempête, l\'eau est en pleine agitation. Le temps passe mais rien n\' y fait.Jack trouvera - t - il
+        la solution ? ',
+        15, ' water.mp4 ', 2),
+       (10, 5, ' Le calme après la tempête ',
+        ' La tempête est passée, l\'eau retrouve son calme. Le temps passe et Jack part en vacances.', 15, 'water.mp4',
         2),
        (11, 1, 'les chevaux s\'amusent',
         'Les chevaux s\'amusent bien, ils ont apportés les raquettes pour faire un tournoi de badmington.', 7,
@@ -132,7 +136,8 @@ VALUES (1, 1, 'Le lac', 'Le lac se révolte ', 8, 'lake.mp4', 1),
         'Une planche de surf a été volée. Jack mène l\'enquête. Parviendra-t-il à confondre le brigand ?', 11,
         'surf.mp4', 5),
        (19, 3, 'surf amitié',
-        'En fait la planche n\'avait pas été volée, c\'est Jim, le meilleur ami de Jack, qui lui avait fait une blague. Les deux amis partagent une menthe à l\'eau pour célébrer leur amitié sans faille.',
+        'En fait la planche n\'avait pas été volée, c\'est Jim, le meilleur ami de Jack,
+        qui lui avait fait une blague. Les deux amis partagent une menthe à l\'eau pour célébrer leur amitié sans faille.',
         11, 'surf.mp4', 5),
        (20, 1, 'Ça roule, ça roule',
         'Ça roule, ça roule toute la nuit. Jack fonce dans sa camionnette pour rejoindre le spot de surf.', 27,
@@ -145,20 +150,22 @@ VALUES (1, 1, 'Le lac', 'Le lac se révolte ', 8, 'lake.mp4', 1),
 
 INSERT INTO `serie` (`id`, `titre`, `descriptif`, `img`, `annee`, `date_ajout`)
 VALUES (1, 'Le lac aux mystères',
-        'C\'est l\'histoire d\'un lac mystérieux et plein de surprises. La série, bluffante et haletante, nous entraine dans un labyrinthe d\'intrigues époustouflantes. A ne rater sous aucun prétexte !',
-        '', 2020, '2022-10-30'),
+        'C\'est l\'histoire d\'un lac mystérieux et plein de surprises. La série, bluffante et haletante,
+        nous entraine dans un labyrinthe d\'intrigues époustouflantes. A ne rater sous aucun prétexte !',
+        'lac_aux_mysteres.jpg', 2020, '2022-10-30'),
        (2, 'L\'eau a coulé',
         'Une série nostalgique qui nous invite à revisiter notre passé et à se remémorer tout ce qui s\'est passé depuis que tant d\'eau a coulé sous les ponts.',
-        '', 1907, '2022-10-29'),
-       (3, 'Chevaux fous', 'Une série sur la vie des chevals sauvages en liberté. Décoiffante.', '', 2017,
+        'eau_a_coule.jpg', 1907, '2022-10-29'),
+       (3, 'Chevaux fous', 'Une série sur la vie des chevals sauvages en liberté. Décoiffante.', 'chevaux_fous.jpg', 2017,
         '2022-10-31'),
-       (4, 'A la plage', 'Le succès de l\'été 2021, à regarder sans modération et entre amis.', '', 2021, '2022-11-04'),
+       (4, 'A la plage', 'Le succès de l\'été 2021, à regarder sans modération et entre amis.', 'a_la_plage.jpg', 2021, '2022-11-04'),
        (5, 'Champion',
         'La vie trépidante de deux champions de surf, passionnés dès leur plus jeune age. Ils consacrent leur vie à ce sport. ',
-        '', 2022, '2022-11-03'),
+        'champion.jpg', 2022, '2022-11-03'),
        (6, 'Une ville la nuit',
-        'C\'est beau une ville la nuit, avec toutes ces voitures qui passent et qui repassent. La série suit un livreur, un chauffeur de taxi, et un insomniaque. Tous parcourent la grande ville une fois la nuit venue, au volant de leur véhicule.',
-        '', 2017, '2022-10-31');
+        'C\'est beau une ville la nuit, avec toutes ces voitures qui passent et qui repassent. La série suit un livreur,
+        un chauffeur de taxi, et un insomniaque. Tous parcourent la grande ville une fois la nuit venue, au volant de leur véhicule.',
+        'une_ville_la_nuit.jpg', 2017, '2022-10-31');
 
 -- 2022-10-31 16:33:40
 
