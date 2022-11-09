@@ -39,6 +39,7 @@ class EpisodeRenderer implements Renderer
      */
     public function renderDetail(): string
     {
+        //TODO à supprimer quand AddToFavAction sera fait
         $html = '<br><button type="submit" name="addFav" value="Add to favorite">Add to favorite</button>';
         $html .= "<div class='episode'>
                       <h2>Titre : {$this->episode->__get("titre")}</h2>
