@@ -49,6 +49,7 @@ class Episode
      * @param string $resume
      * @param string $duree
      * @param bool $vu
+     * constructeur paramétré
      */
     public function __construct(int $num, string $image, string $titre, string $resume, string $duree, bool $vu)
     {
@@ -60,12 +61,25 @@ class Episode
         $this->vu = $vu;
     }
 
+    /**
+     * @param $attrname
+     * @return mixed
+     * @throws InvalidPropertyNameException
+     * getter magique
+     */
     public function __get($attrname)
     {
         if (property_exists($this, $attrname)) return $this->$attrname;
         throw new InvalidPropertyNameException("Nom d'attribut invalide : $attrname");
     }
 
+    /**
+     * @param $attrname
+     * @param $value
+     * @return void
+     * @throws InvalidPropertyNameException
+     * Setter magique
+     */
     public function __set($attrname, $value)
     {
         if (property_exists($this, $attrname)) $this->$attrname = $value;

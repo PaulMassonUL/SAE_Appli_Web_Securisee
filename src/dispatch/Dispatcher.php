@@ -31,21 +31,21 @@ class Dispatcher
                 ';
         switch ($this->action) {
             case 'show-favorites':
-                $user = User::getInstance();
+                $user = unserialize($_SESSION['user']);
                 if (!is_null($user)) {
                     $action = new ShowCatalogAction($user->getSeriesPref());
                     $html = $action->execute();
                 }
                 break;
             case 'browse':
-                $user = User::getInstance();
+                $user = unserialize($_SESSION['user']);
                 if (!is_null($user)) {
                     $action = new ShowCatalogAction($user->getCatalogue());
                     $html = $action->execute();
                 }
                 break;
             case 'show-serie-details':
-                $user = User::getInstance();
+                $user = unserialize($_SESSION['user']);
                 if (!is_null($user)) {
                     if (isset($_POST['serieId'])) {
                         $serieId = intval($_POST['serieId']);
@@ -55,12 +55,12 @@ class Dispatcher
                 }
                 break;
             case 'show-episode-details':
-                $user = User::getInstance();
+                $user = unserialize($_SESSION['user']);
                 if (!is_null($user) && isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
                     $serieId = intval($_POST['serieId']);
                     $numEpisode = intval($_POST['numEpisode']);
                     $serie = $user->getCatalogue()->getSerieById($serieId);
-                    $action = new ShowEpisodeAction($serie->getEpisodeByNum($numEpisode));
+                    $action = new ShowEpisodeAction($serie, $serie->getEpisodeByNum($numEpisode));
                     $html = $action->execute();
 
                 } else {

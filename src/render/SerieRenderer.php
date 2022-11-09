@@ -67,10 +67,19 @@ class SerieRenderer implements Renderer
                     <label>Date d'ajout: $ajout</label>
                 </div>
             </div>
+            
+            <div id="notation">
+                <label> Commentaire : <input type="text" name="commentaire" value="Entrer un commentaire" > </label>
+                <form method="post" action="#" oninput="result.value=Range.value">
+                    <label> Note : <input type="range" min="1" max="5" name="Range" value="" > 
+                    value= <output for="out" name="result"> </output> </label>
+                </form>
+            </div>
             <div id="serie-episodes">
                 <h3>Episodes ($nbEpisodes)</h3>
                 <div id="episodes">
                     <ol>
+            
         END;
 
         foreach ($episodes as $num => $episode) {
@@ -79,6 +88,8 @@ class SerieRenderer implements Renderer
             $epRend = new EpisodeRenderer($episode);
             $html .= $epRend->render(Renderer::COMPACT) . "</li><br>";
         }
+
+
 
         $html .= <<<END
                     </ol>

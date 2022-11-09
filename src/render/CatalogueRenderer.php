@@ -20,7 +20,7 @@ class CatalogueRenderer implements Renderer
         $html = '<div id="catalog-container">';
         try {
             $nom = $this->catalogue->__get("nom");
-        } catch (InvalidPropertyNameException) {
+        } catch (InvalidPropertyNameException $e) {
             $nom = "CATALOG";
         }
         $html .= '<div><label id="title">' . $nom . '</label></div>';

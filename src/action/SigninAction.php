@@ -4,7 +4,6 @@
 namespace netvod\action;
 
 use netvod\auth\Authentification;
-use netvod\dispatch\Dispatcher;
 use netvod\exception\AuthException;
 
 use netvod\user\User;
@@ -34,10 +33,10 @@ class SigninAction extends Action
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
                 $email = htmlspecialchars($email);
                 $passwd = htmlspecialchars($_POST['passwd']);
+                
+                $_SESSION['user'] = serialize(Authentification::authenticate($email, $passwd));
 
-                User::setInstance(Authentification::authenticate($email, $passwd));
                 header('Location: accueil.php');
-                exit();
 
             } catch (AuthException $e) {
                 $html .= <<<END

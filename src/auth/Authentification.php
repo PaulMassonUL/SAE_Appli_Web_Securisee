@@ -21,12 +21,8 @@ class Authentification
         $special = preg_match("#\W#", $pass); // au moins un car. spécial
         $lower = preg_match("#[a-z]#", $pass); // au moins une minuscule
         $upper = preg_match("#[A-Z]#", $pass); // au moins une majuscule
-        if (!$length || !$digit || !$special || !$lower || !$upper) {
-            return false;
-        } else {
-            return true;
-        }
 
+        return $length && $digit && $special && $lower && $upper;
     }
 
     public static function authenticate(string $email, string $mdpUser): User

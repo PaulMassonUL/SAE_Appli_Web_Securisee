@@ -2,7 +2,9 @@
 
 namespace netvod\user;
 
+use netvod\db\ConnectionFactory;
 use netvod\video\Catalogue;
+use PDOException;
 
 class User
 {
@@ -38,6 +40,11 @@ class User
      * liste de series preferées de l'utilisateur
      */
     private Catalogue $seriesPref;
+
+    /**
+     * liste des séries commencées
+     */
+    private Catalogue $serieenCours;
 
     /**
      * @param string $eml email
@@ -107,5 +114,21 @@ class User
 
         $catalogue = new \netvod\video\Catalogue("FAVORITE SERIES", $series);
         return $catalogue;
+    }
+
+    public function getSeriesEnCours() : Catalogue {
+        return $this->serieenCours;
+    }
+
+    public function ajouterSerieEnCours(Serie $s) {
+        try {
+            $query = "INSERT INTO serieVisionnee VALUES ( ? , ? )";
+            $db = ConnectionFactory::makeConnection();
+            $st = $db->prepare($db);
+            $st->execute([$s->get('id'), $this->email]);
+        } catch (PDOException $e) {
+            throw new \Exception("erreur d'insersion dans catalogue en cours");
+        }
+        $this->serieenCours->ajouterSerie($s);
     }
 }
