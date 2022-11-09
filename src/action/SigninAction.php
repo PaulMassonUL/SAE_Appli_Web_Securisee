@@ -17,10 +17,11 @@ class SigninAction extends Action
         if ($this->http_method === 'GET') {
             return <<<END
             
-            <form id="Formsignin" method="post" action="?action=signin">
-              
-                <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
-                <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>
+            <form class="form" method="post" action="?action=signin">
+                <div class="labelSin">
+                    <label class="Lemail"> Email :  <input type="Iemail" name="email" placeholder="email"> </label></br>
+                    <label class="Lpasswd"> Password :  <input type="Ipassword" name="passwd" placeholder = "<mot de passe>"> </label></br>    
+                </div>    
                 
                 <button type="submit"> Valider </button>
             </form><br>
@@ -42,12 +43,12 @@ class SigninAction extends Action
 
             } catch (AuthException $e) {
                 $html .= <<<END
-                        <form method="post" action="?action=signin">
-                          
-                            <label> Email :  <input type="email" name="email" placeholder="email"> </label></br>
-                            <label> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>
-                            
-                            <button type="submit"> Valider </button> 
+                        <form  method="post" action="?action=signin">
+                            <div class="form">
+                              <label class="Lemail"> Email :  <input type="Iemail" name="email" placeholder="email"> </label></br>
+                              <label class="passwd"> Password :  <input type="password" name="passwd" placeholder = "<mot de passe>"> </label></br>    
+                            </div>    
+                            <button class="bSin" type="submit"> Valider </button> 
                         </form>
                         <b>{$e->getMessage()}</b></br>
                         END;

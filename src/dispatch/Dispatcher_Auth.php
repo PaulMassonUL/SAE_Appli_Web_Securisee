@@ -54,10 +54,10 @@ class Dispatcher_Auth
                         <a href="?action=add-user">signup</a>                       
                     </nav>
                 </header>    
-                <nav id="signin">
+                <div class="signin">
                     <h1>Bienvenue</h1>
                     $html
-                </nav><br>
+                </div><br>
             </body>
         </html>
         END;

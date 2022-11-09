@@ -15,7 +15,7 @@ class AddUserAction extends Action
             <form method="post" action="?action=add-user">                
                 <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
                 <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
-                <label> rentrer une seconde fois votre password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
+                <label> confirm your password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
                 
                 <button type="submit"> Valider </button> 
             </form></br>
@@ -44,7 +44,7 @@ class AddUserAction extends Action
                 <form method="post" action="?action=add-user">               
                     <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
                     <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
-                    <label> rentrer une seconde fois votre password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
+                    <label> confirm your password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
                     
                     <button type="submit"> Valider </button> 
                 </form>
@@ -61,7 +61,7 @@ class AddUserAction extends Action
                 <form method="post" action="?action=add-user">               
                     <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
                     <label> password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>
-                    <label> rentrer une seconde fois votre password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
+                    <label> confirm your password :  <input type="password" name="verifpassword" placeholder = "<password>" required> </label></br>
                     
                     <button type="submit"> Valider </button> 
                 </form></br>

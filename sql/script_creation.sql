@@ -51,7 +51,7 @@ CREATE TABLE `serie` (
 
 DROP TABLE IF EXISTS `episode`;
 CREATE TABLE `episode` (
-                           `numero` int(11) NOT NULL AUTO_INCREMENT DEFAULT 1,
+                           `numero` int(11) NOT NULL AUTO_INCREMENT,
                            `titre` varchar(128) NOT NULL,
                            `resume` text DEFAULT NULL,
                            `duree` int(11) NOT NULL DEFAULT 0,
