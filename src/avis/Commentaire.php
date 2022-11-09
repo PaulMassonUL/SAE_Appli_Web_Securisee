@@ -10,7 +10,7 @@ class Commentaire
     protected string $date;
     protected User $user;
 
-    function __construct($pComm, $pDate, $pUser)
+    public function __construct($pComm, $pDate, $pUser)
      {
          $this->commentaire = $pComm;
          $this->date = $pDate;
