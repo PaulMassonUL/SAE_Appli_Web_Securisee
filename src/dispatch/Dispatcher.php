@@ -113,6 +113,19 @@ class Dispatcher
                     return;
                 }
                 break;
+            case 'addMotsCles' :
+                if (isset($_POST['choixMotsCles'])) {
+                    $cle = $_POST['choixMotsCles'];
+                    $mots = [];
+                    if (! strpos($cle, ' ')) {
+                        $mots[] = $cle;
+                    } else {
+                        $mots = explode(" ", $cle);
+                    }
+
+
+
+                }
             case 'addChoiceTriCatalogue':
                 if (isset ($_POST['choixTri']))
                 {

@@ -22,11 +22,14 @@ class ShowCommentAction extends Action {
     {
         $html = '<div id="comm">
         <label> Commentaires de : ' . $this->serie->__get('titre') . '</label></br>';
+
         //email=>commentaire
         if (count($this->commentaires) > 0) {
+            $html .= '<div id="listcomm">';
             foreach ($this->commentaires as $key => $com) {
                 $html .= '<p>' . $key . ' : ' . $com . '</p></br>';
             }
+            $html .= '</div>';
         } else {
             $html .= 'Pas de commentaire pour le moment';
         }

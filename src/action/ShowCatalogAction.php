@@ -31,7 +31,10 @@ class ShowCatalogAction extends Action
     public function execute(): string
     {
         $renderer = new CatalogueRenderer($this->catalogue);
-        $html = '<div id="triChoix"> <p> Quel tri voulez vous prendre ? : </p> ';
+        $html = '<form id="mots-cles" action = "?action=addMotsCles" method="post">';
+        $html .= '<input type="text" name="choixMotsCles" placeholder="mot(s) cle(s)"> <button type="submit"> Rechercher </button>';
+        $html .= '</form>';
+        $html .= '<div id="triChoix"> <p> Quel tri voulez vous prendre ? : </p> ';
         $html .= '<ol> <ul> par defaut : 0 </ul> <ul> par titre : 1 </ul> <ul> par date : 2 </ul> <ul> par Nb d\'episodes : 3 </ul> <ul> par noteMoyenne : 4 </ul> </ol>';
         $page = $_SERVER['PHP_SELF'];
         $tri = $this->catalogue->__get("tri");

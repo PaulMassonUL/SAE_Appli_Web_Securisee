@@ -34,6 +34,10 @@ class User
         return new Catalogue();
     }
 
+    public function getCataloguePerso(array $mots): Catalogue {
+        return new CataloguePerso($mots);
+    }
+
     /**
      * @return Catalogue catalogue de favoris
      */
@@ -49,6 +53,7 @@ class User
     {
         return new CatalogueEncours();
     }
+
 
 
     public function __get($attrname)
