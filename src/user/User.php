@@ -8,6 +8,7 @@ use netvod\video\Catalogue;
 use netvod\video\CatalogueEncours;
 use netvod\video\CatalogueFavoris;
 use netvod\video\CataloguePerso;
+use netvod\video\CatalogueFini;
 
 class User
 {
@@ -74,6 +75,10 @@ class User
     public function getSeriesEnCours(): Catalogue
     {
         return new CatalogueEncours();
+    }
+
+    public function getSeriesFinies() : Catalogue {
+        return new CatalogueFini();
     }
 
 

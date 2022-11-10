@@ -93,6 +93,18 @@ class Serie
         return false;
     }
 
+    public function estFini() : bool
+    {
+        $stop = false;
+        foreach ($this->episodes as $ep) {
+            if (! $ep->estVu()) {
+                $stop = true;
+                break;
+            }
+        }
+        return (! $stop);
+    }
+
     public function estPreferee(): bool
     {
         $connection = ConnectionFactory::makeConnection();

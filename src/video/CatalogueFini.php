@@ -2,29 +2,22 @@
 
 namespace netvod\video;
 
-class CatalogueEncours extends Catalogue
-{
+class CatalogueFini extends Catalogue {
 
-    /**
-     * Constructeur du catalogue global
-     */
     public function __construct()
     {
-        $this->nom = "Series in progress";
+        $this->nom = "Finished Series";
         parent::__construct();
     }
 
-    protected function getSeries() : array
+    public function getSeries(): array
     {
         $series = [];
         foreach (parent::getSeries() as $serie) {
-            if ($serie->estEnCours() && !$serie->estFini()) {
+            if ($serie->estFini()) {
                 $series[] = $serie;
             }
         }
-
         return $series;
     }
-
 }
-
