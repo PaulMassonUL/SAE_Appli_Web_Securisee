@@ -121,6 +121,12 @@ class Dispatcher
                     $action = new ShowCatalogAction($catalog);
                     $html = $action->execute();
                 }
+                else
+                {
+                    $this->renderPage($errorMessage);
+                    return;
+                }
+                break;
             case 'logout':
                 session_destroy();
                 header('Location: index.php');
