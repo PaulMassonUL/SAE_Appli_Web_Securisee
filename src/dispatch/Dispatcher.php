@@ -73,6 +73,16 @@ class Dispatcher
                     return;
                 }
                 break;
+            case 'add-serie-comment':
+                if (isset($_POST['serieId']))
+                {
+                    $serieId = intval($_POST['serieId']);
+                    $commentaire = htmlspecialchars($_POST['commentaire']);
+                    $serie = $user->getCatalogue()->getSeriebyId($serieId);
+                    $serie->ajouterCommentaire($commentaire);
+                    $action = new ShowSerieSucessAction($serie, "You successfully comment ". $serie->__get("titre"). "with $commentaire");
+                    $html = $action->execute();
+                }
             case 'show-episode-details':
                 if (isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
                     $serieId = intval($_POST['serieId']);
