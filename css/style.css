@@ -325,11 +325,33 @@ html, body {
 #serie #episodes li #buttonFav {
     margin-left: 2%;
     margin-top: 1%;
-    border: ridge black;
     border-radius: 20px;
     width: 40%;
     height: 30%;
-    background-color: lightgray;
+    background: linear-gradient(to bottom, gray,lightgray);
+
+}
+
+#avis{
+    border: ridge white;
+    border-radius: 30px;
+    padding: 1%;
+    margin-left: -1%;
+    background: linear-gradient(to bottom, rgb(107,107,107),lightgray);
+    display: flex;
+}
+
+#avis fieldset{
+    padding : 1%;
+    margin: 0.5%;
+    border: ridge white;
+    border-radius: 15px;
+    background: linear-gradient(to bottom, rgb(120,120,120) 28%,lightgray);
+    color: #171717 ;
+}
+
+#avis fieldset legend{
+    font-weight: bold;
 }
 
 #description{
