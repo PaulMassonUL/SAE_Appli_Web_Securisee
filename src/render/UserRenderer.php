@@ -56,7 +56,7 @@ class UserRenderer implements Renderer
             <br>
             <input type="text" name="genrePref" maxlength="128" value="{$this->user->__get("genrePref")}">
             <br><br><br>
-            <input id="maj" type="submit" value="Valider les informations">
+            <input id="maj" type="submit" value="Validate the informations">
         END;
 
         return $html;
