@@ -60,6 +60,17 @@ class Dispatcher
                     return;
                 }
                 break;
+            case 'del-serie-fav' :
+                if (isset($_POST['serieId'])) {
+                    $serieId = intval($_POST['serieId']);
+                    $serie = $user->getCatalogue()->getSerieById($serieId);
+                    $serie->supprimerPreferee($user);
+                    $action = new SupprimerFavorisAction($serie, $serie->__get("titre") . " was successfully deleted to your favorites.");
+                    $html = $action->execute();
+                } else {
+                    $this->renderPage($errorMessage);
+                    return;
+                }
             case 'add-serie-note' :
                 if (isset($_POST['serieId'])) {
                     $serieId = intval($_POST['serieId']);

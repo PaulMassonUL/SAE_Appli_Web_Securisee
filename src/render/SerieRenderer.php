@@ -67,7 +67,10 @@ class SerieRenderer implements Renderer
                     <div id="title1">
                         <h1>$titre</h1>
                         <form action="?action=add-serie-fav" method="post">
-                            <button id="favoris" type="submit" name="serieId" value="$id" title="Ajouter aux favoris">Add to favorite</button>
+                            <button id="addfavoris" type="submit" name="serieId" value="$id" title="Ajouter aux favoris">Add to favorite</button>
+                        </form>
+                        <form action="?action=del-serie-fav" method="post">
+                            <button id="delfavoris" type="submit" name="serieId" value="$id" title="Supprimer des favoris">Delete to favorite</button>
                         </form>
                     </div>
                     <p>$annee</p>
