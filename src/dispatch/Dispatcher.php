@@ -91,7 +91,7 @@ class Dispatcher
                     $commentaire = htmlspecialchars($_POST['commentaire']);
                     $serie = $user->getCatalogue()->getSeriebyId($serieId);
                     $serie->ajouterCommentaire($commentaire);
-                    $action = new ShowSerieSucessAction($serie, "You successfully comment ". $serie->__get("titre"). "with $commentaire");
+                    $action = new ShowSerieSucessAction($serie, "You successfully comment ". $serie->__get("titre"). " with the comment : $commentaire");
                     $html = $action->execute();
                 } else {
                     $this->renderPage($errorMessage);
