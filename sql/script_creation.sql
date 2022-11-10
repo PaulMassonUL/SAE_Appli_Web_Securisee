@@ -13,9 +13,15 @@ CREATE TABLE users
 (
     email              varchar(75) NOT NULL,
     password           LONGTEXT    NOT NULL,
+    nom  VARCHAR(128),
+    prenom  VARCHAR(128),
+    age int,
+    genrePref  VARCHAR(128),
     active             int(1) DEFAULT 0,
     activation_token   varchar(128),
-    activation_expires timestamp,
+    activation_expires DATETIME,
+    renew_token   varchar(128),
+    renew_expires DATETIME,
     PRIMARY KEY (email)
 );
 

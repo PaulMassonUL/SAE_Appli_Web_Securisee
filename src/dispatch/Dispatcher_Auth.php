@@ -54,7 +54,6 @@ class Dispatcher_Auth
                     </nav>
                 </header>    
                 <div class="signin">
-                    
                     $html
                 </div><br>
             </body>

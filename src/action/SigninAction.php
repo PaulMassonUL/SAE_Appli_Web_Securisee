@@ -25,9 +25,8 @@ class SigninAction extends Action
                 $error = "<b>{$e->getMessage()}</b>";
             }
 
-        }
-
-        return <<<END
+        }else{
+            return <<<END
             <h1>Log in</h1>
             <form class="form" method="post" action="?action=signin">
                 <div class="labelSin">
@@ -37,8 +36,14 @@ class SigninAction extends Action
                                 
                 <button type="submit"> Valider </button>
             </form><br>
+            
+            <a href="">Forgotten password</a>
+             
             $error
         END;
+        }
+
+
 
     }
 }
