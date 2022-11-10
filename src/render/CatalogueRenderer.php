@@ -25,6 +25,7 @@ class CatalogueRenderer implements Renderer
         }
         $html .= '<div><label id="title">' . $nom . '</label></div>';
         $html .= '<div id="catalog">';
+//        $this->catalogue->definirTri(Catalogue::TRI_NORMAL);
         foreach ($this->catalogue->__get("series") as $serie) {
             $renderer = new SerieRenderer($serie);
             $html .= $renderer->render(Renderer::COMPACT);
