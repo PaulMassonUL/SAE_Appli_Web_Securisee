@@ -119,16 +119,17 @@ class Dispatcher
             case 'addMotsCles' :
                 if (isset($_POST['choixMotsCles'])) {
                     $cle = $_POST['choixMotsCles'];
-                    $mots = [];
-                    if (! strpos($cle, ' ')) {
-                        $mots[] = $cle;
-                    } else {
-                        $mots = explode(" ", $cle);
-                    }
+//                    $action =
+//                    $html = $action->execute();
 
-
-
+                } else {
+                    $this->renderPage($errorMessage);
+                    return;
                 }
+                break;
+
+
+
             case 'addChoiceTriCatalogue':
                 if (isset ($_POST['choixTri']))
                 {
