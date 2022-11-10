@@ -246,7 +246,7 @@ html, body {
     margin-right: 200px;
 }
 
-#serie #details #title #title1 #favoris {
+#serie #details #title #title1 #addfavoris {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -260,7 +260,7 @@ html, body {
     text-decoration: none;
 }
 
-#serie #details #title #title1 #favoris:hover {
+#serie #details #title #title1 #addfavoris:hover {
     background: #128ccb;
 }
 
