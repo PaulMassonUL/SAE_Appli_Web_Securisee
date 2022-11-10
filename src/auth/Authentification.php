@@ -33,6 +33,7 @@ class Authentification
 
 
         $stmt = $db->prepare($query);
+
         $res = $stmt->execute([$email]); // [$email]
 
         // execute renvoie un booleen si aucune donnee execute, pareil pour fetch
@@ -47,7 +48,7 @@ class Authentification
             throw new AuthException("Your account is not active, please activate it : </br> <a href=\"$url\">Activate</a>");
         }
 
-        return new User($email);
+        return new User($user['email'], $user['nom'] ?? '', $user['prenom'] ?? '', $user['age'] ?? '', $user['genrePref'] ?? '');
     }
 
     public static function register(string $email, string $pass): string

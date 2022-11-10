@@ -2,13 +2,16 @@
 
 namespace netvod\dispatch;
 
+use netvod\action\ShowProfileSuccessAction;
 use netvod\action\ShowCommentAction;
+use netvod\action\ShowProfileAction;
 use netvod\action\ShowSerieSucessAction;
 use netvod\action\ShowCatalogAction;
 use netvod\action\ShowEpisodeAction;
 use netvod\action\ShowSerieAction;
 use netvod\exception\InvalidPropertyNameException;
-use netvod\action\SupprimerFavorisAction;
+use netvod\render\Renderer;
+use netvod\render\UserRenderer;
 
 class Dispatcher
 {
@@ -141,6 +144,15 @@ class Dispatcher
                     return;
                 }
                 break;
+            case 'user-profile':
+                $action = new ShowProfileAction($user);
+                $html = $action->execute();
+                break;
+            case 'update-profile':
+                $user->updateProfile($_POST['nom'], $_POST['prenom'], $_POST['age'], $_POST['genrePref']);
+                $action = new ShowProfileSuccessAction("Your profile was successfully updated.");
+                $html = $action->execute();
+                break;
             case 'logout':
                 session_destroy();
                 header('Location: index.php');
@@ -177,6 +189,7 @@ class Dispatcher
 
     public function renderPage(string $html): void
     {
+        $renderer = new UserRenderer(unserialize($_SESSION['user']));
         echo <<<END
             <!DOCTYPE html>
             <html lang="fr">
@@ -194,9 +207,12 @@ class Dispatcher
                         <a href="?action=favorites">Favorite</a>
                         <a href="?action=inprogress">In progress</a>
                     </nav>
-                    <a id="logout" href="?action=logout">
-                        <button>LOGOUT</button>
-                    </a>
+                    <nav id="">
+                        <a href="?action=user-profile" title="Profil">{$renderer->render(Renderer::COMPACT)}</a>
+                        <a id="logout" href="?action=logout">
+                            <button>LOGOUT</button>
+                        </a>
+                    </nav>
                 </header>
                 
                 <main id="main">

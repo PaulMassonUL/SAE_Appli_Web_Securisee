@@ -47,7 +47,7 @@ html, body {
 }
 
 #header #logout {
-    margin-right: 10px;
+    margin: 0 20px;
 }
 
 #header #logout button {

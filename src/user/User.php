@@ -7,11 +7,6 @@ use netvod\exception\InvalidPropertyNameException;
 use netvod\video\Catalogue;
 use netvod\video\CatalogueEncours;
 use netvod\video\CatalogueFavoris;
-use netvod\video\CatalogueGlobal;
-use netvod\video\Serie;
-use PDOException;
-
-use netvod\avis\Commentaire;
 
 class User
 {
@@ -20,10 +15,36 @@ class User
      */
     private string $email;
 
+    private string $nom = '';
 
-    public function __construct(string $eml)
+    private string $prenom = '';
+
+    private string $age = '';
+
+    private string $genrePref = '';
+
+    public function __construct(string $eml, string $nom, string $prenom, string $age, string $genrePref)
     {
         $this->email = $eml;
+        $this->nom = $nom;
+        $this->prenom = $prenom;
+        $this->age = $age;
+        $this->genrePref = $genrePref;
+    }
+
+    public function updateProfile(string $nom, string $prenom, string $age, string $genrePref): void
+    {
+        $this->nom = $nom;
+        $this->prenom = $prenom;
+        $this->age = $age;
+        $this->genrePref = $genrePref;
+
+        $_SESSION['user'] = serialize($this);
+
+        $connection = ConnectionFactory::makeConnection();
+        $sql = "UPDATE users SET nom = ?, prenom = ?, age = ?, genrePref = ? WHERE email = ?";
+        $statement = $connection->prepare($sql);
+        $statement->execute([$nom, $prenom, intval($age), $genrePref, $this->email]);
     }
 
     /**

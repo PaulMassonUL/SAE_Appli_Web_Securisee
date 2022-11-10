@@ -2,33 +2,33 @@
 
 SET NAMES utf8;
 SET
-time_zone = '+00:00';
+    time_zone = '+00:00';
 SET
-foreign_key_checks = 0;
+    foreign_key_checks = 0;
 SET
-sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+    sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE users
 (
     email              varchar(75) NOT NULL,
     password           LONGTEXT    NOT NULL,
-    nom  VARCHAR(128),
-    prenom  VARCHAR(128),
-    age int,
-    genrePref  VARCHAR(128),
+    nom                VARCHAR(128),
+    prenom             VARCHAR(128),
+    age                int,
+    genrePref          VARCHAR(128),
     active             int(1) DEFAULT 0,
     activation_token   varchar(128),
     activation_expires DATETIME,
-    renew_token   varchar(128),
-    renew_expires DATETIME,
+    renew_token        varchar(128),
+    renew_expires      DATETIME,
     PRIMARY KEY (email)
 );
 
 DROP TABLE IF EXISTS `Notation`;
 CREATE TABLE Notation
 (
-    idSerie int(11) NOT NULL,
+    idSerie int(11)     NOT NULL,
     email   varchar(75) NOT NULL,
     note    int(1),
     PRIMARY KEY (idSerie, email)
@@ -37,7 +37,7 @@ CREATE TABLE Notation
 DROP TABLE IF EXISTS `Commentaire`;
 CREATE TABLE Commentaire
 (
-    idSerie     int(11) NOT NULL,
+    idSerie     int(11)     NOT NULL,
     email       varchar(75) NOT NULL,
     commentaire LONGTEXT,
     PRIMARY KEY (idSerie, email)
@@ -46,7 +46,7 @@ CREATE TABLE Commentaire
 DROP TABLE IF EXISTS `seriePreferee`;
 CREATE TABLE seriePreferee
 (
-    idSerie int(11) NOT NULL,
+    idSerie int(11)     NOT NULL,
     email   varchar(75) NOT NULL,
     PRIMARY KEY (idSerie, email)
 );
@@ -54,7 +54,7 @@ CREATE TABLE seriePreferee
 DROP TABLE IF EXISTS `episodeVisionne`;
 CREATE TABLE episodeVisionne
 (
-    idEpisode int(11) NOT NULL,
+    idEpisode int(11)     NOT NULL,
     email     varchar(75) NOT NULL,
     PRIMARY KEY (idEpisode, email)
 );
@@ -62,11 +62,11 @@ CREATE TABLE episodeVisionne
 DROP TABLE IF EXISTS `serie`;
 CREATE TABLE `serie`
 (
-    `id`         int(11) NOT NULL AUTO_INCREMENT,
+    `id`         int(11)      NOT NULL AUTO_INCREMENT,
     `titre`      varchar(128) NOT NULL,
     `descriptif` text         NOT NULL,
     `img`        varchar(256) NOT NULL,
-    `annee`      int(11) NOT NULL,
+    `annee`      int(11)      NOT NULL,
     `date_ajout` date         NOT NULL,
     `genre`      varchar(128) NOT NULL,
     `public`     varchar(128) NOT NULL,
@@ -77,13 +77,13 @@ CREATE TABLE `serie`
 DROP TABLE IF EXISTS `episode`;
 CREATE TABLE `episode`
 (
-    `id`       int(11) NOT NULL AUTO_INCREMENT,
-    `numero`   int(11) NOT NULL DEFAULT 1,
+    `id`       int(11)      NOT NULL AUTO_INCREMENT,
+    `numero`   int(11)      NOT NULL DEFAULT 1,
     `titre`    varchar(128) NOT NULL,
-    `resume`   text         DEFAULT NULL,
-    `duree`    int(11) NOT NULL DEFAULT 0,
-    `file`     varchar(256) DEFAULT NULL,
-    `serie_id` int(11) DEFAULT NULL,
+    `resume`   text                  DEFAULT NULL,
+    `duree`    int(11)      NOT NULL DEFAULT 0,
+    `file`     varchar(256)          DEFAULT NULL,
+    `serie_id` int(11)               DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -148,7 +148,8 @@ VALUES (1, 'Le lac aux mystères',
        (2, 'L\'eau a coulé',
         'Une série nostalgique qui nous invite à revisiter notre passé et à se remémorer tout ce qui s\'est passé depuis que tant d\'eau a coulé sous les ponts.',
         'eau_a_coule.jpg', 1907, '2022-10-29', 'Histoire', 'Tout public'),
-       (3, 'Chevaux fous', 'Une série sur la vie des chevals sauvages en liberté. Décoiffante.', 'chevaux_fous.jpg', 2017,
+       (3, 'Chevaux fous', 'Une série sur la vie des chevals sauvages en liberté. Décoiffante.', 'chevaux_fous.jpg',
+        2017,
         '2022-10-31', 'Documentaire', 'Tout public'),
        (4, 'A la plage', 'Le succès de l\'été 2021, à regarder sans modération et entre amis.', 'a_la_plage.jpg', 2021,
         '2022-11-04', 'Comédie', 'Adultes'),
