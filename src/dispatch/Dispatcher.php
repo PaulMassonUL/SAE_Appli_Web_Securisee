@@ -7,6 +7,7 @@ use netvod\action\ShowCatalogAction;
 use netvod\action\ShowEpisodeAction;
 use netvod\action\ShowSerieAction;
 use netvod\exception\InvalidPropertyNameException;
+use netvod\action\SupprimerFavorisAction;
 
 class Dispatcher
 {
@@ -23,7 +24,7 @@ class Dispatcher
      */
     public function run(): void
     {
-        $errorMessage = "<h2 class='error'>Une erreur est survenue à l'affichage de cette page. Retournez à l'accueil.</h2>";
+        $errorMessage = "<h3 class='error'>Une erreur est survenue à l'affichage de cette page. Retournez à l'accueil.</h3>";
         $user = unserialize($_SESSION['user']);
         switch ($this->action) {
             case 'browse':
@@ -65,14 +66,15 @@ class Dispatcher
                     $serieId = intval($_POST['serieId']);
                     $serie = $user->getCatalogue()->getSerieById($serieId);
                     $serie->supprimerPreferee($user);
-                    $action = new SupprimerFavorisAction($serie, $serie->__get("titre") . " was successfully deleted to your favorites.");
+                    $action = new ShowSerieSucessAction($serie, $serie->__get("titre") . " was successfully removed from your favorites.");
                     $html = $action->execute();
                 } else {
                     $this->renderPage($errorMessage);
                     return;
                 }
+                break;
             case 'add-serie-note' :
-                if (isset($_POST['serieId'])) {
+                if (isset($_POST['serieId']) && isset($_POST['note'])) {
                     $serieId = intval($_POST['serieId']);
                     $note = floatval($_POST['note']);
                     $serie = $user->getCatalogue()->getSerieById($serieId);
@@ -91,9 +93,13 @@ class Dispatcher
                     $commentaire = htmlspecialchars($_POST['commentaire']);
                     $serie = $user->getCatalogue()->getSeriebyId($serieId);
                     $serie->ajouterCommentaire($commentaire);
-                    $action = new ShowSerieSucessAction($serie, "You successfully comment ". $serie->__get("titre"). "with $commentaire");
+                    $action = new ShowSerieSucessAction($serie, "You successfully comment ". $serie->__get("titre"). " with the comment : $commentaire");
                     $html = $action->execute();
+                } else {
+                    $this->renderPage($errorMessage);
+                    return;
                 }
+                break;
             case 'show-episode-details':
                 if (isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
                     $serieId = intval($_POST['serieId']);

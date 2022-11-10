@@ -65,13 +65,22 @@ class Serie
         return $commentaires;
     }
 
-    public function getNoteMoyenne(): ?float
+    public function getNoteMoyenne(): float | string|null
     {
         $connection = ConnectionFactory::makeConnection();
         $resultset = $connection->prepare("SELECT AVG(note) FROM Notation WHERE idSerie = :id");
         $resultset->execute(['id' => $this->id]);
         $row = $resultset->fetch();
-        return $row[0];
+        if ($row[0] === NULL)
+        {
+            $res = "Aucune note";
+        }
+        else
+        {
+            $res = number_format($row[0], 2) ;
+        }
+        return $res;
+
     }
 
     /**
@@ -126,6 +135,16 @@ class Serie
         if (!$this->estPreferee()) {
             $db = ConnectionFactory::makeConnection();
             $st = $db->prepare("INSERT INTO seriePreferee VALUES ( ? , ? )");
+            $user = unserialize($_SESSION['user']);
+            $st->execute([$this->id, $user->__get("email")]);
+        }
+    }
+
+    public function supprimerPreferee(): void
+    {
+        if ($this->estPreferee()) {
+            $db = ConnectionFactory::makeConnection();
+            $st = $db->prepare("DELETE FROM seriePreferee WHERE idSerie = ? AND email = ?");
             $user = unserialize($_SESSION['user']);
             $st->execute([$this->id, $user->__get("email")]);
         }

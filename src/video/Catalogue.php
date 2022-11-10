@@ -8,6 +8,13 @@ use PDOStatement;
 
 class Catalogue
 {
+
+    const TRI_NORMAL = 0;
+    const TRI_TITRE = 1;
+    const TRI_DATE = 2;
+    const TRI_EPISODES = 3;
+    const TRI_NOTE = 4;
+
     /**
      * @var string
      * nom du catalogue
@@ -21,24 +28,47 @@ class Catalogue
     protected array $series;
 
     /**
+     * @var int
+     * correspond au tri utilisé
+     */
+    protected int $tri;
+
+    /**
      * Consructeur par défaut
      */
     public function __construct()
     {
+        $this->tri = self::TRI_NORMAL;
         $this->series = $this->getSeries();
     }
 
-    protected function getSeries() : array
+    protected function getSeries(): array
     {
         $connection = ConnectionFactory::makeConnection();
-        $resultset = $connection->prepare("SELECT * FROM serie");
+        switch ($this->tri) {
+            case self::TRI_TITRE:
+                $sql = "SELECT * FROM serie ORDER BY titre";
+                break;
+            case self::TRI_DATE:
+                $sql = "SELECT * FROM serie ORDER BY date_creation";
+                break;
+            case self::TRI_EPISODES:
+                $sql = "SELECT * FROM serie ORDER BY nb_episodes";
+                break;
+            case self::TRI_NOTE:
+                $sql = "SELECT * FROM serie ORDER BY note";
+                break;
+            default:
+                $sql = "SELECT * FROM serie";
+        }
+        $resultset = $connection->prepare($sql);
         $resultset->execute();
         $connection = null;
 
         return $this->retrieveSerieList($resultset);
     }
 
-    protected function retrieveSerieList(PDOStatement $resultSet) : array
+    protected function retrieveSerieList(PDOStatement $resultSet): array
     {
         $series = [];
         while ($row = $resultSet->fetch()) {
@@ -47,7 +77,7 @@ class Catalogue
         return $series;
     }
 
-    public function getSerieById(int $id) : ?Serie
+    public function getSerieById(int $id): ?Serie
     {
         foreach ($this->series as $serie) {
             if ($serie->__get('id') == $id) {
@@ -55,6 +85,12 @@ class Catalogue
             }
         }
         return null;
+    }
+
+    public function definirTri(int $tri): void
+    {
+        $this->tri = $tri;
+        $this->series = $this->getSeries();
     }
 
     /**
