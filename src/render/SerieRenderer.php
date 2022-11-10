@@ -71,7 +71,7 @@ class SerieRenderer implements Renderer
         if ($estPreferee) {
             $html .= <<<END
                 <form action="?action=del-serie-fav" method="post">
-                    <button class="favbutton" type="submit" name="serieId" value="$id" title="Supprimer des favoris">Delete from favorite</button>
+                    <button class="favbutton" type="submit" name="serieId" value="$id" title="Supprimer des favoris">Remove from favorite</button>
                 </form>
             END;
         } else {
