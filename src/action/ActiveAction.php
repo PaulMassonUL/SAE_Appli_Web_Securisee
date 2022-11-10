@@ -34,10 +34,10 @@ class ActiveAction
         $res = $stmt->fetch()[0];
         $email = $res[0];
         $valid_token = $res[4];
-        if (date('Y-m-d H:i:s', time()) < $valid_token) {
+        if (date('Y-m-d H:i:s', time()) > $valid_token) {
             $url_act = ActiveAction::creationActivationToken($email);
             $html .= <<<END
-            <b>token is not valid, here is a new link to activate your account </b>
+            <b>Token is invalid, here is a new link to activate your account </b>
             <b>link : $url_act</b>
             END;
         } else {
