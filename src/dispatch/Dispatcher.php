@@ -162,6 +162,10 @@ class Dispatcher
                     return;
                 }
                 break;
+            case 'finished':
+                $action = new ShowCatalogAction($user->getSeriesFinies());
+                $html = $action->execute();
+                break;
             case 'logout':
                 session_destroy();
                 header('Location: index.php');
@@ -174,7 +178,8 @@ class Dispatcher
                     <div id="action">
                         <a class="button" href="?action=browse"><p>BROWSE CATALOG</p></a>
                         <a class="button" href="?action=favorites"><p>FAVORITE SERIES</p></a>                
-                        <a class="button" href="?action=inprogress"><p>SERIES IN PROGRESS</p></a>                
+                        <a class="button" href="?action=inprogress"><p>SERIES IN PROGRESS</p></a>
+                        <a class="button" href="?action=finished"><p>FINISHED SERIES</p></a>                
                     </div>
                 </div>
                 ';
@@ -202,6 +207,7 @@ class Dispatcher
                         <a href="?action=browse">Series</a>
                         <a href="?action=favorites">Favorite</a>
                         <a href="?action=inprogress">In progress</a>
+                        <a href="?acton=finished">Finished</a>
                     </nav>
                     <nav id="">
                         <a href="?action=user-profile" title="Profil">{$renderer->render(Renderer::COMPACT)}</a>
