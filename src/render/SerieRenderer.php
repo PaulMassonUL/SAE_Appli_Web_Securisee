@@ -53,11 +53,13 @@ class SerieRenderer implements Renderer
         $annee = $this->serie->__get("annee");
         $ajout = $this->serie->__get("dateAjout");
         $note = $this->serie->getNoteMoyenne();
+        $notee = $this->serie->estNotee();
         $enCours = $this->serie->estEnCours();
         $estPreferee = $this->serie->estPreferee();
         $episodes = $this->serie->__get("episodes");
         $nbEpisodes = count($episodes);
         $commentaires = $this->serie->getCommentaires();
+        $commentee = $this->serie->estCommentee();
         $nbCommentaires = count($commentaires);
 
 
@@ -101,18 +103,38 @@ class SerieRenderer implements Renderer
             <div id="avis">
                 <fieldset>
                     <legend>Note</legend>
-                    <form id="note" action="?action=add-serie-note" method="post">
-                        <input class="textentry" type="number" min="1" max="5" name="note" placeholder="1 - 5" required>
-                        <button type="submit" name="serieId" value="$id">Rate</button>
-                    </form>
+        END;
+        if ($notee) {
+            $html .= <<<END
+                <b>Vous avez déjà noté cette série.</b>
+            END;
+        } else {
+            $html .= <<<END
+                <form id="note" action="?action=add-serie-note" method="post">
+                    <input class="textentry" type="number" min="1" max="5" name="note" placeholder="1 - 5" required>
+                    <button type="submit" name="serieId" value="$id">Rate</button>
+                </form>
+            END;
+        }
+        $html .= <<<END
                 </fieldset>
-                
+
                 <fieldset>
                     <legend>Commentaire</legend>
-                    <form id="commentaire" action="?action=add-serie-comment" method="post">
-                        <textarea class="textentry" name="commentaire" rows="4" cols="50" maxlength="250" placeholder="Entrer un commentaire" required></textarea>
-                        <button type="submit" name="serieId" value="$id">Comment</button>
-                    </form>
+        END;
+        if ($commentee) {
+            $html .= <<<END
+                <b>Vous avez déjà commenté cette série.</b>
+            END;
+        } else {
+            $html .= <<<END
+                <form id="commentaire" action="?action=add-serie-comment" method="post">
+                    <textarea class="textentry" name = "commentaire" rows = "4" cols = "50" maxlength = "250" placeholder = "Entrer un commentaire" required ></textarea>
+                    <button type="submit" name="serieId" value="$id">Comment</button>
+                </form>
+            END;
+        }
+        $html .= <<<END
                 </fieldset>
             </div>
             
