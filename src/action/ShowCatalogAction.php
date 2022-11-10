@@ -32,14 +32,14 @@ class ShowCatalogAction extends Action
     {
         $renderer = new CatalogueRenderer($this->catalogue);
         $html = '<form id="mots-cles" action = "?action=addMotsCles" method="post">';
-        $html .= '<input type="text" name="choixMotsCles" placeholder="mot(s) cle(s)"> <button type="submit"> Rechercher </button>';
+        $html .= '<input type="text" name="choixMotsCles" placeholder="key word(s)"> <button type="submit"> Search </button>';
         $html .= '</form>';
-        $html .= '<div id="triChoix"> <p> Quel tri voulez vous prendre ? : </p> ';
-        $html .= '<ol> <ul> par defaut : 0 </ul> <ul> par titre : 1 </ul> <ul> par date : 2 </ul> <ul> par Nb d\'episodes : 3 </ul> <ul> par noteMoyenne : 4 </ul> </ol>';
+        $html .= '<div id="triChoix"> <p> What sort of sort do you want ? : </p> ';
+        $html .= '<ol> <ul> By default : 0 </ul> <ul> By title : 1 </ul> <ul> By date : 2 </ul> <ul> By number of episodes : 3 </ul> <ul> by average of note : 4 </ul> </ol>';
         $page = $_SERVER['PHP_SELF'];
         $tri = $this->catalogue->__get("tri");
         $html .= '<form id="choix" action="'.$page.'&tri='.$tri.'" method="post">';
-        $html .= '<input type="number" name="choixTri" placeholder="0-4" min="0" max="4" > <button name="btnTri" type="submit"> Valider </button>';
+        $html .= '<input type="number" name="choixTri" placeholder="0-4" min="0" max="4" > <button name="btnTri" type="submit"> Validate </button>';
         $html .= '</form>';
         $html .= '</div>';
         if ($this->http_method === 'POST' && isset($_POST['choixTri']) && isset($_POST['btnTri']))
