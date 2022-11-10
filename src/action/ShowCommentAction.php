@@ -20,7 +20,7 @@ class ShowCommentAction extends Action {
 
     public function execute(): string
     {
-        $html = '<div id="sucess">
+        $html = '<div id="comm">
         <label> Commentaires de : ' . $this->serie->__get('titre') . '</label></br>';
         //email=>commentaire
         if (count($this->commentaires) > 0) {
