@@ -104,30 +104,19 @@ class Dispatcher
                 }
                 break;
             case 'show-episode-details':
-                if (isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
+                if (isset($_POST['serieId']) && isset($_POST['idEpisode'])) {
                     $serieId = intval($_POST['serieId']);
-                    $numEpisode = intval($_POST['numEpisode']);
+                    $idEpisode = intval($_POST['idEpisode']);
                     $serie = $user->getCatalogue()->getSerieById($serieId);
-                    $action = new ShowEpisodeAction($serie->getEpisodeByNum($numEpisode));
+
+                    print_r($serie->getEpisodeById($idEpisode));
+                    $action = new ShowEpisodeAction($serie->getEpisodeById($idEpisode));
                     $html = $action->execute();
                 } else {
                     $this->renderPage($errorMessage);
                     return;
                 }
                 break;
-            case 'addMotsCles' :
-                if (isset($_POST['choixMotsCles'])) {
-                    $cle = $_POST['choixMotsCles'];
-//                    $action =
-//                    $html = $action->execute();
-
-                } else {
-                    $this->renderPage($errorMessage);
-                    return;
-                }
-                break;
-
-
             case 'addChoiceTriCatalogue':
                 if (isset ($_POST['choixTri'])) {
                     $tri = intval($_POST['choixTri']);

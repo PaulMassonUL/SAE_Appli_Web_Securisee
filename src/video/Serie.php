@@ -180,10 +180,10 @@ class Serie
     }
 
 
-    public function getEpisodeByNum(int $num): ?Episode
+    public function getEpisodeById(int $id): ?Episode
     {
         foreach ($this->episodes as $ep) {
-            if ($ep->__get("numero") == $num) {
+            if ($ep->__get("id") == $id) {
                 return $ep;
             }
         }
