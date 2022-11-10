@@ -204,8 +204,107 @@ html, body {
 /* FIN CATALOGUE */
 
 
-#serie {
+#sucess {
+    margin: 10px;
+}
 
+#sucess label {
+    font-size: 20px;
+}
+
+#sucess #return {
+    margin-top: 30px;
+    width: 400px;
+    height: 40px;
+    border-radius: 10px;
+    background: #383838;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+#sucess #return:hover {
+    background: #484848;
+}
+
+#serie {
+    margin: 30px;
+}
+
+#serie #details #title {
+    margin-bottom: 50px;
+}
+
+#serie #details #title #title1 {
+    display: flex;
+    align-items: center;
+}
+
+#serie #details #title #title1 h1 {
+    font-size: 42px;
+    margin-right: 200px;
+}
+
+#serie #details #title #title1 #favoris {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 45px;
+    border-radius: 40px;
+    background: #0f79af;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+#serie #details #title #title1 #favoris:hover {
+    background: #128ccb;
+}
+
+#serie #details #title p {
+    margin-top: -15px;
+    font-size: 18px;
+}
+
+#serie #details #info {
+    margin-top: 40px;
+}
+
+#serie #details #info p {
+    margin: 0;
+}
+
+#serie #details #info #genrepublic {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#serie #details #info #genrepublic p {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#serie #avis {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#serie #avis fieldset {
+    width: 50%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+#serie #avis fieldset form {
+    display: flex;
+    align-items: center;
 }
 
 #serie #episodes {

@@ -46,50 +46,60 @@ class SerieRenderer implements Renderer
     public function renderDetail(): string
     {
         $id = $this->serie->__get("id");
-        $episodes = $this->serie->__get("episodes");
-        $nbEpisodes = count($episodes);
         $titre = $this->serie->__get("titre");
         $genre = $this->serie->__get("genre");
         $public = $this->serie->__get("public");
         $descriptif = $this->serie->__get("descriptif");
         $annee = $this->serie->__get("annee");
         $ajout = $this->serie->__get("dateAjout");
+        $note = $this->serie->getNoteMoyenne();
+        $enCours = $this->serie->estEnCours();
+        $episodes = $this->serie->__get("episodes");
+        $nbEpisodes = count($episodes);
+        $commentaires = $this->serie->getCommentaires();
+        $nbCommentaires = count($commentaires);
+
 
         $html = <<<END
         <div id="serie">
             <div id="details">
                 <div id="title">
-                    <h1>$titre</h1>
-                    <form action="?action=add-serie-fav" method="post">
-                        <button id="favoris" type="submit" name="serieId" value="$id" title="Ajouter aux favoris">Add to favorite</button>
-                    </form>
-                    <h3>$annee</h3>
+                    <div id="title1">
+                        <h1>$titre</h1>
+                        <form action="?action=add-serie-fav" method="post">
+                            <button id="favoris" type="submit" name="serieId" value="$id" title="Ajouter aux favoris">Add to favorite</button>
+                        </form>
+                    </div>
+                    <p>$annee</p>
                 </div>
                 <div id="description">
                     <p>$descriptif</p>
                 </div>
                 <div id="info">
-                    <h3>Genre : $genre</h3>
-                    <h3>Public : $public</h3>
-                    <p>Date d'ajout: $ajout</p>
+                    <div id="genrepublic">
+                        <p>Genre : $genre</p>
+                        <p>Public : $public</p>
+                    </div>
+                    <p>Ajouté le : $ajout</p>
                 </div>
             </div>
-            
-            <br>
+
             <div id="avis">
                 <fieldset>
                     <legend>Note</legend>
                     <form id="note" action="?action=add-serie-note" method="post">
+                        <input type="hidden" name="serieId" value="$id">
                         <input type="number" min="1" max="5" name="note" placeholder="1 - 5" required>
-                        <input type="submit" name="noter" value="Noter">
+                        <input type="submit" name="noter" value="Rate">
                     </form>
                 </fieldset>
                 
                 <fieldset>
                     <legend>Commentaire</legend>
                     <form id="commentaire" action="?action=add-serie-comment" method="post">
-                        <textarea name="commentaire" rows="4" cols="60" maxlength="250" placeholder="Entrer un commentaire" required></textarea>
-                        <input type="submit" name="commenter" value="Commenter">
+                        <input type="hidden" name="serieId" value="$id">
+                        <textarea id="comment" name="commentaire" rows="4" cols="50" maxlength="250" placeholder="Entrer un commentaire" required></textarea>
+                        <input type="submit" name="commenter" value="Comment">
                     </form>
                 </fieldset>
             </div>

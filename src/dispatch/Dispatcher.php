@@ -2,7 +2,7 @@
 
 namespace netvod\dispatch;
 
-use netvod\action\ShowSucessMessageAction;
+use netvod\action\ShowSerieSucessAction;
 use netvod\action\ShowCatalogAction;
 use netvod\action\ShowEpisodeAction;
 use netvod\action\ShowSerieAction;
@@ -53,7 +53,7 @@ class Dispatcher
                     $serieId = intval($_POST['serieId']);
                     $serie = $user->getCatalogue()->getSerieById($serieId);
                     $serie->ajouterPreferee($user);
-                    $action = new ShowSucessMessageAction($serie->__get("titre") . " was successfully added to your favorites.");
+                    $action = new ShowSerieSucessAction($serie, $serie->__get("titre") . " was successfully added to your favorites.");
                     $html = $action->execute();
                 } else {
                     $this->renderPage($errorMessage);
@@ -63,9 +63,10 @@ class Dispatcher
             case 'add-serie-note' :
                 if (isset($_POST['serieId'])) {
                     $serieId = intval($_POST['serieId']);
+                    $note = floatval($_POST['note']);
                     $serie = $user->getCatalogue()->getSerieById($serieId);
-                    $serie->ajouterNote($user);
-                    $action = new ShowSucessMessageAction($serie->__get("titre") . " was successfully added to your favorites.");
+                    $serie->ajouterNote($note);
+                    $action = new ShowSerieSucessAction($serie, "You successfully rated " . $serie->__get("titre") . " with $note/5.");
                     $html = $action->execute();
                 } else {
                     $this->renderPage($errorMessage);
