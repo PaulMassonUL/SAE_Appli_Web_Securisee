@@ -92,21 +92,21 @@ class SerieRenderer implements Renderer
                 </div>
                 <div id="info">
                     <div id="genrepublic">
-                        <p>Genre : $genre</p>
-                        <p>Public : $public</p>
+                        <p>Type : $genre</p>
+                        <p>Audience : $public</p>
                     </div>
-                    <p>Ajouté le : $ajout</p>
-                    <p>Note moyenne : $note / 5 </p>
+                    <p>Add the : $ajout</p>
+                    <p>Average grade : $note / 5 </p>
                 </div>
             </div>
 
             <div id="avis">
                 <fieldset>
-                    <legend>Note</legend>
+                    <legend>Grade</legend>
         END;
         if ($notee) {
             $html .= <<<END
-                <b>Vous avez déjà noté cette série.</b>
+                <b>You already rate this series.</b>
             END;
         } else {
             $html .= <<<END
@@ -120,11 +120,11 @@ class SerieRenderer implements Renderer
                 </fieldset>
 
                 <fieldset>
-                    <legend>Commentaire</legend>
+                    <legend>Comment</legend>
         END;
         if ($commentee) {
             $html .= <<<END
-                <b>Vous avez déjà commenté cette série.</b>
+                <b>You already comment this series.</b>
             END;
         } else {
             $html .= <<<END
@@ -162,10 +162,10 @@ class SerieRenderer implements Renderer
         END;
 
         $html .= '
-        <form method="post" action="?action=show-comments">
+        <form id="showComment" method="post" action="?action=show-comments">
             <input type="hidden" name="serieId" value="' . $id . '">
 
-            <button type="submit" name="comments">Voir Commentaires</button>
+            <button type="submit" name="comments">Show comments</button>
                 ';
 
 
