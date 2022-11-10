@@ -77,7 +77,7 @@ class Serie
         }
         else
         {
-            $res = $row[0];
+            $res = number_format($row[0], 2) ;
         }
         return $res;
 
