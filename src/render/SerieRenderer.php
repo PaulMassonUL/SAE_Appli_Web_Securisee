@@ -96,7 +96,7 @@ class SerieRenderer implements Renderer
                         <p>Public : $public</p>
                     </div>
                     <p>Ajouté le : $ajout</p>
-                    <p>Note moyenne : $note </p>
+                    <p>Note moyenne : $note / 5 </p>
                 </div>
             </div>
 
