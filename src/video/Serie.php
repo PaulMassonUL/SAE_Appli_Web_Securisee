@@ -65,13 +65,22 @@ class Serie
         return $commentaires;
     }
 
-    public function getNoteMoyenne(): ?float
+    public function getNoteMoyenne(): float | string|null
     {
         $connection = ConnectionFactory::makeConnection();
         $resultset = $connection->prepare("SELECT AVG(note) FROM Notation WHERE idSerie = :id");
         $resultset->execute(['id' => $this->id]);
         $row = $resultset->fetch();
-        return $row[0];
+        if ($row[0] === NULL)
+        {
+            $res = "Aucune note";
+        }
+        else
+        {
+            $res = $row[0];
+        }
+        return $res;
+
     }
 
     /**
