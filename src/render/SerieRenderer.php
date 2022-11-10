@@ -149,8 +149,12 @@ class SerieRenderer implements Renderer
         foreach ($episodes as $num => $episode) {
             $num = $num + 1;
             $html .= "<li>Episode $num";
+            if ($episode->estVu()) {
+                $html .= '<label id="seen">Already seen</label>';
+            }
             $epRend = new EpisodeRenderer($episode);
-            $html .= $epRend->render(Renderer::COMPACT) . "</li><br>";
+            $html .= $epRend->render(Renderer::COMPACT);
+            $html .= "</li><br>";
         }
 
 

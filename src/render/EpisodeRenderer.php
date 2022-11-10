@@ -28,7 +28,7 @@ class EpisodeRenderer implements Renderer
     {
         return '<br><button id="buttonFav" type="submit" name="idEpisode" value="' . $this->episode->__get("id") . '">
             <h2>' . $this->episode->__get("titre") . '</h2>
-            <h3>' . $this->episode->__get("duree") . ' minutes</h3>
+            <h3>' . $this->episode->__get("duree") . ' secondes</h3>
         </button>';
 
     }
@@ -41,7 +41,7 @@ class EpisodeRenderer implements Renderer
         $ressources = "ressources/" . $this->episode->__get("fichier");
         return "<div class='episode'>
                       <h2>Title : {$this->episode->__get("titre")}</h2>
-                      <h3>Length : {$this->episode->__get("duree")} minutes</h3>
+                      <h3>Length : {$this->episode->__get("duree")} seconds</h3>
                       <p><u id='TitreParagraphe'>Summary : </u><br> {$this->episode->__get("resume")}</p>
                       <video controls> <source src={$ressources} type='video/mp4'> </video><br>
                  </div>";

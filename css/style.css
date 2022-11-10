@@ -312,17 +312,22 @@ html, body {
 }
 
 #serie #episodes {
-    border: solid rgb(80,80,80);
+    border: solid rgb(80, 80, 80);
     margin-left: 3%;
     margin-bottom: 3%;
     margin-right: 3%;
-    background-color: rgb(46,46,53);
+    background-color: rgb(46, 46, 53);
 }
 
 #serie #episodes li {
     margin-left: 5px;
     font-size: large;
     font-weight: bold;
+}
+
+#serie #episodes #seen {
+    margin-left: 40px;
+    color: rgb(18, 140, 203);
 }
 
 #serie #episodes li #buttonFav {
@@ -339,45 +344,45 @@ html, body {
     border: solid white;
 }
 
-#avis{
-    border: solid rgb(80,80,80);
+#avis {
+    border: solid rgb(80, 80, 80);
     padding: 1%;
     margin-left: -1.2%;
     margin-right: 1.5%;
-    background-color: rgb(46,46,53);
+    background-color: rgb(46, 46, 53);
     display: flex;
 }
 
-#avis fieldset{
-    padding : 1%;
+#avis fieldset {
+    padding: 1%;
     margin: 0.5%;
-    border: solid rgb(80,80,80);
-    background-color: rgb(46,46,53);
-    color: white ;
+    border: solid rgb(80, 80, 80);
+    background-color: rgb(46, 46, 53);
+    color: white;
 }
 
-#avis fieldset legend{
+#avis fieldset legend {
     font-size: x-large;
     font-weight: bold;
 }
 
-#description{
-    margin-left : 1%;
+#description {
+    margin-left: 1%;
     font-size: large;
 }
 
-#info{
-    margin-left : 1%;
+#info {
+    margin-left: 1%;
     font-size: large;
     font-weight: bold;
 }
 
-#comm label  {
+#comm label {
     font-size: 20px;
 
 }
 
-#showComment{
+#showComment {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -391,47 +396,39 @@ html, body {
     text-decoration: none;
 }
 
-#showComment button{
-    border-style: none;
-    background: transparent;
-    color: white;
-    font-size: large;
-    font-weight: bold;
-}
-
-#showComment:hover{
+#showComment:hover {
     background: #128ccb;
 }
 
-.episode video{
+.episode video {
     max-width: 94%;
     padding: 2%;
 }
 
-#main .episode{
-    margin-left : 2%;
+#main .episode {
+    margin-left: 2%;
 }
 
-#main .episode h2{
+#main .episode h2 {
     font-size: x-large;
 }
 
-#main .episode h3{
+#main .episode h3 {
     font-size: large;
 }
 
 #main #mots-cles {
     margin-top: 3%;
-    margin-left : 3%;
+    margin-left: 3%;
 }
 
-#main #mots-cles input{
+#main #mots-cles input {
     background-color: white;
     border-style: solid;
     height: 35px;
 }
 
-#main #mots-cles button{
+#main #mots-cles button {
     background-color: white;
     border-style: solid;
     align-items: center;
@@ -442,17 +439,17 @@ html, body {
 }
 
 #main #triChoix {
-    margin-left : 3%;
+    margin-left: 3%;
 }
 
 #main #triChoix input {
     background-color: white;
     border-style: solid;
     height: 35px;
-    width : 10%;
+    width: 10%;
 }
 
-#main #triChoix button{
+#main #triChoix button {
     background-color: white;
     border-style: solid;
     align-items: center;
@@ -473,8 +470,7 @@ html, body {
 }
 
 /* style du bouton qui permet de retourner a la série apres avoir vu les commentaires */
-#return
-{
+#return {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -490,11 +486,12 @@ html, body {
     text-decoration: none;
 }
 
-#main #choix{
+#main #choix {
     margin-left: 3%;
     margin-top: 10px;
 }
-#main #choix div button{
+
+#main #choix div button {
     background-color: white;
     border-style: solid;
     align-items: center;
@@ -504,7 +501,7 @@ html, body {
     border-radius: 40px;
 }
 
-#main #choix div select{
+#main #choix div select {
     background-color: white;
     border-style: solid;
     align-items: center;
@@ -513,4 +510,6 @@ html, body {
     height: 45px;
 }
 
-
+#main #profile {
+    margin: 20px;
+}

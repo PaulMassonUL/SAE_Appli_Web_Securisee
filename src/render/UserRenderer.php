@@ -50,13 +50,14 @@ class UserRenderer implements Renderer
             <br><br>
             <label id="title">Age</label>
             <br>
-            <input type="text" name="age" value="{$this->user->__get("age")}">
+            <input type="number" min="1" name="age" value="{$this->user->__get("age")}">
             <br><br>
             <label id="title">Genre Préféré</label>
             <br>
             <input type="text" name="genrePref" maxlength="128" value="{$this->user->__get("genrePref")}">
-            <br><br><br>
-            <input id="maj" type="submit" value="Validate the informations">
+            <br><br>
+            <input id="return" type="submit" value="Validate the informations">
+
         END;
 
         return $html;

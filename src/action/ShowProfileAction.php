@@ -34,9 +34,9 @@ class ShowProfileAction extends Action
     {
         $renderer = new UserRenderer($this->user);
 
-        $html = '<form method="post" action="?action=update-profile">';
+        $html = '<form method="post" action="?action=update-profile"><div id="profile">';
         $html .= $renderer->render(Renderer::DETAIL);
-        $html .= '</form>';
+        $html .= '</form></div>';
         return $html;
     }
 }
