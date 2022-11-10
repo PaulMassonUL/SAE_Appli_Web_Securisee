@@ -34,7 +34,7 @@ class ShowCatalogAction extends Action
         $html = '<form id="mots-cles" action = "?action=addMotsCles" method="post">';
         $html .= '<input type="text" name="choixMotsCles" placeholder="key word(s)"> <button type="submit"> Search </button>';
         $html .= '</form>';
-        $html .= '<div id="triChoix"> <p> What sort of sort do you want ? : </p> ';
+        $html .= '<div id="triChoix"> <p> What type of sort do you want ? : </p> ';
         $html .= '<ol> <ul> By default : 0 </ul> <ul> By title : 1 </ul> <ul> By date : 2 </ul> <ul> By number of episodes : 3 </ul> <ul> by average of note : 4 </ul> </ol>';
         $page = $_SERVER['PHP_SELF'];
         $tri = $this->catalogue->__get("tri");
