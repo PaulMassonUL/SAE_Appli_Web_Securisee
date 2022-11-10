@@ -119,17 +119,18 @@ class Dispatcher
             case 'addMotsCles' :
                 if (isset($_POST['choixMotsCles'])) {
                     $cle = $_POST['choixMotsCles'];
-//                    $action =
-//                    $html = $action->execute();
+                    if ($cle === "") {
+                        $action = new ShowCatalogAction($user->getCatalogue());
+                    } else {
+                        $action = new ShowCatalogAction($user->getCataloguePerso($cle));
+                    }
+                    $html = $action->execute();
 
                 } else {
                     $this->renderPage($errorMessage);
                     return;
                 }
                 break;
-
-
-
             case 'addChoiceTriCatalogue':
                 if (isset ($_POST['choixTri']))
                 {

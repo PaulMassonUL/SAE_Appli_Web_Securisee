@@ -7,6 +7,7 @@ use netvod\exception\InvalidPropertyNameException;
 use netvod\video\Catalogue;
 use netvod\video\CatalogueEncours;
 use netvod\video\CatalogueFavoris;
+use netvod\video\CataloguePerso;
 
 class User
 {
@@ -55,7 +56,7 @@ class User
         return new Catalogue();
     }
 
-    public function getCataloguePerso(array $mots): Catalogue {
+    public function getCataloguePerso(string $mots): Catalogue {
         return new CataloguePerso($mots);
     }
 
