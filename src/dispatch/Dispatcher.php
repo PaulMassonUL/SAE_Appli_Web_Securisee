@@ -93,6 +93,9 @@ class Dispatcher
                     $serie->ajouterCommentaire($commentaire);
                     $action = new ShowSerieSucessAction($serie, "You successfully comment ". $serie->__get("titre"). "with $commentaire");
                     $html = $action->execute();
+                } else {
+                    $this->renderPage($errorMessage);
+                    return;
                 }
             case 'show-episode-details':
                 if (isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
