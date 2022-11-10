@@ -36,17 +36,21 @@ class ShowCatalogAction extends Action
         $page = $_SERVER['PHP_SELF'];
         $tri = $this->catalogue->__get("tri");
         $html .= '<form id="choix" action="'.$page.'&tri='.$tri.'" method="post">';
-        $html .= '<input type="number" name="choixTri" placeholder="0-4" min="0" max="4" > <button type="submit"> Valider </button>';
+        $html .= '<input type="number" name="choixTri" placeholder="0-4" min="0" max="4" > <button name="btnTri" type="submit"> Valider </button>';
         $html .= '</form>';
         $html .= '</div>';
-        if (isset($_POST['choixTri']))
+        if ($this->http_method === 'POST' && isset($_POST['choixTri']) && isset($_POST['btnTri']))
         {
             $tri = intval($_POST['choixTri']);
             $this->catalogue->definirTri($tri);
         }
-        $html .= '<form method="post" action="?action=show-serie-details">';
-        $html .= $renderer->render(Renderer::COMPACT);
-        $html .= '</form>';
+        else
+        {
+            $html .= '<form method="post" action="?action=show-serie-details">';
+            $html .= $renderer->render(Renderer::COMPACT);
+            $html .= '</form>';
+        }
+
         return $html;
     }
 }
