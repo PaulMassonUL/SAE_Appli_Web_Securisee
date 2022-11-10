@@ -332,3 +332,16 @@ html, body {
     background-color: lightgray;
 }
 
+#description{
+    margin-left : 1%;
+    font-size: large;
+}
+
+#info{
+    margin-left : 1%;
+    font-size: large;
+    font-weight: bold;
+}
+
+
+

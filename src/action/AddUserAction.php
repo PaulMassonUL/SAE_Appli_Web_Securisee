@@ -7,34 +7,8 @@ use netvod\exception\AuthException;
 
 class AddUserAction extends Action
 {
-    /**
-     * @return string
-     * fonction sign up
-     */
-    public function execute(): string
-    {
-        $error = "";
 
-        if ($this->http_method === 'POST') {
-            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-            $email = htmlspecialchars($email);
-            $passwd = htmlspecialchars($_POST['password']);
-
-            try {
-                if ($_POST['password'] !== $_POST['verifpassword']) {
-                    throw new AuthException("passwords are not the same");
-                }
-                $url = Authentification::register($email, $passwd);
-                $html = <<<END
-                    <b>Signed up !</br>Now you need to activate your account,</br>please click <a href="$url">here</a>.</b>
-                END;
-
-            } catch (AuthException $e) {
-                $error = "<b>{$e->getMessage()}</b>";
-            }
-
-        }
-
+    public static function genererReg():string{
         return <<<END
                 <h1>Register</h1>
                 <form class="form" method="post" action="?action=add-user">                
@@ -44,8 +18,43 @@ class AddUserAction extends Action
                     
                     <button type="submit"> Valider </button> 
                 </form></br>
-                $error
             END;
+    }
+
+
+    /**
+     * @return string
+     * fonction sign up
+     */
+    public function execute(): string
+    {
+        $error = "";
+        $html = "";
+        if ($this->http_method === 'GET') {
+            $html =AddUserAction::genererReg();
+
+        }else{
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+            $email = htmlspecialchars($email);
+            $passwd = htmlspecialchars($_POST['password']);
+
+            try {
+                if ($_POST['password'] !== $_POST['verifpassword']) {
+                    throw new AuthException("passwords are not the same");
+                }
+                $url = Authentification::register($email, $passwd);
+                $html.= <<<END
+                    <b>Signed up !</br>Now you need to activate your account,</br>please click <a href="$url">here</a>.</b>
+                END;
+
+            } catch (AuthException $e) {
+
+                $html .=AddUserAction::genererReg()."<b>{$e->getMessage()}</b>";
+            }
+
+        }
+
+        return $html;
     }
 }
 

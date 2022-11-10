@@ -65,7 +65,7 @@ class Authentification
                 throw new AuthException("account already exist");
             } else {
                 try {
-                    $query = "insert into users values (?, ?,0,null,null)";
+                    $query = "insert into users values (?, ?,null,null,null,null,0,null,null,null,null)";
                     $stmt = $db->prepare($query);
 
                     $stmt->execute([$email, $hash]);
