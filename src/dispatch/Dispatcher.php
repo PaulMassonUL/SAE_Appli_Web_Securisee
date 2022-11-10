@@ -2,6 +2,7 @@
 
 namespace netvod\dispatch;
 
+use netvod\action\ShowCommentAction;
 use netvod\action\ShowSerieSucessAction;
 use netvod\action\ShowCatalogAction;
 use netvod\action\ShowEpisodeAction;
@@ -131,6 +132,19 @@ class Dispatcher
                 session_destroy();
                 header('Location: index.php');
                 exit();
+            case 'show-comments':
+                if (isset($_POST['serieId'])) {
+                    $serieId = intval($_POST['serieId']);
+                    $serie = $user->getCatalogue()->getSerieById($serieId);
+                    $commentaires = $serie->getCommentaires();
+                    $action = new ShowCommentAction($serie, $commentaires);
+                    $html = $action->execute();
+
+                } else {
+                    $this->renderPage($errorMessage);
+                    return;
+                }
+                break;
             default:
                 $html = '
                 <div id="choice">

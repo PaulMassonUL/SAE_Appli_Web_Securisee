@@ -7,26 +7,9 @@ use netvod\exception\AuthException;
 
 class SigninAction extends Action
 {
-    public function execute(): string
-    {
-        $error = "";
 
-        if ($this->http_method === 'POST') {
-            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-            $email = htmlspecialchars($email);
-            $passwd = htmlspecialchars($_POST['password']);
-
-            try {
-                $_SESSION['user'] = serialize(Authentification::authenticate($email, $passwd));
-                header('Location: accueil.php');
-                exit();
-
-            } catch (AuthException $e) {
-                $error = "<b>{$e->getMessage()}</b>";
-            }
-
-        }else{
-            return <<<END
+    public static function genererReg():string{
+        return <<<END
             <h1>Log in</h1>
             <form class="form" method="post" action="?action=signin">
                 <div class="labelSin">
@@ -38,12 +21,34 @@ class SigninAction extends Action
             </form><br>
             
             <a href="">Forgotten password</a>
-             
-            $error
-        END;
+ END;
+    }
+
+    public function execute(): string
+    {
+        $error = "";
+        $html = "";
+        if ($this->http_method === 'GET') {
+            $html.= SigninAction::genererReg();
+
+        }else{
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+            $email = htmlspecialchars($email);
+            $passwd = htmlspecialchars($_POST['password']);
+
+            try {
+                $_SESSION['user'] = serialize(Authentification::authenticate($email, $passwd));
+                header('Location: accueil.php');
+                exit();
+
+            } catch (AuthException $e) {
+                $html.= SigninAction::genererReg()."<b>{$e->getMessage()}</b>";
+            }
+
+
         }
 
 
-
+    return $html;
     }
 }

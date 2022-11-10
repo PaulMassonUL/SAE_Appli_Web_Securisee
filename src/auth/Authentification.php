@@ -42,7 +42,10 @@ class Authentification
 
         if (!$user) throw new AuthException("invalid credentials : invalid email or password");
         if (!password_verify($mdpUser, $user['password'])) throw new AuthException("invalid credentials : invalid email or password");
-        if ($user['active'] == 0) throw new AuthException("Your account is not active, please check your email to activate it");
+        if ($user['active'] == 0){
+            $url =ActiveAction::creationActivationToken($email);
+            throw new AuthException("Your account is not active, please activate it : </br> <a href=\"$url\">Activate</a>");
+        }
 
         return new User($email);
     }
@@ -50,7 +53,7 @@ class Authentification
     public static function register(string $email, string $pass): string
     {
         if (!self::checkPasswordStrength($pass, 7)) {
-            throw new AuthException("password not enought strong : password must have at list 1 number, 1 Upper and Lower Case,1 special caracters(!:;,...) and have 7 characters or more");
+            throw new AuthException("password not enought strong : password must have at list <br>1 number, <br>1 Upper and Lower Case,<br>1 special caracters(!:;,...) <br>7 characters or more");
         } else {
             $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 12]);
             try {

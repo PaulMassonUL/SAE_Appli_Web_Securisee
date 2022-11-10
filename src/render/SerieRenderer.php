@@ -161,6 +161,14 @@ class SerieRenderer implements Renderer
         </div>
         END;
 
+        $html .= '
+        <form method="post" action="?action=show-comments">
+            <input type="hidden" name="serieId" value="' . $id . '">
+
+            <button type="submit" name="comments">Voir Commentaires</button>
+                ';
+
+
         return $html;
     }
 }
