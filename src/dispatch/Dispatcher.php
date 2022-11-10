@@ -7,6 +7,7 @@ use netvod\action\ShowCatalogAction;
 use netvod\action\ShowEpisodeAction;
 use netvod\action\ShowSerieAction;
 use netvod\exception\InvalidPropertyNameException;
+use netvod\action\SupprimerFavorisAction;
 
 class Dispatcher
 {

@@ -131,6 +131,16 @@ class Serie
         }
     }
 
+    public function supprimerPreferee() : void
+    {
+        if ($this->estPreferee()) {
+            $db = ConnectionFactory::makeConnection();
+            $st = $db->prepare("DELETE FROM seriePreferee WHERE idSerie = ? AND email = ?");
+            $user = unserialize($_SESSION['user']);
+            $st->execute([$this->id, $user->__get("email")]);
+        }
+    }
+
     public function ajouterNote(int $note): void
     {
         if (!$this->estNotee()) {
