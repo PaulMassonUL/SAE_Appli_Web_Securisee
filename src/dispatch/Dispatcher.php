@@ -112,6 +112,15 @@ class Dispatcher
                     return;
                 }
                 break;
+            case 'addChoiceTriCatalogue':
+                if (isset ($_POST['choixTri']))
+                {
+                    $tri = intval($_POST['choixTri']);
+                    $catalog = $user->getCatalogue();
+                    $catalog->definirTri($tri);
+                    $action = new ShowCatalogAction($catalog);
+                    $html = $action->execute();
+                }
             case 'logout':
                 session_destroy();
                 header('Location: index.php');
