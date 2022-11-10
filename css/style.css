@@ -490,4 +490,27 @@ html, body {
     text-decoration: none;
 }
 
+#main #choix{
+    margin-left: 3%;
+    margin-top: 10px;
+}
+#main #choix div button{
+    background-color: white;
+    border-style: solid;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 45px;
+    border-radius: 40px;
+}
+
+#main #choix div select{
+    background-color: white;
+    border-style: solid;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 45px;
+}
+
 
