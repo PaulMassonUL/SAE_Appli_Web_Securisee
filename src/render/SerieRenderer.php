@@ -54,6 +54,7 @@ class SerieRenderer implements Renderer
         $ajout = $this->serie->__get("dateAjout");
         $note = $this->serie->getNoteMoyenne();
         $enCours = $this->serie->estEnCours();
+        $estPreferee = $this->serie->estPreferee();
         $episodes = $this->serie->__get("episodes");
         $nbEpisodes = count($episodes);
         $commentaires = $this->serie->getCommentaires();
@@ -66,12 +67,21 @@ class SerieRenderer implements Renderer
                 <div id="title">
                     <div id="title1">
                         <h1>$titre</h1>
-                        <form action="?action=add-serie-fav" method="post">
-                            <button id="addfavoris" type="submit" name="serieId" value="$id" title="Ajouter aux favoris">Add to favorite</button>
-                        </form>
-                        <form action="?action=del-serie-fav" method="post">
-                            <button id="delfavoris" type="submit" name="serieId" value="$id" title="Supprimer des favoris">Delete to favorite</button>
-                        </form>
+        END;
+        if ($estPreferee) {
+            $html .= <<<END
+                <form action="?action=del-serie-fav" method="post">
+                    <button class="favbutton" type="submit" name="serieId" value="$id" title="Supprimer des favoris">Delete from favorite</button>
+                </form>
+            END;
+        } else {
+            $html .= <<<END
+                <form action="?action=add-serie-fav" method="post">
+                            <button class="favbutton" type="submit" name="serieId" value="$id" title="Ajouter aux favoris">Add to favorite</button>
+                </form>
+            END;
+        }
+        $html .= <<<END
                     </div>
                     <p>$annee</p>
                 </div>
@@ -91,18 +101,16 @@ class SerieRenderer implements Renderer
                 <fieldset>
                     <legend>Note</legend>
                     <form id="note" action="?action=add-serie-note" method="post">
-                        <input type="hidden" name="serieId" value="$id">
-                        <input type="number" min="1" max="5" name="note" placeholder="1 - 5" required>
-                        <input type="submit" name="noter" value="Rate">
+                        <input class="textentry" type="number" min="1" max="5" name="note" placeholder="1 - 5" required>
+                        <button type="submit" name="serieId" value="$id">Rate</button>
                     </form>
                 </fieldset>
                 
                 <fieldset>
                     <legend>Commentaire</legend>
                     <form id="commentaire" action="?action=add-serie-comment" method="post">
-                        <input type="hidden" name="serieId" value="$id">
-                        <textarea id="comment" name="commentaire" rows="4" cols="50" maxlength="250" placeholder="Entrer un commentaire" required></textarea>
-                        <input type="submit" name="commenter" value="Comment">
+                        <textarea class="textentry" name="commentaire" rows="4" cols="50" maxlength="250" placeholder="Entrer un commentaire" required></textarea>
+                        <button type="submit" name="serieId" value="$id">Comment</button>
                     </form>
                 </fieldset>
             </div>

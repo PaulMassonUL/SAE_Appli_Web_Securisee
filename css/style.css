@@ -246,7 +246,7 @@ html, body {
     margin-right: 200px;
 }
 
-#serie #details #title #title1 #addfavoris {
+#serie #details #title #title1 .favbutton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -260,7 +260,7 @@ html, body {
     text-decoration: none;
 }
 
-#serie #details #title #title1 #addfavoris:hover {
+#serie #details #title #title1 .favbutton:hover {
     background: #128ccb;
 }
 
@@ -305,6 +305,10 @@ html, body {
 #serie #avis fieldset form {
     display: flex;
     align-items: center;
+}
+
+#serie #avis fieldset form .textentry {
+    margin-right: 10px;
 }
 
 #serie #episodes {
