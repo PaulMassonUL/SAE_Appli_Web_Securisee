@@ -97,6 +97,7 @@ class Dispatcher
                     $this->renderPage($errorMessage);
                     return;
                 }
+                break;
             case 'show-episode-details':
                 if (isset($_POST['serieId']) && isset($_POST['numEpisode'])) {
                     $serieId = intval($_POST['serieId']);
