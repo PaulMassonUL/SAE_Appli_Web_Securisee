@@ -14,7 +14,7 @@ class SigninAction extends Action
             <form class="form" method="post" action="?action=signin">
                 <div class="labelSin">
                     <label> Email :  <input type="email" name="email" placeholder="email" required> </label></br>
-                    <label> Password :  <input type="password" name="password" placeholder = "<mot de passe>" required> </label></br>    
+                    <label> Password :  <input type="password" name="password" placeholder = "<password>" required> </label></br>    
                 </div>    
                                 
                 <button type="submit"> Valider </button>

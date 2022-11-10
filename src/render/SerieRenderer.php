@@ -73,13 +73,13 @@ class SerieRenderer implements Renderer
         if ($estPreferee) {
             $html .= <<<END
                 <form action="?action=del-serie-fav" method="post">
-                    <button class="favbutton" type="submit" name="serieId" value="$id" title="Supprimer des favoris">Remove from favorite</button>
+                    <button class="favbutton" type="submit" name="serieId" value="$id" title="Remove from favories">Remove from favorite</button>
                 </form>
             END;
         } else {
             $html .= <<<END
                 <form action="?action=add-serie-fav" method="post">
-                            <button class="favbutton" type="submit" name="serieId" value="$id" title="Ajouter aux favoris">Add to favorite</button>
+                            <button class="favbutton" type="submit" name="serieId" value="$id" title="Add to favories">Add to favorite</button>
                 </form>
             END;
         }
@@ -129,7 +129,7 @@ class SerieRenderer implements Renderer
         } else {
             $html .= <<<END
                 <form id="commentaire" action="?action=add-serie-comment" method="post">
-                    <textarea class="textentry" name = "commentaire" rows = "4" cols = "50" maxlength = "250" placeholder = "Entrer un commentaire" required ></textarea>
+                    <textarea class="textentry" name = "commentaire" rows = "4" cols = "50" maxlength = "250" placeholder = "Enter a comment" required ></textarea>
                     <button type="submit" name="serieId" value="$id">Comment</button>
                 </form>
             END;

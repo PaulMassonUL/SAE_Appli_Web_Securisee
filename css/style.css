@@ -422,6 +422,58 @@ html, body {
     font-size: large;
 }
 
+#main #mots-cles {
+    margin-top: 3%;
+    margin-left : 3%;
+}
+
+#main #mots-cles input{
+    background-color: white;
+    border-style: solid;
+    height: 35px;
+}
+
+#main #mots-cles button{
+    background-color: white;
+    border-style: solid;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 45px;
+    border-radius: 40px;
+}
+
+#main #triChoix {
+    margin-left : 3%;
+}
+
+#main #triChoix input {
+    background-color: white;
+    border-style: solid;
+    height: 35px;
+    width : 10%;
+}
+
+#main #triChoix button{
+    background-color: white;
+    border-style: solid;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    height: 45px;
+    border-radius: 40px;
+}
+
+#main #triChoix p {
+    font-size: large;
+    font-weight: bold;
+}
+
+#main #triChoix ol ul {
+    color: white;
+    font-size: medium;
+}
+
 /* style du bouton qui permet de retourner a la série apres avoir vu les commentaires */
 #return
 {
