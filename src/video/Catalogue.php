@@ -4,17 +4,16 @@ namespace netvod\video;
 
 use netvod\db\ConnectionFactory;
 use netvod\exception\InvalidPropertyNameException;
+use netvod\filtre\Tri;
+use netvod\filtre\TriDate;
+use netvod\filtre\TriEpisodes;
+use netvod\filtre\TriNormal;
+use netvod\filtre\TriNote;
+use netvod\filtre\TriTitre;
 use PDOStatement;
 
 class Catalogue
 {
-
-    const TRI_NORMAL = 0;
-    const TRI_TITRE = 1;
-    const TRI_DATE = 2;
-    const TRI_EPISODES = 3;
-    const TRI_NOTE = 4;
-
     /**
      * @var string
      * nom du catalogue
@@ -28,44 +27,32 @@ class Catalogue
     protected array $series;
 
     /**
-     * @var int
-     * correspond au tri utilisé
+     * @var Tri filtre
+     * correspond au filtre utilisé
      */
-    protected int $tri;
+    protected Tri $filtre;
 
     /**
      * Consructeur par défaut
      */
     public function __construct()
     {
-        $this->tri = self::TRI_NORMAL;
         $this->series = $this->getSeries();
     }
 
     protected function getSeries(): array
     {
         $connection = ConnectionFactory::makeConnection();
-        switch ($this->tri) {
-            case self::TRI_TITRE:
-                $sql = "SELECT * FROM serie ORDER BY titre";
-                break;
-            case self::TRI_DATE:
-                $sql = "SELECT * FROM serie ORDER BY date_creation";
-                break;
-            case self::TRI_EPISODES:
-                $sql = "SELECT * FROM serie ORDER BY nb_episodes";
-                break;
-            case self::TRI_NOTE:
-                $sql = "SELECT * FROM serie ORDER BY note";
-                break;
-            default:
-                $sql = "SELECT * FROM serie";
-        }
-        $resultset = $connection->prepare($sql);
+        $resultset = $connection->prepare("SELECT * FROM serie");
         $resultset->execute();
         $connection = null;
 
-        return $this->retrieveSerieList($resultset);
+        $this->series = $this->retrieveSerieList($resultset);
+
+        if (isset($this->filtre)) {
+            return $this->filtre->filtrer($this->series);
+        }
+        return $this->series;
     }
 
     protected function retrieveSerieList(PDOStatement $resultSet): array
@@ -87,9 +74,25 @@ class Catalogue
         return null;
     }
 
-    public function definirTri(int $tri): void
+    public function appliquerFiltre(int $filtre): void
     {
-        $this->tri = $tri;
+        switch ($filtre) {
+            case Tri::FILTRE_NORMAL:
+                $this->filtre = new TriNormal($this->series);
+                break;
+            case Tri::FILTRE_TITRE:
+                $this->filtre = new TriTitre($this->series);
+                break;
+            case Tri::FILTRE_DATE:
+                $this->filtre = new TriDate($this->series);
+                break;
+            case Tri::FILTRE_EPISODES:
+                $this->filtre = new TriEpisodes($this->series);
+                break;
+            case Tri::FILTRE_NOTE:
+                $this->filtre = new TriNote($this->series);
+                break;
+        }
         $this->series = $this->getSeries();
     }
 

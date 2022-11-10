@@ -65,7 +65,7 @@ class Serie
         return $commentaires;
     }
 
-    public function getNoteMoyenne()
+    public function getNoteMoyenne(): string
     {
         $connection = ConnectionFactory::makeConnection();
         $resultset = $connection->prepare("SELECT AVG(note) FROM Notation WHERE idSerie = :id");

@@ -91,13 +91,12 @@ class Dispatcher
                 }
                 break;
             case 'add-serie-comment':
-                if (isset($_POST['serieId']))
-                {
+                if (isset($_POST['serieId'])) {
                     $serieId = intval($_POST['serieId']);
                     $commentaire = htmlspecialchars($_POST['commentaire']);
                     $serie = $user->getCatalogue()->getSeriebyId($serieId);
                     $serie->ajouterCommentaire($commentaire);
-                    $action = new ShowSerieSucessAction($serie, "You successfully comment ". $serie->__get("titre"). " with the comment : $commentaire");
+                    $action = new ShowSerieSucessAction($serie, "You successfully comment " . $serie->__get("titre") . " with the comment : $commentaire");
                     $html = $action->execute();
                 } else {
                     $this->renderPage($errorMessage);
@@ -119,29 +118,24 @@ class Dispatcher
             case 'addMotsCles' :
                 if (isset($_POST['choixMotsCles'])) {
                     $cle = $_POST['choixMotsCles'];
-                    if ($cle === "") {
-                        $action = new ShowCatalogAction($user->getCatalogue());
-                    } else {
-                        $action = new ShowCatalogAction($user->getCataloguePerso($cle));
-                    }
-                    $html = $action->execute();
+//                    $action =
+//                    $html = $action->execute();
 
                 } else {
                     $this->renderPage($errorMessage);
                     return;
                 }
                 break;
+
+
             case 'addChoiceTriCatalogue':
-                if (isset ($_POST['choixTri']))
-                {
+                if (isset ($_POST['choixTri'])) {
                     $tri = intval($_POST['choixTri']);
                     $catalog = $user->getCatalogue();
                     $catalog->definirTri($tri);
                     $action = new ShowCatalogAction($catalog);
                     $html = $action->execute();
-                }
-                else
-                {
+                } else {
                     $this->renderPage($errorMessage);
                     return;
                 }
@@ -155,10 +149,6 @@ class Dispatcher
                 $action = new ShowProfileSuccessAction("Your profile was successfully updated.");
                 $html = $action->execute();
                 break;
-            case 'logout':
-                session_destroy();
-                header('Location: index.php');
-                exit();
             case 'show-comments':
                 if (isset($_POST['serieId'])) {
                     $serieId = intval($_POST['serieId']);
@@ -172,6 +162,10 @@ class Dispatcher
                     return;
                 }
                 break;
+            case 'logout':
+                session_destroy();
+                header('Location: index.php');
+                exit();
             default:
                 $html = '
                 <div id="choice">

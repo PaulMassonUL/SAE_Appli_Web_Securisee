@@ -2,6 +2,7 @@
 
 namespace netvod\action;
 
+use netvod\filtre\Tri;
 use netvod\render\CatalogueRenderer;
 use netvod\render\Renderer;
 use netvod\video\Catalogue;
@@ -34,25 +35,41 @@ class ShowCatalogAction extends Action
         $html = '<form id="mots-cles" action = "?action=addMotsCles" method="post">';
         $html .= '<input type="text" name="choixMotsCles" placeholder="mot(s) cle(s)"> <button type="submit"> Rechercher </button>';
         $html .= '</form>';
-        $html .= '<div id="triChoix"> <p> Quel tri voulez vous prendre ? : </p> ';
-        $html .= '<ol> <ul> par defaut : 0 </ul> <ul> par titre : 1 </ul> <ul> par date : 2 </ul> <ul> par Nb d\'episodes : 3 </ul> <ul> par noteMoyenne : 4 </ul> </ol>';
-        $page = $_SERVER['PHP_SELF'];
-        $tri = $this->catalogue->__get("tri");
-        $html .= '<form id="choix" action="'.$page.'&tri='.$tri.'" method="post">';
-        $html .= '<input type="number" name="choixTri" placeholder="0-4" min="0" max="4" > <button name="btnTri" type="submit"> Valider </button>';
+
+        $page = htmlspecialchars($_SERVER['PHP_SELF'] . '?action=' . $_GET['action']);
+        $normal = Tri::FILTRE_NORMAL;
+        $titre = Tri::FILTRE_TITRE;
+        $date = Tri::FILTRE_DATE;
+        $episodes = Tri::FILTRE_EPISODES;
+        $note = Tri::FILTRE_NOTE;
+
+        if ($this->http_method === 'POST' && isset($_POST['tri'])) {
+            $tri = intval($_POST['tri']);
+            header("Location: http://$_SERVER[HTTP_HOST]$page&tri=$tri");
+        }
+        if (isset($_GET['action']) && isset($_GET['tri'])) {
+            $tri = intval($_GET['tri']);
+            $this->catalogue->appliquerFiltre($tri);
+        }
+        $html .= <<<END
+            <form id="choix" action="$page" method="post">
+                <label id="" for="tri">Trier par :</label>
+                <div>
+                    <select name="tri"">
+                        <option value="$normal">Aucun</option>
+                        <option value="$titre">Titre</option>
+                        <option value="$date">Date d'ajout</option>
+                        <option value="$episodes">Nombre d'épisodes</option>
+                        <option value="$note">Note</option>
+                    </select>
+                    <button type="submit">Trier</button>
+                </div>
+            </form>
+            
+        END;
+        $html .= '<form method="post" action="?action=show-serie-details">';
+        $html .= $renderer->render(Renderer::COMPACT);
         $html .= '</form>';
-        $html .= '</div>';
-        if ($this->http_method === 'POST' && isset($_POST['choixTri']) && isset($_POST['btnTri']))
-        {
-            $tri = intval($_POST['choixTri']);
-            $this->catalogue->definirTri($tri);
-        }
-        else
-        {
-            $html .= '<form method="post" action="?action=show-serie-details">';
-            $html .= $renderer->render(Renderer::COMPACT);
-            $html .= '</form>';
-        }
 
         return $html;
     }
