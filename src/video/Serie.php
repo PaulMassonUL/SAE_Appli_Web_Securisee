@@ -71,13 +71,10 @@ class Serie
         $resultset = $connection->prepare("SELECT AVG(note) FROM Notation WHERE idSerie = :id");
         $resultset->execute(['id' => $this->id]);
         $row = $resultset->fetch();
-        if ($row[0] === NULL)
-        {
+        if ($row[0] === NULL) {
             $res = "Aucune note";
-        }
-        else
-        {
-            $res = number_format($row[0], 2) ;
+        } else {
+            $res = number_format($row[0], 2);
         }
         return $res;
 

@@ -11,7 +11,6 @@ class ActiveAction
     {
         $token = bin2hex(random_bytes(32));
         $url_act = "http://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]?action=active&token=$token";
-        var_dump($token);
         $db = ConnectionFactory::makeConnection();
         $expiration_time = time() + 60 * 60 * 24;
         $query = "update users set activation_token = ?, activation_expires = FROM_UNIXTIME(?) where email = ?";

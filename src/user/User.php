@@ -15,13 +15,13 @@ class User
      */
     private string $email;
 
-    private string $nom = '';
+    private string $nom;
 
-    private string $prenom = '';
+    private string $prenom;
 
-    private string $age = '';
+    private string $age;
 
-    private string $genrePref = '';
+    private string $genrePref;
 
     public function __construct(string $eml, string $nom, string $prenom, string $age, string $genrePref)
     {

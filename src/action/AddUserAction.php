@@ -8,7 +8,8 @@ use netvod\exception\AuthException;
 class AddUserAction extends Action
 {
 
-    public static function genererReg():string{
+    public static function genererReg(): string
+    {
         return <<<END
                 <h1>Register</h1>
                 <form class="form" method="post" action="?action=add-user">                
@@ -31,9 +32,9 @@ class AddUserAction extends Action
         $error = "";
         $html = "";
         if ($this->http_method === 'GET') {
-            $html =AddUserAction::genererReg();
+            $html = AddUserAction::genererReg();
 
-        }else{
+        } else {
             $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
             $email = htmlspecialchars($email);
             $passwd = htmlspecialchars($_POST['password']);
@@ -43,13 +44,13 @@ class AddUserAction extends Action
                     throw new AuthException("passwords are not the same");
                 }
                 $url = Authentification::register($email, $passwd);
-                $html.= <<<END
+                $html .= <<<END
                     <b>Signed up !</br>Now you need to activate your account,</br>please click <a href="$url">here</a>.</b>
                 END;
 
             } catch (AuthException $e) {
 
-                $html .=AddUserAction::genererReg()."<b>{$e->getMessage()}</b>";
+                $html .= AddUserAction::genererReg() . "<b>{$e->getMessage()}</b>";
             }
 
         }
