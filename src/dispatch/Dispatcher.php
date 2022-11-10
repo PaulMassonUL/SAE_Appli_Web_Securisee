@@ -207,7 +207,7 @@ class Dispatcher
                         <a href="?action=browse">Series</a>
                         <a href="?action=favorites">Favorite</a>
                         <a href="?action=inprogress">In progress</a>
-                        <a href="?acton=finished">Finished</a>
+                        <a href="?action=finished">Finished</a>
                     </nav>
                     <nav id="">
                         <a href="?action=user-profile" title="Profil">{$renderer->render(Renderer::COMPACT)}</a>

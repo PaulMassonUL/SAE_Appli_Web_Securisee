@@ -158,16 +158,11 @@ class SerieRenderer implements Renderer
                     </menu>
                 </div>
             </form>
+            <form method="post" action="?action=show-comments">
+                <button id="showComment" type="submit" name="serieId" value="$id" title="Show comments">Show comments</button>
+            </form>
         </div>
         END;
-
-        $html .= '
-        <form id="showComment" method="post" action="?action=show-comments">
-            <input type="hidden" name="serieId" value="' . $id . '">
-
-            <button type="submit" name="comments">Show comments</button>
-                ';
-
 
         return $html;
     }
