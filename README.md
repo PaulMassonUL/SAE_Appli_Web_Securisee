@@ -1,5 +1,9 @@
 # SAE_Appli_Web_Securisee
 
+## Group members
+
+Paul Masson, Ioann Perez, Mathéo Serrier, Antoine Riondé, Cedran Bastien
+
 ## Users manual
 
 This website is called **NetVOD**. It is a video on demand website : you can watch many series with many episodes and manage them. Here is the presentation and explanation of the website functionment and functionalities.
